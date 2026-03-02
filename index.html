@@ -125,8 +125,14 @@
         }
 
         const targetDateInput = document.getElementById('target-date');
-        const todayStr = new Date().toISOString().split('T')[0];
-        targetDateInput.value = todayStr;
+        
+        // 🌟 修正時區陷阱：確保抓取的是本地時間的 YYYY-MM-DD
+        const now = new Date();
+        const y = now.getFullYear();
+        const m = String(now.getMonth() + 1).padStart(2, '0');
+        const d = String(now.getDate()).padStart(2, '0');
+        
+        targetDateInput.value = `${y}-${m}-${d}`;
 
         const triggerCalc = function(event) {
             if (event.key === 'Enter') {

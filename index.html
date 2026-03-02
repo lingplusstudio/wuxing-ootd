@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>五行穿搭公式大師 - LINGPLUS Studio</title>
+    <script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.js"></script>
+    <style>
+        :root { --primary: #2b6cb0; --bg: #f7fafc; --text-main: #2d3748; --text-muted: #718096; }
+        body { font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; background: var(--bg); color: var(--text-main); display: flex; flex-direction: column; align-items: center; padding: 40px 20px; line-height: 1.6; min-height: 100vh; box-sizing: border-box; margin: 0; }
+        
+        .card { background: white; padding: 2.5rem; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); max-width: 900px; width: 100%; margin-bottom: 1.5rem; }
+        
+        /* 標題與警語排版微調 */
+        h2 { text-align: center; margin-top: 0; margin-bottom: 0.5rem; font-weight: 600; color: #1a202c; letter-spacing: 1px; font-size: 1.6rem; }
+        .disclaimer { font-size: 0.95rem; color: var(--text-muted); text-align: center; margin-bottom: 2rem; letter-spacing: 0.5px; }
+        
+        .layout-wrapper { display: flex; flex-direction: column; gap: 2.5rem; }
+        @media (min-width: 768px) {
+            .layout-wrapper { flex-direction: row; }
+            .left-col { flex: 0 0 320px; border-right: 1px solid #edf2f7; padding-right: 2rem; }
+            .right-col { flex: 1; padding-left: 0.5rem; }
+        }
+
+        .input-group { margin-bottom: 1.5rem; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.95rem; }
+        input[type="date"] { width: 100%; padding: 14px; border: 2px solid #e2e8f0; border-radius: 12px; box-sizing: border-box; font-size: 1rem; color: #4a5568; outline: none; transition: border 0.3s; font-family: inherit; }
+        input[type="date"]:focus { border-color: var(--primary); }
+        button.btn-primary { width: 100%; padding: 14px; background: #2d3748; color: white; border: none; border-radius: 12px; cursor: pointer; font-size: 1.1rem; font-weight: bold; transition: background 0.2s, transform 0.1s; margin-top: 0.5rem; }
+        button.btn-primary:hover { background: #1a202c; }
+        button.btn-primary:active { transform: scale(0.98); }
+
+        #detail-panel { display: none; background: #fffaf0; border: 1px solid #f6e05e; padding: 1.5rem 1.2rem; border-radius: 12px; margin-top: 2rem; font-size: 0.95rem; color: #744210; animation: fadeIn 0.5s; box-shadow: 0 4px 6px rgba(236, 201, 75, 0.1); }
+        .tag { background: white; padding: 2px 8px; border-radius: 6px; font-weight: bold; border: 1px solid #e2e8f0; margin: 0 4px; display: inline-block; color: #2d3748; }
+        .logic-title { font-weight: bold; color: #b7791f; margin-bottom: 0.8rem; border-bottom: 1px dashed #ecc94b; padding-bottom: 0.5rem; }
+
+        #result-container { display: none; animation: slideUp 0.5s ease; }
+        .formula-title { font-size: 1.4rem; font-weight: bold; margin-bottom: 1.5rem; padding-bottom: 0.8rem; border-bottom: 2px solid #edf2f7; }
+        
+        .ratio-bar-container { display: flex; height: 32px; border-radius: 8px; overflow: hidden; margin-bottom: 0.8rem; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
+        .ratio-segment { display: flex; align-items: center; justify-content: center; color: white; font-size: 0.85rem; font-weight: bold; text-shadow: 0 1px 2px rgba(0,0,0,0.3); transition: width 0.5s ease-in-out; }
+        
+        #ratio-legend { display: flex; flex-wrap: wrap; gap: 12px; font-size: 0.9rem; color: #4a5568; margin-bottom: 2rem; }
+        .legend-item { display: flex; align-items: center; }
+        .legend-color-box { width: 14px; height: 14px; border-radius: 4px; margin-right: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+
+        .vibe-card { background: #f8fafc; border-radius: 12px; padding: 18px; margin-bottom: 1.2rem; border-left: 5px solid var(--primary); }
+        .vibe-card h4 { margin: 0 0 10px 0; color: #2d3748; font-size: 1.05rem; }
+        .vibe-card p { margin: 0; font-size: 1rem; color: #4a5568; line-height: 1.6; }
+
+        /* 頁尾版權宣告樣式 */
+        .footer { margin-top: auto; padding-bottom: 1rem; font-size: 0.85rem; color: #a0aec0; letter-spacing: 0.5px; text-align: center; }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>專屬五行 &nbsp;㊍㊋㊏㊎㊌&nbsp; 穿搭公式</h2>
+    <div class="disclaimer">💡 五行穿搭配色僅供參考，保持好心情就是最棒的日常穿搭！</div>
+    
+    <div class="layout-wrapper">
+        <div class="left-col">
+            <div class="input-group">
+                <label>您的生日 (計算本命日主)</label>
+                <input type="date" id="birthday">
+            </div>
+            
+            <div class="input-group">
+                <label>想查詢的日期 (預設為今日)</label>
+                <input type="date" id="target-date">
+            </div>
+
+            <button class="btn-primary" onclick="calculate()">生成專屬穿搭配方</button>
+            
+            <div id="detail-panel">
+                <div class="logic-title">📖 命理運算解析</div>
+                <strong>【命盤基礎】</strong><br>
+                您的本命：<span class="tag" id="detail-user"></span><br>
+                該日流日：<span class="tag" id="detail-target"></span><br><br>
+                <strong>【推薦邏輯】</strong><br>
+                <span id="detail-logic"></span>
+            </div>
+        </div>
+
+        <div class="right-col" id="result-container">
+            <div class="formula-title" id="formula-name">🌟 配方載入中...</div>
+            
+            <label style="color: #4a5568;">色彩能量比例：</label>
+            <div class="ratio-bar-container" id="ratio-bar"></div>
+            
+            <div id="ratio-legend"></div>
+
+            <div class="vibe-card">
+                <h4>🎭 風格意象</h4>
+                <p id="vibe-text">載入中...</p>
+            </div>
+
+            <div class="vibe-card" style="border-left-color: #ecc94b; background: #fffff0;">
+                <h4>💡 穿搭小訣竅</h4>
+                <p id="tips-text">載入中...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    Powered by <strong>LINGPLUS Studio</strong>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const birthdayInput = document.getElementById('birthday');
+        const savedBirthday = localStorage.getItem('userBirthday');
+        if (savedBirthday) {
+            birthdayInput.value = savedBirthday;
+        } else {
+            birthdayInput.value = '1988-04-02'; 
+        }
+
+        const targetDateInput = document.getElementById('target-date');
+        const todayStr = new Date().toISOString().split('T')[0];
+        targetDateInput.value = todayStr;
+
+        const triggerCalc = function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                calculate();
+            }
+        };
+        birthdayInput.addEventListener('keypress', triggerCalc);
+        targetDateInput.addEventListener('keypress', triggerCalc);
+    });
+
+    const ganToElement = {'甲':'木','乙':'木','丙':'火','丁':'火','戊':'土','己':'土','庚':'金','辛':'金','壬':'水','癸':'水'};
+    
+    const sheng = { '木':'火', '火':'土', '土':'金', '金':'水', '水':'木' }; 
+    const ke = { '木':'土', '土':'水', '水':'火', '火':'金', '金':'木' };   
+    const shengMeMap = { '金':'土', '水':'金', '木':'水', '火':'木', '土':'火' }; 
+
+    const formulaData = {
+        '木': { name: '🌲 森系呼吸配方 (木)', themeColor: '#2F855A', segments: [{ width: '60%', color: '#38A169', text: '主色：綠色系/植物圖騰' }, { width: '30%', color: '#D69E2E', text: '輔色：大地色/亞麻' }, { width: '10%', color: '#744210', text: '點綴：原木/編織配件' }], vibe: '寬鬆、自然、層次感。彷彿森林中行走的微風，展現親和與生機。', tips: '若沒有綠色衣服，選擇帶有「植物碎花」的單品，或背個「帆布編織包」也能補足滿滿的木氣！' },
+        '火': { name: '🔥 流光焦點配方 (火)', themeColor: '#C53030', segments: [{ width: '70%', color: '#1A202C', text: '主色：中性黑/白基底' }, { width: '20%', color: '#E53E3E', text: '輔色：紅/粉/紫點綴' }, { width: '10%', color: '#D69E2E', text: '點綴：閃耀金屬飾品' }], vibe: '合身、亮面、自信感。在黑暗中跳動的火焰，你是這天的視覺焦點。', tips: '不一定要全身紅！只要「一抹紅唇」、「一條亮色絲巾」或「紅色高跟鞋」，就能點燃火能量。' },
+        '土': { name: '🏔️ 大地暖陽配方 (土)', themeColor: '#B7791F', segments: [{ width: '50%', color: '#F6E05E', text: '主色：燕麥/鵝黃色' }, { width: '40%', color: '#975A16', text: '輔色：焦糖/深咖色' }, { width: '10%', color: '#ECC94B', text: '點綴：暖金配件' }], vibe: '溫潤、厚實、同色系疊穿。如同寬廣的大地，給人極高的信任感與包容力。', tips: '利用不同深淺的「大地色系疊穿 (Tone-on-Tone)」能展現最高級的質感，適合需要簽約或穩定軍心的日子。' },
+        '金': { name: '⚔️ 極簡鋒芒配方 (金)', themeColor: '#718096', segments: [{ width: '80%', color: '#E2E8F0', text: '主色：純白/淺灰/極簡', colorText: '#2d3748' }, { width: '15%', color: '#A0AEC0', text: '輔色：鈦金屬色' }, { width: '5%', color: '#CBD5E0', text: '點綴：冷光銀飾', colorText: '#2d3748' }], vibe: '挺括、乾淨、俐落。像晨曦照在刀刃上，展現專業、秩序與高效率。', tips: '「硬挺的白襯衫」是金屬性的靈魂，搭配「金屬錶帶」或「銀色細邊眼鏡」，能幫你擋掉瑣碎的干擾。' },
+        '水': { name: '🌊 深海流動配方 (水)', themeColor: '#2B6CB0', segments: [{ width: '70%', color: '#1A202C', text: '主色：藏藍/純黑' }, { width: '20%', color: '#4299E1', text: '輔色：灰藍/水藍' }, { width: '10%', color: '#E2E8F0', text: '點綴：透明/琉璃飾品', colorText: '#2d3748' }], vibe: '垂墜、深邃、神祕。利用輕柔透氣的材質，展現如水流般的智慧與靈活。', tips: '若覺得深色太沉重，可以加入「雪紡」、「半透明材質」的單品，或者配戴「水晶飾品」來營造水波的光澤感。' }
+    };
+
+    function calculate() {
+        const birthVal = document.getElementById('birthday').value;
+        const targetVal = document.getElementById('target-date').value;
+        
+        if (!birthVal || !targetVal) return alert('請確認生日與想查詢的日期都有填寫喔！');
+
+        localStorage.setItem('userBirthday', birthVal);
+
+        const [by, bm, bd] = birthVal.split('-').map(Number);
+        const userGan = Solar.fromYmd(by, bm, bd).getLunar().getEightChar().getDayGan();
+        const userEl = ganToElement[userGan];
+
+        const [ty, tm, td] = targetVal.split('-').map(Number);
+        const targetGan = Solar.fromYmd(ty, tm, td).getLunar().getEightChar().getDayGan();
+        const targetEl = ganToElement[targetGan];
+
+        let recommendEl = '';
+        let logicHtml = '';
+
+        if (targetEl === shengMeMap[userEl]) {
+            recommendEl = targetEl;
+            logicHtml = `該日五行(<b>${targetEl}</b>)生旺您的本命(<b>${userEl}</b>)。今天是您的「<b>印星貴人日</b>」！穿著 ${recommendEl} 系配方能完美吸收外界給你的助力與好運。`;
+        } else if (targetEl === userEl) {
+            recommendEl = sheng[userEl]; 
+            logicHtml = `該日五行與您同屬 <b>${userEl}</b>。今日 ${userEl} 氣過於疊加，若再穿同色系容易物極必反、情緒浮躁！因此系統為您調配了 <b>${recommendEl}</b> 系配方。透過「${userEl}生${recommendEl}」的洩秀原理，將過剩能量轉化為柔和的才華與魅力！`;
+        } else if (targetEl === sheng[userEl]) {
+            recommendEl = targetEl;
+            logicHtml = `您的本命(<b>${userEl}</b>)生旺該日五行(<b>${targetEl}</b>)。今天是您的「<b>食傷日</b>」，代表才華洋溢、充滿創造力！順應能量流動，穿著 ${recommendEl} 系能讓你的魅力自然散發。`;
+        } else if (targetEl === ke[userEl]) {
+            recommendEl = targetEl;
+            logicHtml = `您的本命(<b>${userEl}</b>)剋制該日五行(<b>${targetEl}</b>)。在命理中「我剋者為財」，今天是您的「<b>財星日</b>」！穿著 ${recommendEl} 系來迎接並牢牢掌握今天的財富與事業成果吧。`;
+        } else {
+            recommendEl = shengMeMap[userEl]; 
+            logicHtml = `該日五行(<b>${targetEl}</b>)剋制您的本命(<b>${userEl}</b>)。今天是「<b>官殺日</b>」，容易感到外界壓力。系統為您調配了 <b>${recommendEl}</b> 系(您的貴人色)，利用「${targetEl}生${recommendEl}、${recommendEl}生${userEl}」的通關原理，將阻力完美轉化為助力！`;
+        }
+
+        const formula = formulaData[recommendEl];
+
+        document.getElementById('result-container').style.display = 'block';
+        document.getElementById('detail-panel').style.display = 'block'; 
+
+        document.getElementById('formula-name').innerHTML = `🌟 ${targetVal.replace(/-/g, '/')} 配方：<br><span style="font-size: 1.1rem">${formula.name}</span>`;
+        document.getElementById('formula-name').style.color = formula.themeColor;
+        document.documentElement.style.setProperty('--primary', formula.themeColor);
+
+        const barContainer = document.getElementById('ratio-bar');
+        const legendContainer = document.getElementById('ratio-legend');
+        barContainer.innerHTML = '';
+        legendContainer.innerHTML = '';
+
+        formula.segments.forEach(seg => {
+            const textColor = seg.colorText ? seg.colorText : 'white';
+            barContainer.innerHTML += `<div class="ratio-segment" style="width: ${seg.width}; background: ${seg.color}; color: ${textColor};" title="${seg.text}">${seg.width}</div>`;
+            legendContainer.innerHTML += `
+                <div class="legend-item">
+                    <div class="legend-color-box" style="background: ${seg.color};"></div>
+                    <span>${seg.text}</span>
+                </div>
+            `;
+        });
+
+        document.getElementById('vibe-text').innerText = formula.vibe;
+        document.getElementById('tips-text').innerText = formula.tips;
+
+        document.getElementById('detail-user').innerText = `${userGan}日 (${userEl}命)`;
+        document.getElementById('detail-target').innerText = `${targetGan}日 (${targetEl}氣)`;
+        document.getElementById('detail-logic').innerHTML = logicHtml;
+    }
+</script>
+
+</body>
+</html>

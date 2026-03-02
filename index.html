@@ -6,14 +6,18 @@
     <title>五行穿搭公式大師 - LINGPLUS Studio</title>
     <script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.js"></script>
     <style>
-        :root { --primary: #2b6cb0; --bg: #f7fafc; --text-main: #2d3748; --text-muted: #718096; }
-        body { font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; background: var(--bg); color: var(--text-main); display: flex; flex-direction: column; align-items: center; padding: 40px 20px; line-height: 1.6; min-height: 100vh; box-sizing: border-box; margin: 0; }
-        
-        .card { background: white; padding: 2.5rem; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); max-width: 900px; width: 100%; margin-bottom: 1.5rem; }
-        
         /* 標題與警語排版微調 */
         h2 { text-align: center; margin-top: 0; margin-bottom: 0.5rem; font-weight: 600; color: #1a202c; letter-spacing: 1px; font-size: 1.6rem; }
         .disclaimer { font-size: 0.95rem; color: var(--text-muted); text-align: center; margin-bottom: 2rem; letter-spacing: 0.5px; }
+        
+        /* 🌟 新增：控制五行符號的間距與顏色 */
+        .title-symbols { margin: 0 8px; color: #4a5568; }
+
+        /* 🌟 新增：專門給手機螢幕的防斷行設定 */
+        @media (max-width: 480px) {
+            h2 { font-size: 1.35rem; letter-spacing: 0; } /* 字體稍微縮小 */
+            .title-symbols { margin: 0 4px; } /* 間距縮小 */
+        }
         
         .layout-wrapper { display: flex; flex-direction: column; gap: 2.5rem; }
         @media (min-width: 768px) {
@@ -58,7 +62,7 @@
 <body>
 
 <div class="card">
-    <h2>專屬五行 &nbsp;㊍㊋㊏㊎㊌&nbsp; 穿搭公式</h2>
+    <h2>專屬五行<span class="title-symbols">㊍㊋㊏㊎㊌</span>穿搭公式</h2>
     <div class="disclaimer">💡 五行穿搭配色僅供參考，保持好心情就是最棒的日常穿搭！</div>
     
     <div class="layout-wrapper">
@@ -140,12 +144,97 @@
     const ke = { '木':'土', '土':'水', '水':'火', '火':'金', '金':'木' };   
     const shengMeMap = { '金':'土', '水':'金', '木':'水', '火':'木', '土':'火' }; 
 
-    const formulaData = {
-        '木': { name: '🌲 森系呼吸配方 (木)', themeColor: '#2F855A', segments: [{ width: '60%', color: '#38A169', text: '主色：綠色系/植物圖騰' }, { width: '30%', color: '#D69E2E', text: '輔色：大地色/亞麻' }, { width: '10%', color: '#744210', text: '點綴：原木/編織配件' }], vibe: '寬鬆、自然、層次感。彷彿森林中行走的微風，展現親和與生機。', tips: '若沒有綠色衣服，選擇帶有「植物碎花」的單品，或背個「帆布編織包」也能補足滿滿的木氣！' },
-        '火': { name: '🔥 流光焦點配方 (火)', themeColor: '#C53030', segments: [{ width: '70%', color: '#1A202C', text: '主色：中性黑/白基底' }, { width: '20%', color: '#E53E3E', text: '輔色：紅/粉/紫點綴' }, { width: '10%', color: '#D69E2E', text: '點綴：閃耀金屬飾品' }], vibe: '合身、亮面、自信感。在黑暗中跳動的火焰，你是這天的視覺焦點。', tips: '不一定要全身紅！只要「一抹紅唇」、「一條亮色絲巾」或「紅色高跟鞋」，就能點燃火能量。' },
-        '土': { name: '🏔️ 大地暖陽配方 (土)', themeColor: '#B7791F', segments: [{ width: '50%', color: '#F6E05E', text: '主色：燕麥/鵝黃色' }, { width: '40%', color: '#975A16', text: '輔色：焦糖/深咖色' }, { width: '10%', color: '#ECC94B', text: '點綴：暖金配件' }], vibe: '溫潤、厚實、同色系疊穿。如同寬廣的大地，給人極高的信任感與包容力。', tips: '利用不同深淺的「大地色系疊穿 (Tone-on-Tone)」能展現最高級的質感，適合需要簽約或穩定軍心的日子。' },
-        '金': { name: '⚔️ 極簡鋒芒配方 (金)', themeColor: '#718096', segments: [{ width: '80%', color: '#E2E8F0', text: '主色：純白/淺灰/極簡', colorText: '#2d3748' }, { width: '15%', color: '#A0AEC0', text: '輔色：鈦金屬色' }, { width: '5%', color: '#CBD5E0', text: '點綴：冷光銀飾', colorText: '#2d3748' }], vibe: '挺括、乾淨、俐落。像晨曦照在刀刃上，展現專業、秩序與高效率。', tips: '「硬挺的白襯衫」是金屬性的靈魂，搭配「金屬錶帶」或「銀色細邊眼鏡」，能幫你擋掉瑣碎的干擾。' },
-        '水': { name: '🌊 深海流動配方 (水)', themeColor: '#2B6CB0', segments: [{ width: '70%', color: '#1A202C', text: '主色：藏藍/純黑' }, { width: '20%', color: '#4299E1', text: '輔色：灰藍/水藍' }, { width: '10%', color: '#E2E8F0', text: '點綴：透明/琉璃飾品', colorText: '#2d3748' }], vibe: '垂墜、深邃、神祕。利用輕柔透氣的材質，展現如水流般的智慧與靈活。', tips: '若覺得深色太沉重，可以加入「雪紡」、「半透明材質」的單品，或者配戴「水晶飾品」來營造水波的光澤感。' }
+   const formulaData = {
+        '木': { 
+            name: '🌲 森系呼吸配方 (木)', themeColor: '#2F855A', 
+            segmentVariations: [
+                [{ width: '60%', color: '#38A169', text: '主色：綠色系/植物圖騰' }, { width: '30%', color: '#D69E2E', text: '輔色：大地色/亞麻' }, { width: '10%', color: '#744210', text: '點綴：原木/編織配件' }],
+                [{ width: '40%', color: '#38A169', text: '主色：綠色系/植物圖騰' }, { width: '50%', color: '#D69E2E', text: '輔色：大地色/亞麻' }, { width: '10%', color: '#744210', text: '點綴：原木/編織配件' }], // 偏低調，土色變多
+                [{ width: '80%', color: '#38A169', text: '主色：綠色系/植物圖騰' }, { width: '15%', color: '#D69E2E', text: '輔色：大地色/亞麻' }, { width: '5%', color: '#744210', text: '點綴：原木/編織配件' }]   // 偏搶眼，大面積綠色
+            ], 
+            vibes: [
+                '寬鬆、自然、層次感。彷彿森林中行走的微風，展現親和與生機。',
+                '清新、文藝、無拘束。用自然材質包裹身體，讓呼吸更順暢。',
+                '生機盎然、質樸純粹。像一株向陽生長的植物，散發安定的力量。'
+            ], 
+            tips: [
+                '若沒有綠色衣服，選擇帶有「植物碎花」的單品，或背個「帆布編織包」也能補足滿滿的木氣！',
+                '今天可以嘗試配戴「木質飾品」或「綠色系絲巾」，在細節處點亮今天的生機。',
+                '棉麻材質的服飾是今天的最佳戰袍，不僅透氣，還能完美承載木屬性的自然能量。'
+            ] 
+        },
+        '火': { 
+            name: '🔥 流光焦點配方 (火)', themeColor: '#C53030', 
+            segmentVariations: [
+                [{ width: '70%', color: '#1A202C', text: '主色：中性黑/白基底' }, { width: '20%', color: '#E53E3E', text: '輔色：紅/粉/紫點綴' }, { width: '10%', color: '#D69E2E', text: '點綴：閃耀金屬飾品' }],
+                [{ width: '85%', color: '#1A202C', text: '主色：中性黑/白基底' }, { width: '10%', color: '#E53E3E', text: '輔色：紅/粉/紫點綴' }, { width: '5%', color: '#D69E2E', text: '點綴：閃耀金屬飾品' }],  // 極低調，靠配件撐場
+                [{ width: '50%', color: '#1A202C', text: '主色：中性黑/白基底' }, { width: '40%', color: '#E53E3E', text: '輔色：紅/粉/紫點綴' }, { width: '10%', color: '#D69E2E', text: '點綴：閃耀金屬飾品' }]   // 高調亮眼
+            ], 
+            vibes: [
+                '合身、亮面、自信感。在黑暗中跳動的火焰，你是這天的視覺焦點。',
+                '氣場全開、熱情洋溢。大膽展現你的個人特色，不要害怕成為主角。',
+                '俐落、華麗、充滿張力。用一點點的搶眼色彩，喚醒內心的行動力。'
+            ], 
+            tips: [
+                '不一定要全身紅！只要「一抹紅唇」、「一條亮色絲巾」或「紅色高跟鞋」，就能點燃火能量。',
+                '今天非常適合配戴閃亮的「玫瑰金飾品」或有光澤感的面料，提升整體的華麗度。',
+                '若想低調些，可以將火色系放在下半身（如磚紅色長裙），既穩重又不失活力。'
+            ] 
+        },
+        '土': { 
+            name: '🏔️ 大地暖陽配方 (土)', themeColor: '#B7791F', 
+            segmentVariations: [
+                [{ width: '50%', color: '#F6E05E', text: '主色：燕麥/鵝黃色' }, { width: '40%', color: '#975A16', text: '輔色：焦糖/深咖色' }, { width: '10%', color: '#ECC94B', text: '點綴：暖金配件' }],
+                [{ width: '70%', color: '#F6E05E', text: '主色：燕麥/淺黃色' }, { width: '20%', color: '#975A16', text: '輔色：焦糖/深咖色' }, { width: '10%', color: '#ECC94B', text: '點綴：暖金配件' }], // 偏淺色明亮
+                [{ width: '30%', color: '#F6E05E', text: '主色：燕麥/鵝黃色' }, { width: '60%', color: '#975A16', text: '輔色：焦糖/深咖色' }, { width: '10%', color: '#ECC94B', text: '點綴：暖金配件' }]  // 偏深色沉穩
+            ], 
+            vibes: [
+                '溫潤、厚實、同色系疊穿。如同寬廣的大地，給人極高的信任感與包容力。',
+                '慵懶、知性、毫無攻擊性。像一杯溫熱的焦糖拿鐵，散發讓人想靠近的溫暖。',
+                '沉穩、經典、高雅質感。利用低飽和度的色彩，展現歲月靜好的從容。'
+            ], 
+            tips: [
+                '利用不同深淺的「大地色系疊穿 (Tone-on-Tone)」能展現最高級的質感，適合需要簽約或穩定軍心的日子。',
+                '配件可選擇「琥珀色鏡框」或「質感皮革包」，能大幅提升今天的專業信賴感。',
+                '如果覺得整身土色太暗沉，可以在內搭加入一點「鵝黃色」或「米白色」來提亮氣色！'
+            ] 
+        },
+        '金': { 
+            name: '⚔️ 極簡鋒芒配方 (金)', themeColor: '#718096', 
+            segmentVariations: [
+                [{ width: '80%', color: '#E2E8F0', text: '主色：純白/淺灰/極簡', colorText: '#2d3748' }, { width: '15%', color: '#A0AEC0', text: '輔色：鈦金屬色' }, { width: '5%', color: '#CBD5E0', text: '點綴：冷光銀飾', colorText: '#2d3748' }],
+                [{ width: '60%', color: '#E2E8F0', text: '主色：純白/淺灰/極簡', colorText: '#2d3748' }, { width: '30%', color: '#A0AEC0', text: '輔色：灰色/金屬色' }, { width: '10%', color: '#CBD5E0', text: '點綴：冷光銀飾', colorText: '#2d3748' }], // 灰色調變多
+                [{ width: '90%', color: '#E2E8F0', text: '主色：極簡大白', colorText: '#2d3748' }, { width: '5%', color: '#A0AEC0', text: '輔色：鈦金屬色' }, { width: '5%', color: '#CBD5E0', text: '點綴：冷光銀飾', colorText: '#2d3748' }]     // 極度純淨
+            ], 
+            vibes: [
+                '挺括、乾淨、俐落。像晨曦照在刀刃上，展現專業、秩序與高效率。',
+                '極簡都會、冷靜自持。去除多餘的裝飾，用最純粹的線條勾勒出高級感。',
+                '率性、幾何、鋒芒微露。帶有一點中性色彩，今天是下決策的絕佳狀態。'
+            ], 
+            tips: [
+                '「硬挺的白襯衫」是金屬性的靈魂，搭配「金屬錶帶」或「銀色細邊眼鏡」，能幫你擋掉瑣碎的干擾。',
+                '今天請盡量避開繁複的花紋或碎花，保持大面積的色塊與乾淨的剪裁，運勢才會暢通。',
+                '若想增加親和力，可以選擇「珍珠白」或「帶有些微光澤的絲質面料」來取代生硬的純白。'
+            ] 
+        },
+        '水': { 
+            name: '🌊 深海流動配方 (水)', themeColor: '#2B6CB0', 
+            segmentVariations: [
+                [{ width: '70%', color: '#1A202C', text: '主色：藏藍/純黑' }, { width: '20%', color: '#4299E1', text: '輔色：灰藍/水藍' }, { width: '10%', color: '#E2E8F0', text: '點綴：透明/琉璃飾品', colorText: '#2d3748' }],
+                [{ width: '85%', color: '#1A202C', text: '主色：藏藍/純黑' }, { width: '10%', color: '#4299E1', text: '輔色：灰藍/水藍' }, { width: '5%', color: '#E2E8F0', text: '點綴：透明/琉璃飾品', colorText: '#2d3748' }],   // 深沉
+                [{ width: '50%', color: '#1A202C', text: '主色：藏藍/純黑' }, { width: '40%', color: '#4299E1', text: '輔色：天藍/水藍' }, { width: '10%', color: '#E2E8F0', text: '點綴：透明/琉璃飾品', colorText: '#2d3748' }]    // 流動明亮
+            ], 
+            vibes: [
+                '垂墜、深邃、神祕。利用輕柔透氣的材質，展現如水流般的智慧與靈活。',
+                '慵懶性感、變化萬千。像沒有固定形狀的水，今天你能適應各種場合與挑戰。',
+                '冷靜、理智、深不見底。深藍與黑色的交織，幫你隱藏情緒，保持絕對的清醒。'
+            ], 
+            tips: [
+                '若覺得深色太沉重，可以加入「雪紡」、「半透明材質」的單品，或者配戴「水晶飾品」來營造水波的光澤感。',
+                '利用不同層次的藍色（如藏青配天藍）能營造流動感，幫助你今天思考更加順暢。',
+                '配件推薦選擇「流線型剪裁」或「不對稱設計」，能完美呼應水屬性不受拘束的特質。'
+            ] 
+        }
     };
 
     function calculate() {
@@ -156,6 +245,7 @@
 
         localStorage.setItem('userBirthday', birthVal);
 
+        // 1. 取得年月日數字
         const [by, bm, bd] = birthVal.split('-').map(Number);
         const userGan = Solar.fromYmd(by, bm, bd).getLunar().getEightChar().getDayGan();
         const userEl = ganToElement[userGan];
@@ -167,6 +257,7 @@
         let recommendEl = '';
         let logicHtml = '';
 
+        // 2. 命理邏輯判斷
         if (targetEl === shengMeMap[userEl]) {
             recommendEl = targetEl;
             logicHtml = `該日五行(<b>${targetEl}</b>)生旺您的本命(<b>${userEl}</b>)。今天是您的「<b>印星貴人日</b>」！穿著 ${recommendEl} 系配方能完美吸收外界給你的助力與好運。`;
@@ -186,6 +277,7 @@
 
         const formula = formulaData[recommendEl];
 
+        // --- UI 渲染 ---
         document.getElementById('result-container').style.display = 'block';
         document.getElementById('detail-panel').style.display = 'block'; 
 
@@ -193,12 +285,20 @@
         document.getElementById('formula-name').style.color = formula.themeColor;
         document.documentElement.style.setProperty('--primary', formula.themeColor);
 
+        // 🌟 新增：提前計算出今天的「專屬號碼」，用來同時抽取文案與比例條
+        const seed = by + bm + bd + ty + tm + td;
+        const variationIndex = seed % formula.vibes.length;
+
+        // 渲染比例條與圖例
         const barContainer = document.getElementById('ratio-bar');
         const legendContainer = document.getElementById('ratio-legend');
         barContainer.innerHTML = '';
         legendContainer.innerHTML = '';
 
-        formula.segments.forEach(seg => {
+        // 這裡改成抓取 formula.segmentVariations 裡面的第幾組比例！
+        const currentSegments = formula.segmentVariations[variationIndex];
+
+        currentSegments.forEach(seg => {
             const textColor = seg.colorText ? seg.colorText : 'white';
             barContainer.innerHTML += `<div class="ratio-segment" style="width: ${seg.width}; background: ${seg.color}; color: ${textColor};" title="${seg.text}">${seg.width}</div>`;
             legendContainer.innerHTML += `
@@ -209,9 +309,14 @@
             `;
         });
 
-        document.getElementById('vibe-text').innerText = formula.vibe;
-        document.getElementById('tips-text').innerText = formula.tips;
+        // 渲染靈感與小訣竅
+        document.getElementById('vibe-text').innerText = formula.vibes[variationIndex];
+        document.getElementById('tips-text').innerText = formula.tips[variationIndex];
 
+        document.getElementById('vibe-text').innerText = formula.vibes[variationIndex];
+        document.getElementById('tips-text').innerText = formula.tips[variationIndex];
+
+        // 邏輯說明
         document.getElementById('detail-user').innerText = `${userGan}日 (${userEl}命)`;
         document.getElementById('detail-target').innerText = `${targetGan}日 (${targetEl}氣)`;
         document.getElementById('detail-logic').innerHTML = logicHtml;

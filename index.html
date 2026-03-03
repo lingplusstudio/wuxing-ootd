@@ -43,11 +43,9 @@
         #result-container { display: none; animation: slideUp 0.5s ease; }
         .formula-title { font-size: 1.4rem; font-weight: bold; margin-bottom: 1.5rem; padding-bottom: 0.8rem; border-bottom: 2px solid #edf2f7; }
         
-        /* 🌟 粗的比例條 (外顯) */
         .ratio-bar-container { display: flex; height: 32px; border-radius: 8px; overflow: hidden; margin-bottom: 0.5rem; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
         .ratio-segment { display: flex; align-items: center; justify-content: center; color: white; font-size: 0.85rem; font-weight: bold; text-shadow: 0 1px 2px rgba(0,0,0,0.3); transition: width 0.5s ease-in-out; }
 
-        /* 🌟 細的比例條 (內含地支) */
         .zhi-bar-container { display: flex; height: 16px; border-radius: 4px; overflow: hidden; margin-bottom: 0.8rem; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); opacity: 0.85; }
         .zhi-segment { display: flex; align-items: center; justify-content: center; color: white; font-size: 0.75rem; font-weight: bold; letter-spacing: 2px; text-shadow: 0 1px 2px rgba(0,0,0,0.3); transition: width 0.5s ease-in-out; }
         
@@ -92,7 +90,7 @@
                 <strong>【命盤基礎】</strong><br>
                 您的本命：<span class="tag" id="detail-user"></span><br>
                 該日流日：<span class="tag" id="detail-target"></span><br><br>
-                <strong>【外層穿搭推薦邏輯】</strong><br>
+                <strong>【外顯穿搭邏輯】</strong><br>
                 <span id="detail-logic"></span>
             </div>
         </div>
@@ -110,12 +108,12 @@
             <div id="ratio-legend"></div>
 
             <div class="vibe-card">
-                <h4>🎭 風格意象 (外在天干)</h4>
+                <h4>🎭 風格意象 (外在穿搭)</h4>
                 <p id="vibe-text">載入中...</p>
             </div>
 
             <div class="vibe-card zhi-card">
-                <h4>🧦 隱藏細節能量 (內在地支)</h4>
+                <h4>🔋 內在防護罩 (專屬細節)</h4>
                 <p id="zhi-text">載入中...</p>
             </div>
 
@@ -279,28 +277,46 @@
         const targetZhi = lunarEightChar.getDayZhi();
         const targetZhiEl = zhiToElement[targetZhi];
 
+        // --- 1. 外層運算 (天干) ---
         let recommendEl = '';
         let logicHtml = '';
 
         if (targetEl === shengMeMap[userEl]) {
             recommendEl = targetEl;
-            logicHtml = `該日天干(<b>${targetEl}</b>)生旺您的本命(<b>${userEl}</b>)。今天是您的「<b>印星貴人日</b>」！外層穿著 ${recommendEl} 系配方能完美吸收外界給你的助力。`;
+            logicHtml = `該日天干(<b>${targetEl}</b>)生旺您的本命(<b>${userEl}</b>)。今天是您的「<b>印星貴人日</b>」！外顯穿著 ${recommendEl} 系配方能完美吸收外界助力。`;
         } else if (targetEl === userEl) {
             recommendEl = sheng[userEl]; 
-            logicHtml = `該日天干與您同屬 <b>${userEl}</b>。今日 ${userEl} 氣過於疊加，若再穿同色系容易物極必反！因此系統為您外層調配了 <b>${recommendEl}</b> 系。透過「${userEl}生${recommendEl}」洩秀原理，轉化過剩能量！`;
+            logicHtml = `該日天干與您同屬 <b>${userEl}</b>。今日 ${userEl} 氣疊加，若再穿同色系容易物極必反！因此系統為您外層調配了 <b>${recommendEl}</b> 系。透過洩秀原理，轉化過剩能量！`;
         } else if (targetEl === sheng[userEl]) {
             recommendEl = targetEl;
-            logicHtml = `您的本命(<b>${userEl}</b>)生旺該日天干(<b>${targetEl}</b>)。今天是您的「<b>食傷日</b>」，充滿創造力！外層穿著 ${recommendEl} 系能讓你的魅力自然散發。`;
+            logicHtml = `您的本命(<b>${userEl}</b>)生旺該日天干(<b>${targetEl}</b>)。今天是您的「<b>食傷日</b>」，充滿創造力！外顯穿著 ${recommendEl} 系能讓你的魅力自然散發。`;
         } else if (targetEl === ke[userEl]) {
             recommendEl = targetEl;
-            logicHtml = `您的本命(<b>${userEl}</b>)剋制該日天干(<b>${targetEl}</b>)。命理中「我剋者為財」，今天是「<b>財星日</b>」！外層穿著 ${recommendEl} 系來牢牢掌握今天的財富與成果。`;
+            logicHtml = `您的本命(<b>${userEl}</b>)剋制該日天干(<b>${targetEl}</b>)。命理中「我剋者為財」，今天是「<b>財星日</b>」！外顯穿著 ${recommendEl} 系來牢牢掌握今日成果。`;
         } else {
             recommendEl = shengMeMap[userEl]; 
-            logicHtml = `該日天干(<b>${targetEl}</b>)剋制您的本命(<b>${userEl}</b>)。今天是「<b>官殺日</b>」，容易感到壓力。系統為您外層調配 <b>${recommendEl}</b> 系(您的貴人色)，利用五行通關原理將阻力轉為助力！`;
+            logicHtml = `該日天干(<b>${targetEl}</b>)剋制您的本命(<b>${userEl}</b>)。今天是「<b>官殺日</b>」，容易感到壓力。系統為您外層調配 <b>${recommendEl}</b> 系(您的貴人色)，利用五行通關轉化阻力！`;
         }
 
         const formula = formulaData[recommendEl];
 
+        // --- 2. 內層雙核心運算 (地支專屬防護罩) ---
+        let innerRecommendEl = '';
+        let innerLogicHtml = '';
+
+        // 判斷今日地支是否會耗損本命能量 (我生、我剋、剋我)
+        const isDraining = (targetZhiEl === sheng[userEl]) || (targetZhiEl === ke[userEl]) || (ke[targetZhiEl] === userEl);
+
+        if (isDraining) {
+            innerRecommendEl = shengMeMap[userEl]; // 治癒色：印星 (生我)
+            innerLogicHtml = `今日底層暗流 (<b>${targetZhiEl}</b>) 較為耗神，為您啟動專屬的「<b>治癒防護罩</b>」。用 <b>${innerRecommendEl}系</b> 來撫平焦慮、補充內在安全感！`;
+        } else {
+            innerRecommendEl = userEl; // 扎根色：比肩 (同我)
+            innerLogicHtml = `今日底層暗流 (<b>${targetZhiEl}</b>) 對您非常友善，為您啟動專屬的「<b>本命扎根色</b>」。用 <b>${innerRecommendEl}系</b> 讓你的自信從內而外穩固散發！`;
+        }
+
+
+        // --- UI 渲染 ---
         document.getElementById('result-container').style.display = 'block';
         document.getElementById('detail-panel').style.display = 'block'; 
 
@@ -318,7 +334,7 @@
         zhiBarContainer.innerHTML = '';
         legendContainer.innerHTML = '';
 
-        // 🌟 1. 畫出粗的「外顯穿搭」比例條 (恢復 100%)
+        // 🌟 畫出粗的「外顯穿搭」比例條
         const currentSegments = formula.segmentVariations[variationIndex];
         currentSegments.forEach(seg => {
             const textColor = seg.colorText ? seg.colorText : 'white';
@@ -331,30 +347,30 @@
             `;
         });
 
-        // 🌟 2. 畫出細的「內含地支」比例條 (長度固定 100%)
+        // 🌟 畫出細的「內在防護罩」專屬比例條
         const zhiColorHex = { '木': '#38A169', '火': '#E53E3E', '土': '#D69E2E', '金': '#CBD5E0', '水': '#4299E1' };
         const zhiColorText = { '木': 'white', '火': 'white', '土': 'white', '金': '#2d3748', '水': 'white' };
-        const zhiBgColor = zhiColorHex[targetZhiEl];
-        const zhiTxColor = zhiColorText[targetZhiEl];
+        const innerBgColor = zhiColorHex[innerRecommendEl];
+        const innerTxColor = zhiColorText[innerRecommendEl];
 
         zhiBarContainer.innerHTML = `
-            <div class="zhi-segment" style="width: 100%; background: ${zhiBgColor}; color: ${zhiTxColor};" title="(內含) 地支細節：${targetZhiEl}系">
-                (內含地支) ${targetZhiEl}系能量
+            <div class="zhi-segment" style="width: 100%; background: ${innerBgColor}; color: ${innerTxColor};" title="(專屬內含) 細節：${innerRecommendEl}系">
+                (專屬防護) ${innerRecommendEl}系能量
             </div>
         `;
 
-        // 地支圖例加入分隔線
         legendContainer.innerHTML += `
             <div class="legend-item" style="margin-left: 8px; padding-left: 12px; border-left: 2px solid #e2e8f0;">
-                <div class="legend-color-box" style="background: ${zhiBgColor}; border: 1px solid #e2e8f0;"></div>
-                <span><strong>(內) 細節：${targetZhiEl}系</strong></span>
+                <div class="legend-color-box" style="background: ${innerBgColor}; border: 1px solid #e2e8f0;"></div>
+                <span><strong>(內) 專屬防護：${innerRecommendEl}系</strong></span>
             </div>
         `;
 
         document.getElementById('vibe-text').innerText = formula.vibes[variationIndex];
         document.getElementById('tips-text').innerText = formula.tips[variationIndex];
 
-        const zhiColors = { '木': '綠色/植物系', '火': '紅/紫/暖色系', '土': '大地/黃褐色系', '金': '白/金銀色系', '水': '黑/藍色系' };
+        // 🌟 渲染極度個人化的隱藏電池文案
+        const zhiColors = { '木': '綠色/植物系', '火': '紅/紫/暖色系', '土': '大地/黃褐色系', '金': '白/金屬色系', '水': '黑/藍色系' };
         const zhiItems = {
             '木': '木質調香水、綠色襪子或棉麻內衣',
             '火': '暖色系內著、紅色小飾品或帶個暖暖包',
@@ -364,12 +380,12 @@
         };
         
         document.getElementById('zhi-text').innerHTML = `
-            今日底層地支為 <b>${targetZhi} (${targetZhiEl})</b>。這股隱藏的環境能量，最適合用在別人看不見的細節！<br><br>
-            ✨ <b>細節點綴：</b>建議搭配 <b>${zhiColors[targetZhiEl]}</b> 的貼身衣物，或是 <b>${zhiItems[targetZhiEl]}</b>。能幫你穩固底層磁場（這也是其他 App 常說的隱藏幸運色喔）。
+            ${innerLogicHtml}<br><br>
+            ✨ <b>細節點綴：</b>建議搭配 <b>${zhiColors[innerRecommendEl]}</b> 的貼身衣物，或是 <b>${zhiItems[innerRecommendEl]}</b>。打造你的專屬充電站！
         `;
 
         document.getElementById('detail-user').innerText = `${userGan}日 (${userEl}命)`;
-        document.getElementById('detail-target').innerText = `${targetGan}${targetZhi}日 (外顯 ${targetEl} / 內含 ${targetZhiEl})`;
+        document.getElementById('detail-target').innerText = `${targetGan}${targetZhi}日 (天干 ${targetEl} / 地支 ${targetZhiEl})`;
         document.getElementById('detail-logic').innerHTML = logicHtml;
     }
 </script>

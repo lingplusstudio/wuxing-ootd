@@ -6,17 +6,19 @@
     <title>五行穿搭公式大師 - LINGPLUS Studio</title>
     <script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.js"></script>
     <style>
-        /* 標題與警語排版微調 */
+        :root { --primary: #2b6cb0; --bg: #f7fafc; --text-main: #2d3748; --text-muted: #718096; }
+        body { font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; background: var(--bg); color: var(--text-main); display: flex; flex-direction: column; align-items: center; padding: 40px 20px; line-height: 1.6; min-height: 100vh; box-sizing: border-box; margin: 0; }
+        
+        .card { background: white; padding: 2.5rem; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); max-width: 900px; width: 100%; margin-bottom: 1.5rem; }
+        
         h2 { text-align: center; margin-top: 0; margin-bottom: 0.5rem; font-weight: 600; color: #1a202c; letter-spacing: 1px; font-size: 1.6rem; }
         .disclaimer { font-size: 0.95rem; color: var(--text-muted); text-align: center; margin-bottom: 2rem; letter-spacing: 0.5px; }
         
-        /* 🌟 新增：控制五行符號的間距與顏色 */
         .title-symbols { margin: 0 8px; color: #4a5568; }
 
-        /* 🌟 新增：專門給手機螢幕的防斷行設定 */
         @media (max-width: 480px) {
-            h2 { font-size: 1.35rem; letter-spacing: 0; } /* 字體稍微縮小 */
-            .title-symbols { margin: 0 4px; } /* 間距縮小 */
+            h2 { font-size: 1.35rem; letter-spacing: 0; } 
+            .title-symbols { margin: 0 4px; } 
         }
         
         .layout-wrapper { display: flex; flex-direction: column; gap: 2.5rem; }
@@ -41,8 +43,13 @@
         #result-container { display: none; animation: slideUp 0.5s ease; }
         .formula-title { font-size: 1.4rem; font-weight: bold; margin-bottom: 1.5rem; padding-bottom: 0.8rem; border-bottom: 2px solid #edf2f7; }
         
-        .ratio-bar-container { display: flex; height: 32px; border-radius: 8px; overflow: hidden; margin-bottom: 0.8rem; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
+        /* 🌟 粗的比例條 (外顯) */
+        .ratio-bar-container { display: flex; height: 32px; border-radius: 8px; overflow: hidden; margin-bottom: 0.5rem; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
         .ratio-segment { display: flex; align-items: center; justify-content: center; color: white; font-size: 0.85rem; font-weight: bold; text-shadow: 0 1px 2px rgba(0,0,0,0.3); transition: width 0.5s ease-in-out; }
+
+        /* 🌟 細的比例條 (內含地支) */
+        .zhi-bar-container { display: flex; height: 16px; border-radius: 4px; overflow: hidden; margin-bottom: 0.8rem; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); opacity: 0.85; }
+        .zhi-segment { display: flex; align-items: center; justify-content: center; color: white; font-size: 0.75rem; font-weight: bold; letter-spacing: 2px; text-shadow: 0 1px 2px rgba(0,0,0,0.3); transition: width 0.5s ease-in-out; }
         
         #ratio-legend { display: flex; flex-wrap: wrap; gap: 12px; font-size: 0.9rem; color: #4a5568; margin-bottom: 2rem; }
         .legend-item { display: flex; align-items: center; }
@@ -52,7 +59,8 @@
         .vibe-card h4 { margin: 0 0 10px 0; color: #2d3748; font-size: 1.05rem; }
         .vibe-card p { margin: 0; font-size: 1rem; color: #4a5568; line-height: 1.6; }
 
-        /* 頁尾版權宣告樣式 */
+        .zhi-card { border-left-color: #805ad5 !important; background: #faf5ff !important; }
+
         .footer { margin-top: auto; padding-bottom: 1rem; font-size: 0.85rem; color: #a0aec0; letter-spacing: 0.5px; text-align: center; }
 
         @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
@@ -84,7 +92,7 @@
                 <strong>【命盤基礎】</strong><br>
                 您的本命：<span class="tag" id="detail-user"></span><br>
                 該日流日：<span class="tag" id="detail-target"></span><br><br>
-                <strong>【推薦邏輯】</strong><br>
+                <strong>【外層穿搭推薦邏輯】</strong><br>
                 <span id="detail-logic"></span>
             </div>
         </div>
@@ -92,14 +100,23 @@
         <div class="right-col" id="result-container">
             <div class="formula-title" id="formula-name">🌟 配方載入中...</div>
             
-            <label style="color: #4a5568;">色彩能量比例：</label>
+            <label style="color: #4a5568; display: flex; justify-content: space-between;">
+                <span>色彩能量比例：</span>
+            </label>
+            
             <div class="ratio-bar-container" id="ratio-bar"></div>
+            <div class="zhi-bar-container" id="zhi-ratio-bar"></div>
             
             <div id="ratio-legend"></div>
 
             <div class="vibe-card">
-                <h4>🎭 風格意象</h4>
+                <h4>🎭 風格意象 (外在天干)</h4>
                 <p id="vibe-text">載入中...</p>
+            </div>
+
+            <div class="vibe-card zhi-card">
+                <h4>🧦 隱藏細節能量 (內在地支)</h4>
+                <p id="zhi-text">載入中...</p>
             </div>
 
             <div class="vibe-card" style="border-left-color: #ecc94b; background: #fffff0;">
@@ -125,13 +142,10 @@
         }
 
         const targetDateInput = document.getElementById('target-date');
-        
-        // 🌟 修正時區陷阱：確保抓取的是本地時間的 YYYY-MM-DD
         const now = new Date();
         const y = now.getFullYear();
         const m = String(now.getMonth() + 1).padStart(2, '0');
         const d = String(now.getDate()).padStart(2, '0');
-        
         targetDateInput.value = `${y}-${m}-${d}`;
 
         const triggerCalc = function(event) {
@@ -145,18 +159,19 @@
     });
 
     const ganToElement = {'甲':'木','乙':'木','丙':'火','丁':'火','戊':'土','己':'土','庚':'金','辛':'金','壬':'水','癸':'水'};
+    const zhiToElement = {'子':'水','丑':'土','寅':'木','卯':'木','辰':'土','巳':'火','午':'火','未':'土','申':'金','酉':'金','戌':'土','亥':'水'};
     
     const sheng = { '木':'火', '火':'土', '土':'金', '金':'水', '水':'木' }; 
     const ke = { '木':'土', '土':'水', '水':'火', '火':'金', '金':'木' };   
     const shengMeMap = { '金':'土', '水':'金', '木':'水', '火':'木', '土':'火' }; 
 
-   const formulaData = {
+    const formulaData = {
         '木': { 
             name: '🌲 森系呼吸配方 (木)', themeColor: '#2F855A', 
             segmentVariations: [
                 [{ width: '60%', color: '#38A169', text: '主色：綠色系/植物圖騰' }, { width: '30%', color: '#D69E2E', text: '輔色：大地色/亞麻' }, { width: '10%', color: '#744210', text: '點綴：原木/編織配件' }],
-                [{ width: '40%', color: '#38A169', text: '主色：綠色系/植物圖騰' }, { width: '50%', color: '#D69E2E', text: '輔色：大地色/亞麻' }, { width: '10%', color: '#744210', text: '點綴：原木/編織配件' }], // 偏低調，土色變多
-                [{ width: '80%', color: '#38A169', text: '主色：綠色系/植物圖騰' }, { width: '15%', color: '#D69E2E', text: '輔色：大地色/亞麻' }, { width: '5%', color: '#744210', text: '點綴：原木/編織配件' }]   // 偏搶眼，大面積綠色
+                [{ width: '40%', color: '#38A169', text: '主色：綠色系/植物圖騰' }, { width: '50%', color: '#D69E2E', text: '輔色：大地色/亞麻' }, { width: '10%', color: '#744210', text: '點綴：原木/編織配件' }], 
+                [{ width: '80%', color: '#38A169', text: '主色：綠色系/植物圖騰' }, { width: '15%', color: '#D69E2E', text: '輔色：大地色/亞麻' }, { width: '5%', color: '#744210', text: '點綴：原木/編織配件' }]   
             ], 
             vibes: [
                 '寬鬆、自然、層次感。彷彿森林中行走的微風，展現親和與生機。',
@@ -173,8 +188,8 @@
             name: '🔥 流光焦點配方 (火)', themeColor: '#C53030', 
             segmentVariations: [
                 [{ width: '70%', color: '#1A202C', text: '主色：中性黑/白基底' }, { width: '20%', color: '#E53E3E', text: '輔色：紅/粉/紫點綴' }, { width: '10%', color: '#D69E2E', text: '點綴：閃耀金屬飾品' }],
-                [{ width: '85%', color: '#1A202C', text: '主色：中性黑/白基底' }, { width: '10%', color: '#E53E3E', text: '輔色：紅/粉/紫點綴' }, { width: '5%', color: '#D69E2E', text: '點綴：閃耀金屬飾品' }],  // 極低調，靠配件撐場
-                [{ width: '50%', color: '#1A202C', text: '主色：中性黑/白基底' }, { width: '40%', color: '#E53E3E', text: '輔色：紅/粉/紫點綴' }, { width: '10%', color: '#D69E2E', text: '點綴：閃耀金屬飾品' }]   // 高調亮眼
+                [{ width: '85%', color: '#1A202C', text: '主色：中性黑/白基底' }, { width: '10%', color: '#E53E3E', text: '輔色：紅/粉/紫點綴' }, { width: '5%', color: '#D69E2E', text: '點綴：閃耀金屬飾品' }],  
+                [{ width: '50%', color: '#1A202C', text: '主色：中性黑/白基底' }, { width: '40%', color: '#E53E3E', text: '輔色：紅/粉/紫點綴' }, { width: '10%', color: '#D69E2E', text: '點綴：閃耀金屬飾品' }]   
             ], 
             vibes: [
                 '合身、亮面、自信感。在黑暗中跳動的火焰，你是這天的視覺焦點。',
@@ -191,8 +206,8 @@
             name: '🏔️ 大地暖陽配方 (土)', themeColor: '#B7791F', 
             segmentVariations: [
                 [{ width: '50%', color: '#F6E05E', text: '主色：燕麥/鵝黃色' }, { width: '40%', color: '#975A16', text: '輔色：焦糖/深咖色' }, { width: '10%', color: '#ECC94B', text: '點綴：暖金配件' }],
-                [{ width: '70%', color: '#F6E05E', text: '主色：燕麥/淺黃色' }, { width: '20%', color: '#975A16', text: '輔色：焦糖/深咖色' }, { width: '10%', color: '#ECC94B', text: '點綴：暖金配件' }], // 偏淺色明亮
-                [{ width: '30%', color: '#F6E05E', text: '主色：燕麥/鵝黃色' }, { width: '60%', color: '#975A16', text: '輔色：焦糖/深咖色' }, { width: '10%', color: '#ECC94B', text: '點綴：暖金配件' }]  // 偏深色沉穩
+                [{ width: '70%', color: '#F6E05E', text: '主色：燕麥/淺黃色' }, { width: '20%', color: '#975A16', text: '輔色：焦糖/深咖色' }, { width: '10%', color: '#ECC94B', text: '點綴：暖金配件' }], 
+                [{ width: '30%', color: '#F6E05E', text: '主色：燕麥/鵝黃色' }, { width: '60%', color: '#975A16', text: '輔色：焦糖/深咖色' }, { width: '10%', color: '#ECC94B', text: '點綴：暖金配件' }]  
             ], 
             vibes: [
                 '溫潤、厚實、同色系疊穿。如同寬廣的大地，給人極高的信任感與包容力。',
@@ -209,8 +224,8 @@
             name: '⚔️ 極簡鋒芒配方 (金)', themeColor: '#718096', 
             segmentVariations: [
                 [{ width: '80%', color: '#E2E8F0', text: '主色：純白/淺灰/極簡', colorText: '#2d3748' }, { width: '15%', color: '#A0AEC0', text: '輔色：鈦金屬色' }, { width: '5%', color: '#CBD5E0', text: '點綴：冷光銀飾', colorText: '#2d3748' }],
-                [{ width: '60%', color: '#E2E8F0', text: '主色：純白/淺灰/極簡', colorText: '#2d3748' }, { width: '30%', color: '#A0AEC0', text: '輔色：灰色/金屬色' }, { width: '10%', color: '#CBD5E0', text: '點綴：冷光銀飾', colorText: '#2d3748' }], // 灰色調變多
-                [{ width: '90%', color: '#E2E8F0', text: '主色：極簡大白', colorText: '#2d3748' }, { width: '5%', color: '#A0AEC0', text: '輔色：鈦金屬色' }, { width: '5%', color: '#CBD5E0', text: '點綴：冷光銀飾', colorText: '#2d3748' }]     // 極度純淨
+                [{ width: '60%', color: '#E2E8F0', text: '主色：純白/淺灰/極簡', colorText: '#2d3748' }, { width: '30%', color: '#A0AEC0', text: '輔色：灰色/金屬色' }, { width: '10%', color: '#CBD5E0', text: '點綴：冷光銀飾', colorText: '#2d3748' }], 
+                [{ width: '90%', color: '#E2E8F0', text: '主色：極簡大白', colorText: '#2d3748' }, { width: '5%', color: '#A0AEC0', text: '輔色：鈦金屬色' }, { width: '5%', color: '#CBD5E0', text: '點綴：冷光銀飾', colorText: '#2d3748' }]     
             ], 
             vibes: [
                 '挺括、乾淨、俐落。像晨曦照在刀刃上，展現專業、秩序與高效率。',
@@ -227,8 +242,8 @@
             name: '🌊 深海流動配方 (水)', themeColor: '#2B6CB0', 
             segmentVariations: [
                 [{ width: '70%', color: '#1A202C', text: '主色：藏藍/純黑' }, { width: '20%', color: '#4299E1', text: '輔色：灰藍/水藍' }, { width: '10%', color: '#E2E8F0', text: '點綴：透明/琉璃飾品', colorText: '#2d3748' }],
-                [{ width: '85%', color: '#1A202C', text: '主色：藏藍/純黑' }, { width: '10%', color: '#4299E1', text: '輔色：灰藍/水藍' }, { width: '5%', color: '#E2E8F0', text: '點綴：透明/琉璃飾品', colorText: '#2d3748' }],   // 深沉
-                [{ width: '50%', color: '#1A202C', text: '主色：藏藍/純黑' }, { width: '40%', color: '#4299E1', text: '輔色：天藍/水藍' }, { width: '10%', color: '#E2E8F0', text: '點綴：透明/琉璃飾品', colorText: '#2d3748' }]    // 流動明亮
+                [{ width: '85%', color: '#1A202C', text: '主色：藏藍/純黑' }, { width: '10%', color: '#4299E1', text: '輔色：灰藍/水藍' }, { width: '5%', color: '#E2E8F0', text: '點綴：透明/琉璃飾品', colorText: '#2d3748' }],   
+                [{ width: '50%', color: '#1A202C', text: '主色：藏藍/純黑' }, { width: '40%', color: '#4299E1', text: '輔色：天藍/水藍' }, { width: '10%', color: '#E2E8F0', text: '點綴：透明/琉璃飾品', colorText: '#2d3748' }]    
             ], 
             vibes: [
                 '垂墜、深邃、神祕。利用輕柔透氣的材質，展現如水流般的智慧與靈活。',
@@ -251,39 +266,41 @@
 
         localStorage.setItem('userBirthday', birthVal);
 
-        // 1. 取得年月日數字
         const [by, bm, bd] = birthVal.split('-').map(Number);
         const userGan = Solar.fromYmd(by, bm, bd).getLunar().getEightChar().getDayGan();
         const userEl = ganToElement[userGan];
 
         const [ty, tm, td] = targetVal.split('-').map(Number);
-        const targetGan = Solar.fromYmd(ty, tm, td).getLunar().getEightChar().getDayGan();
+        const lunarEightChar = Solar.fromYmd(ty, tm, td).getLunar().getEightChar();
+        
+        const targetGan = lunarEightChar.getDayGan();
         const targetEl = ganToElement[targetGan];
+        
+        const targetZhi = lunarEightChar.getDayZhi();
+        const targetZhiEl = zhiToElement[targetZhi];
 
         let recommendEl = '';
         let logicHtml = '';
 
-        // 2. 命理邏輯判斷
         if (targetEl === shengMeMap[userEl]) {
             recommendEl = targetEl;
-            logicHtml = `該日五行(<b>${targetEl}</b>)生旺您的本命(<b>${userEl}</b>)。今天是您的「<b>印星貴人日</b>」！穿著 ${recommendEl} 系配方能完美吸收外界給你的助力與好運。`;
+            logicHtml = `該日天干(<b>${targetEl}</b>)生旺您的本命(<b>${userEl}</b>)。今天是您的「<b>印星貴人日</b>」！外層穿著 ${recommendEl} 系配方能完美吸收外界給你的助力。`;
         } else if (targetEl === userEl) {
             recommendEl = sheng[userEl]; 
-            logicHtml = `該日五行與您同屬 <b>${userEl}</b>。今日 ${userEl} 氣過於疊加，若再穿同色系容易物極必反、情緒浮躁！因此系統為您調配了 <b>${recommendEl}</b> 系配方。透過「${userEl}生${recommendEl}」的洩秀原理，將過剩能量轉化為柔和的才華與魅力！`;
+            logicHtml = `該日天干與您同屬 <b>${userEl}</b>。今日 ${userEl} 氣過於疊加，若再穿同色系容易物極必反！因此系統為您外層調配了 <b>${recommendEl}</b> 系。透過「${userEl}生${recommendEl}」洩秀原理，轉化過剩能量！`;
         } else if (targetEl === sheng[userEl]) {
             recommendEl = targetEl;
-            logicHtml = `您的本命(<b>${userEl}</b>)生旺該日五行(<b>${targetEl}</b>)。今天是您的「<b>食傷日</b>」，代表才華洋溢、充滿創造力！順應能量流動，穿著 ${recommendEl} 系能讓你的魅力自然散發。`;
+            logicHtml = `您的本命(<b>${userEl}</b>)生旺該日天干(<b>${targetEl}</b>)。今天是您的「<b>食傷日</b>」，充滿創造力！外層穿著 ${recommendEl} 系能讓你的魅力自然散發。`;
         } else if (targetEl === ke[userEl]) {
             recommendEl = targetEl;
-            logicHtml = `您的本命(<b>${userEl}</b>)剋制該日五行(<b>${targetEl}</b>)。在命理中「我剋者為財」，今天是您的「<b>財星日</b>」！穿著 ${recommendEl} 系來迎接並牢牢掌握今天的財富與事業成果吧。`;
+            logicHtml = `您的本命(<b>${userEl}</b>)剋制該日天干(<b>${targetEl}</b>)。命理中「我剋者為財」，今天是「<b>財星日</b>」！外層穿著 ${recommendEl} 系來牢牢掌握今天的財富與成果。`;
         } else {
             recommendEl = shengMeMap[userEl]; 
-            logicHtml = `該日五行(<b>${targetEl}</b>)剋制您的本命(<b>${userEl}</b>)。今天是「<b>官殺日</b>」，容易感到外界壓力。系統為您調配了 <b>${recommendEl}</b> 系(您的貴人色)，利用「${targetEl}生${recommendEl}、${recommendEl}生${userEl}」的通關原理，將阻力完美轉化為助力！`;
+            logicHtml = `該日天干(<b>${targetEl}</b>)剋制您的本命(<b>${userEl}</b>)。今天是「<b>官殺日</b>」，容易感到壓力。系統為您外層調配 <b>${recommendEl}</b> 系(您的貴人色)，利用五行通關原理將阻力轉為助力！`;
         }
 
         const formula = formulaData[recommendEl];
 
-        // --- UI 渲染 ---
         document.getElementById('result-container').style.display = 'block';
         document.getElementById('detail-panel').style.display = 'block'; 
 
@@ -291,40 +308,68 @@
         document.getElementById('formula-name').style.color = formula.themeColor;
         document.documentElement.style.setProperty('--primary', formula.themeColor);
 
-        // 🌟 新增：提前計算出今天的「專屬號碼」，用來同時抽取文案與比例條
         const seed = by + bm + bd + ty + tm + td;
         const variationIndex = seed % formula.vibes.length;
 
-        // 渲染比例條與圖例
         const barContainer = document.getElementById('ratio-bar');
+        const zhiBarContainer = document.getElementById('zhi-ratio-bar');
         const legendContainer = document.getElementById('ratio-legend');
         barContainer.innerHTML = '';
+        zhiBarContainer.innerHTML = '';
         legendContainer.innerHTML = '';
 
-        // 這裡改成抓取 formula.segmentVariations 裡面的第幾組比例！
+        // 🌟 1. 畫出粗的「外顯穿搭」比例條 (恢復 100%)
         const currentSegments = formula.segmentVariations[variationIndex];
-
         currentSegments.forEach(seg => {
             const textColor = seg.colorText ? seg.colorText : 'white';
-            barContainer.innerHTML += `<div class="ratio-segment" style="width: ${seg.width}; background: ${seg.color}; color: ${textColor};" title="${seg.text}">${seg.width}</div>`;
+            barContainer.innerHTML += `<div class="ratio-segment" style="width: ${seg.width}; background: ${seg.color}; color: ${textColor};" title="(外顯) ${seg.text}">${seg.width}</div>`;
             legendContainer.innerHTML += `
                 <div class="legend-item">
                     <div class="legend-color-box" style="background: ${seg.color};"></div>
-                    <span>${seg.text}</span>
+                    <span>(外) ${seg.text}</span>
                 </div>
             `;
         });
 
-        // 渲染靈感與小訣竅
-        document.getElementById('vibe-text').innerText = formula.vibes[variationIndex];
-        document.getElementById('tips-text').innerText = formula.tips[variationIndex];
+        // 🌟 2. 畫出細的「內含地支」比例條 (長度固定 100%)
+        const zhiColorHex = { '木': '#38A169', '火': '#E53E3E', '土': '#D69E2E', '金': '#CBD5E0', '水': '#4299E1' };
+        const zhiColorText = { '木': 'white', '火': 'white', '土': 'white', '金': '#2d3748', '水': 'white' };
+        const zhiBgColor = zhiColorHex[targetZhiEl];
+        const zhiTxColor = zhiColorText[targetZhiEl];
+
+        zhiBarContainer.innerHTML = `
+            <div class="zhi-segment" style="width: 100%; background: ${zhiBgColor}; color: ${zhiTxColor};" title="(內含) 地支細節：${targetZhiEl}系">
+                (內含地支) ${targetZhiEl}系能量
+            </div>
+        `;
+
+        // 地支圖例加入分隔線
+        legendContainer.innerHTML += `
+            <div class="legend-item" style="margin-left: 8px; padding-left: 12px; border-left: 2px solid #e2e8f0;">
+                <div class="legend-color-box" style="background: ${zhiBgColor}; border: 1px solid #e2e8f0;"></div>
+                <span><strong>(內) 細節：${targetZhiEl}系</strong></span>
+            </div>
+        `;
 
         document.getElementById('vibe-text').innerText = formula.vibes[variationIndex];
         document.getElementById('tips-text').innerText = formula.tips[variationIndex];
 
-        // 邏輯說明
+        const zhiColors = { '木': '綠色/植物系', '火': '紅/紫/暖色系', '土': '大地/黃褐色系', '金': '白/金銀色系', '水': '黑/藍色系' };
+        const zhiItems = {
+            '木': '木質調香水、綠色襪子或棉麻內衣',
+            '火': '暖色系內著、紅色小飾品或帶個暖暖包',
+            '土': '大地色包包內裡、卡其色襪子或天然礦石',
+            '金': '金屬鑰匙圈、白色貼身衣物或簡約銀飾',
+            '水': '深色內著、保濕香氛或隨身帶一瓶水'
+        };
+        
+        document.getElementById('zhi-text').innerHTML = `
+            今日底層地支為 <b>${targetZhi} (${targetZhiEl})</b>。這股隱藏的環境能量，最適合用在別人看不見的細節！<br><br>
+            ✨ <b>細節點綴：</b>建議搭配 <b>${zhiColors[targetZhiEl]}</b> 的貼身衣物，或是 <b>${zhiItems[targetZhiEl]}</b>。能幫你穩固底層磁場（這也是其他 App 常說的隱藏幸運色喔）。
+        `;
+
         document.getElementById('detail-user').innerText = `${userGan}日 (${userEl}命)`;
-        document.getElementById('detail-target').innerText = `${targetGan}日 (${targetEl}氣)`;
+        document.getElementById('detail-target').innerText = `${targetGan}${targetZhi}日 (外顯 ${targetEl} / 內含 ${targetZhiEl})`;
         document.getElementById('detail-logic').innerHTML = logicHtml;
     }
 </script>

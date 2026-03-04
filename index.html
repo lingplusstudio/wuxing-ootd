@@ -396,15 +396,23 @@
         document.getElementById('detail-target').innerText = `${targetGan}${targetZhi}日 (天干 ${targetEl} / 地支 ${targetZhiEl})`;
         document.getElementById('detail-logic').innerHTML = logicHtml;
     }
-// 🌟 全新升級：改用更先進的 html-to-image 套件，徹底解決文字透明變淡的 Bug！
+// 🌟 輔助魔法：將圖片資料轉成真正的「檔案」格式
+    function dataURLtoFile(dataurl, filename) {
+        var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+        while(n--){
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new File([new Blob([u8arr], {type:mime})], filename, {type: mime});
+    }
+
+    // 🌟 全新升級：呼叫手機原生分享選單 (直接儲存影像 / 發 IG)
     function downloadCard() {
         const shareBtn = document.getElementById('share-btn');
         const targetElement = document.getElementById('result-container');
         
-        // 1. 拍照前準備：隱藏按鈕
+        // 1. 拍照前準備：隱藏按鈕，加上專屬浮水印
         shareBtn.style.display = 'none';
-
-        // 2. 加上專屬浮水印
         const watermark = document.createElement('div');
         watermark.id = 'temp-watermark';
         watermark.innerHTML = '✨ 測測你的今日能量防護罩：lingplusstudio.github.io/wuxing-ootd';
@@ -416,7 +424,7 @@
         watermark.style.fontWeight = 'bold';
         targetElement.appendChild(watermark);
 
-        // 3. 確保背景色與邊距
+        // 2. 確保卡片拍照時有純白底色跟邊距
         const originalBg = targetElement.style.background;
         const originalPadding = targetElement.style.padding;
         const originalRadius = targetElement.style.borderRadius;
@@ -425,30 +433,41 @@
         targetElement.style.padding = '25px';
         targetElement.style.borderRadius = '16px';
 
-        // 4. 執行全新的 SVG 截圖魔法
+        // 3. 執行高畫質 SVG 截圖魔法
         htmlToImage.toPng(targetElement, { 
-            pixelRatio: 2, // 維持 2 倍高畫質
+            pixelRatio: 2, 
             backgroundColor: '#ffffff' 
         })
         .then(function (dataUrl) {
-            // 觸發下載
-            const link = document.createElement('a');
-            link.download = '我的五行穿搭配方_LINGPLUS.png';
-            link.href = dataUrl;
-            link.click();
+            // ✨ 把截下來的圖，包裝成一個真正的圖片檔案
+            const file = dataURLtoFile(dataUrl, '我的五行穿搭配方.png');
 
-            // 5. 拍照完畢：把場地復原
+            // 復原畫面
             targetElement.removeChild(watermark);
             targetElement.style.background = originalBg;
             targetElement.style.padding = originalPadding;
             targetElement.style.borderRadius = originalRadius;
             shareBtn.style.display = 'flex';
+
+            // ✨ 呼叫手機原生的分享選單！
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                // 如果是手機（支援分享 API），就彈出原生選單
+                navigator.share({
+                    files: [file],
+                    title: '專屬五行穿搭配方',
+                    text: '這是我今天的五行能量防護罩！一起來測測看吧 ✨'
+                }).catch(console.error); // 使用者取消分享也不會報錯
+            } else {
+                // 如果是電腦版（不支援原生分享），就退回傳統的直接下載模式
+                const link = document.createElement('a');
+                link.download = '我的五行穿搭配方_LINGPLUS.png';
+                link.href = dataUrl;
+                link.click();
+            }
         })
         .catch(function (error) {
             console.error('截圖失敗!', error);
             alert('截圖發生錯誤，請稍後再試！');
-            
-            // 發生錯誤也要記得復原畫面
             targetElement.removeChild(watermark);
             targetElement.style.background = originalBg;
             targetElement.style.padding = originalPadding;

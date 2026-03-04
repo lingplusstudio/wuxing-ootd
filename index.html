@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>五行穿搭公式大師 - LINGPLUS Studio</title>
+    <meta name="color-scheme" content="light">
+    <meta name="darkreader-lock">
     <script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    
     <style>
         :root { --primary: #2b6cb0; --bg: #f7fafc; --text-main: #2d3748; --text-muted: #718096; }
         body { font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; background: var(--bg); color: var(--text-main); display: flex; flex-direction: column; align-items: center; padding: 40px 20px; line-height: 1.6; min-height: 100vh; box-sizing: border-box; margin: 0; }
@@ -120,7 +125,10 @@
             <div class="vibe-card" style="border-left-color: #ecc94b; background: #fffff0;">
                 <h4>💡 穿搭小訣竅</h4>
                 <p id="tips-text">載入中...</p>
-            </div>
+            </div>          
+            <button id="share-btn" class="btn-primary" style="background: var(--primary); margin-top: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px;" onclick="downloadCard()">
+                📸 儲存專屬配方卡 (IG 限動分享)
+            </button>  
         </div>
     </div>
 </div>
@@ -387,6 +395,86 @@
         document.getElementById('detail-user').innerText = `${userGan}日 (${userEl}命)`;
         document.getElementById('detail-target').innerText = `${targetGan}${targetZhi}日 (天干 ${targetEl} / 地支 ${targetZhiEl})`;
         document.getElementById('detail-logic').innerHTML = logicHtml;
+    }
+// 🌟 一鍵截圖並下載（終極白魔法：鎮壓電腦版深色外掛）
+    function downloadCard() {
+        const shareBtn = document.getElementById('share-btn');
+        const targetElement = document.getElementById('result-container');
+        
+        // 1. 拍照前準備：隱藏按鈕
+        shareBtn.style.display = 'none';
+
+        // 2. 加上專屬浮水印
+        const watermark = document.createElement('div');
+        watermark.id = 'temp-watermark';
+        watermark.innerHTML = '✨ 測測你的今日能量防護罩：lingplusstudio.github.io/wuxing-ootd';
+        watermark.style.textAlign = 'center';
+        watermark.style.fontSize = '0.85rem';
+        watermark.style.color = '#718096'; 
+        watermark.style.marginTop = '1.5rem';
+        watermark.style.paddingBottom = '1rem';
+        watermark.style.fontWeight = 'bold';
+        targetElement.appendChild(watermark);
+
+        // 3. 執行高畫質截圖魔法
+        html2canvas(targetElement, {
+            scale: 2, 
+            useCORS: true,
+            backgroundColor: '#ffffff', // 畫布強制白底
+            onclone: function(clonedDoc) {
+                // 🧙‍♂️ 終極白魔法：直接在虛擬分身裡，注入最高權限的 CSS 符咒！
+                const style = clonedDoc.createElement('style');
+                style.innerHTML = `
+                    /* 強制洗白背景，洗黑文字 */
+                    #result-container {
+                        background-color: #ffffff !important;
+                        padding: 25px !important;
+                        border-radius: 16px !important;
+                    }
+                    /* 針對所有內文強制深灰色 */
+                    #result-container h4, 
+                    #result-container p, 
+                    #result-container label,
+                    #ratio-legend span {
+                        color: #2d3748 !important;
+                        text-shadow: none !important;
+                    }
+                    /* 保留進度條原本的文字顏色（白色或深色） */
+                    #result-container .ratio-segment, 
+                    #result-container .zhi-segment {
+                        text-shadow: none !important;
+                    }
+                    /* 卡片背景強制校正，拒絕被外掛染黑 */
+                    #result-container .vibe-card {
+                        background-color: #f8fafc !important;
+                        color: #4a5568 !important;
+                    }
+                    /* 神秘紫卡強制校正 */
+                    #result-container .zhi-card {
+                        background-color: #faf5ff !important;
+                    }
+                `;
+                clonedDoc.head.appendChild(style);
+
+                // 特別處理「黃色訣竅卡」的背景（因為它是寫在 inline-style 裡的）
+                const vibeCards = clonedDoc.getElementById('result-container').querySelectorAll('.vibe-card');
+                vibeCards.forEach(card => {
+                    if (card.style.borderLeftColor === 'rgb(236, 201, 75)' || card.style.borderLeftColor === '#ecc94b') {
+                        card.style.setProperty('background-color', '#fffff0', 'important');
+                    }
+                });
+            }
+        }).then(canvas => {
+            // 4. 產生圖片並觸發下載
+            const link = document.createElement('a');
+            link.download = '我的五行穿搭配方_LINGPLUS.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+
+            // 5. 拍照完畢：把場地復原！
+            targetElement.removeChild(watermark);
+            shareBtn.style.display = 'flex';
+        });
     }
 </script>
 

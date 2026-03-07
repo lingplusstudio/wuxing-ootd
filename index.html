@@ -2,24 +2,30 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>五行穿搭公式大師 - LINGPLUS Studio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <meta property="og:title" content="五行穿搭公式大師 - LINGPLUS Studio" />
-    <meta property="og:description" content="輸入生日，一秒算出你的專屬五行防護罩與開運穿搭配方！快來測測看今天的宇宙能量箴言 ✨" />
+    <title>專屬五行穿搭公式：今日能量穿搭指南 - LINGPLUS Studio</title>
+    <meta name="description" content="輸入生日，一秒算出你的「專屬五行穿搭公式」與開運防護罩！結合八字五行與現代美學，解鎖今天的宇宙能量箴言，找回你的內在平衡。">
+    <meta name="keywords" content="專屬五行穿搭公式, 五行穿搭, 能量穿搭, 今日運勢, 開運穿搭, LINGPLUS">
+    <link rel="canonical" href="https://lingplusstudio.github.io/wuxing-ootd/" />
+
+    <meta property="og:title" content="專屬五行穿搭公式 - LINGPLUS Studio" />
+    <meta property="og:description" content="一秒算出你的專屬五行防護罩！根據生日解鎖今日開運穿搭配方與宇宙箴言 ✨" />
     <meta property="og:url" content="https://lingplusstudio.github.io/wuxing-ootd/" />
     <meta property="og:image" content="https://lingplusstudio.github.io/wuxing-ootd/og-image.png" />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="LINGPLUS Studio" />
     
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="五行穿搭公式大師 - LINGPLUS Studio">
+    <meta name="twitter:title" content="專屬五行穿搭公式 - LINGPLUS Studio">
     <meta name="twitter:description" content="一秒算出你的專屬五行防護罩與開運穿搭配方！">
     <meta name="twitter:image" content="https://lingplusstudio.github.io/wuxing-ootd/og-image.png">
+    
     <meta name="color-scheme" content="light only">
     <meta name="darkreader-lock">
+
     <script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.js"></script>
-    
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
     
     <style>
         :root { --primary: #2b6cb0; --bg: #f7fafc; --text-main: #2d3748; --text-muted: #718096; }
@@ -302,85 +308,156 @@
         document.getElementById('detail-target').innerText = `${targetGan}${targetZhi}日 (天干 ${targetEl} / 地支 ${targetZhiEl})`;
         document.getElementById('detail-logic').innerHTML = logicHtml;
     }
-// 🌟 輔助魔法：將圖片資料轉成真正的「檔案」格式
-    function dataURLtoFile(dataurl, filename) {
-        var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-            bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
-        while(n--){
-            u8arr[n] = bstr.charCodeAt(n);
-        }
-        return new File([new Blob([u8arr], {type:mime})], filename, {type: mime});
+// ============================================================
+// 🌟 第一部分：必須補上這個關鍵函數，否則「電腦版」儲存圖片會沒反應
+// ============================================================
+function dataURLtoFile(dataurl, filename) {
+    var arr = dataurl.split(','), 
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]), 
+        n = bstr.length, 
+        u8arr = new Uint8Array(n);
+    while(n--){
+        u8arr[n] = bstr.charCodeAt(n);
     }
+    return new File([u8arr], filename, {type:mime});
+}
 
-    // 🌟 全新升級：呼叫手機原生分享選單 (直接儲存影像 / 發 IG)
-    function downloadCard() {
-        const shareBtn = document.getElementById('share-btn');
-        const targetElement = document.getElementById('result-container');
-        
-        // 1. 拍照前準備：隱藏按鈕，加上專屬浮水印
-        shareBtn.style.display = 'none';
-        const watermark = document.createElement('div');
-        watermark.id = 'temp-watermark';
-        watermark.innerHTML = '✨ 測測你的今日能量防護罩：lingplusstudio.github.io/wuxing-ootd';
-        watermark.style.textAlign = 'center';
-        watermark.style.fontSize = '0.85rem';
-        watermark.style.color = '#718096'; 
-        watermark.style.marginTop = '1.5rem';
-        watermark.style.paddingBottom = '1rem';
-        watermark.style.fontWeight = 'bold';
-        targetElement.appendChild(watermark);
+// ============================================================
+// 🌟 第二部分：升級版分享卡生成函數 (9:16 黃金比例精簡版)
+// ============================================================
+async function downloadCard() {
+    const shareBtn = document.getElementById('share-btn');
+    const themeColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim();
+    const now = new Date();
+    const dateYear = now.getFullYear();
+    const dateMonth = String(now.getMonth() + 1).padStart(2, '0');
+    const dateDay = String(now.getDate()).padStart(2, '0');
+    
+    const verificationCode = `P${dateYear}${dateMonth}${dateDay}-${Math.floor(Math.random() * 1000).toString().padStart(3, '0')}`;
 
-        // 2. 確保卡片拍照時有純白底色跟邊距
-        const originalBg = targetElement.style.background;
-        const originalPadding = targetElement.style.padding;
-        const originalRadius = targetElement.style.borderRadius;
+    shareBtn.style.display = 'none';
 
-        targetElement.style.background = '#ffffff';
-        targetElement.style.padding = '25px';
-        targetElement.style.borderRadius = '16px';
+    const offScreenContainer = document.createElement('div');
+    offScreenContainer.style.cssText = `
+        position: absolute; top: 0; left: 0; z-index: -1;
+        width: 360px; height: 640px; background: white;
+        padding: 40px 25px 30px 25px; display: flex; flex-direction: column;
+        justify-content: space-between; box-sizing: border-box;
+        font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+    `;
 
-        // 3. 執行高畫質 SVG 截圖魔法
-        htmlToImage.toPng(targetElement, { 
-            pixelRatio: 2, 
-            backgroundColor: '#ffffff' 
-        })
-        .then(function (dataUrl) {
-            // ✨ 把截下來的圖，包裝成一個真正的圖片檔案
-            const file = dataURLtoFile(dataUrl, '我的五行穿搭配方.png');
+    // --- 抓取與處理資料 ---
+    // 1. 處理配方名稱：去掉日期，只留「配方名(五行)」
+    let formulaName = document.getElementById('formula-name').innerText;
+    formulaName = formulaName.replace(/\d{4}\/\d{1,2}\/\d{1,2}\s*/g, '').trim(); 
 
-            // 復原畫面
-            targetElement.removeChild(watermark);
-            targetElement.style.background = originalBg;
-            targetElement.style.padding = originalPadding;
-            targetElement.style.borderRadius = originalRadius;
-            shareBtn.style.display = 'flex';
+    const ratioBar = document.getElementById('ratio-bar').innerHTML;
+    const zhiRatioBar = document.getElementById('zhi-ratio-bar').innerHTML;
+    const vibeText = document.getElementById('vibe-text').innerText;
+    const quoteText = document.getElementById('quote-text').innerText;
 
-            // ✨ 呼叫手機原生的分享選單！
-            if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                // 如果是手機（支援分享 API），就彈出原生選單
-                navigator.share({
-                    files: [file],
-                    title: '專屬五行穿搭配方',
-                    text: '這是我今天的五行能量防護罩！一起來測測看吧 ✨'
-                }).catch(console.error); // 使用者取消分享也不會報錯
-            } else {
-                // 如果是電腦版（不支援原生分享），就退回傳統的直接下載模式
-                const link = document.createElement('a');
-                link.download = '我的五行穿搭配方_LINGPLUS.png';
-                link.href = dataUrl;
-                link.click();
+    // 2. 🌟 抓取內在細節的顏色與文字 (直接從網頁標籤抓顏色)
+    let innerDetailsText = '';
+    let innerColor = '#2D5A27'; // 預設綠色 (木)
+    const allPs = document.getElementById('result-container').getElementsByTagName('p');
+    for (let p of allPs) {
+        if (p.innerText.includes('✨')) {
+            innerDetailsText = p.innerText.replace(/✨\s*細節點綴[:：]?\s*/g, '').trim();
+            // 抓取該標籤內 span 的背景顏色 (即那個綠色或藍色標籤)
+            const colorSpan = p.querySelector('span');
+            if (colorSpan) {
+                innerColor = getComputedStyle(colorSpan).backgroundColor;
             }
-        })
-        .catch(function (error) {
-            console.error('截圖失敗!', error);
-            alert('截圖發生錯誤，請稍後再試！');
-            targetElement.removeChild(watermark);
-            targetElement.style.background = originalBg;
-            targetElement.style.padding = originalPadding;
-            targetElement.style.borderRadius = originalRadius;
-            shareBtn.style.display = 'flex';
-        });
+            break;
+        }
     }
+
+    offScreenContainer.innerHTML = `
+        <div style="position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <div style="position: absolute; right: -5px; top: -15px; width: 62px; height: 62px; border: 1.5px dashed ${themeColor}; color: ${themeColor}; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; transform: rotate(10deg); background: white;">
+                    <div style="font-size: 0.5rem; font-weight: bold;">${dateYear}</div>
+                    <div style="font-size: 0.95rem; font-weight: 900;">${dateMonth}.${dateDay}</div>
+                    <div style="font-size: 0.4rem; border-top: 1px solid ${themeColor}; margin-top: 2px;">POSTED</div>
+                </div>
+
+                <div style="text-align: left; margin-top: 5px;">
+                    <div style="font-size: 0.7rem; font-weight: bold; color: ${themeColor}; opacity: 0.6; letter-spacing: 3px; margin-bottom: 25px;">FORMULA ANALYSIS</div>
+                    
+                    <div style="display: flex; border: 1.5px solid ${themeColor}; border-radius: 8px; margin-bottom: 25px; overflow: hidden; height: 42px;">
+                        <div style="width: 75px; background: ${themeColor}; color: white; font-weight: bold; font-size: 0.75rem; display: flex; align-items: center; justify-content: center;">五行配方</div>
+                        <div style="flex: 1; color: ${themeColor}; font-weight: 900; font-size: 1rem; display: flex; align-items: center; justify-content: center; background: white;">
+                            ${formulaName}
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 25px; background: #f8fafc; padding: 12px; border-radius: 12px;">
+                        <div style="border-radius: 10px; overflow: hidden; display: flex; height: 10px; margin-bottom: 6px;">
+                            ${ratioBar.replace(/flex:(\d+)%/g, 'width:$1%')}
+                        </div>
+                        <div style="border-radius: 10px; overflow: hidden; display: flex; height: 10px;">
+                            ${zhiRatioBar.replace(/flex:(\d+)%/g, 'width:$1%')}
+                        </div>
+                    </div>
+
+                    <div style="background: white; padding: 12px; border-radius: 10px; border: 1px solid #f1f5f9; margin-bottom: 12px; border-left: 5px solid ${themeColor};">
+                        <div style="font-weight: bold; font-size: 0.75rem; color: ${themeColor}; margin-bottom: 4px;">🎨 外在風格</div>
+                        <div style="font-size: 0.75rem; line-height: 1.5; color: #4a5568;">${vibeText}</div>
+                    </div>
+                    
+                    <div style="background: ${innerColor}08; padding: 12px; border-radius: 10px; border: 1px solid ${innerColor}20; margin-bottom: 15px; border-left: 5px solid ${innerColor};">
+                        <div style="font-weight: bold; font-size: 0.75rem; color: ${innerColor}; margin-bottom: 4px;">✨ 內在細節</div>
+                        <div style="font-size: 0.75rem; line-height: 1.5; color: #4a5568; font-weight: 500;">
+                            ${innerDetailsText} 
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-bottom: 40px; padding: 10px 20px; position: relative;">
+                <span style="position: absolute; top: -5px; left: 15px; font-size: 2.5rem; color: ${themeColor}; opacity: 0.12; font-family: serif;">“</span>
+                <div style="font-style: italic; font-weight: 800; color: #1e293b; font-size: 1.05rem; line-height: 1.8; position: relative; z-index: 2;">
+                    ${quoteText.replace(/[「」]/g, '')}
+                </div>
+                <span style="position: absolute; bottom: -20px; right: 15px; font-size: 2.5rem; color: ${themeColor}; opacity: 0.12; font-family: serif;">”</span>
+            </div>
+
+            <div style="border-top: 1px solid #f1f5f9; padding-top: 15px; display: flex; justify-content: space-between; align-items: flex-end;">
+                <div style="text-align: left;">
+                    <div style="font-size: 0.5rem; opacity: 0.4; font-family: monospace;">VERIFY: ${verificationCode}</div>
+                    <div style="font-size: 0.85rem; font-weight: 900; color: ${themeColor}; letter-spacing: 1px;">你專屬的五行穿搭</div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 0.6rem; font-weight: bold; color: #94a3b8; margin-bottom: 2px;">🔍 搜尋「五行穿搭公式」</div>
+                    <div style="font-size: 0.45rem; color: #cbd5e1;">lingplusstudio.github.io/wuxing-ootd</div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(offScreenContainer);
+
+    try {
+        await new Promise(resolve => setTimeout(resolve, 300));
+        const dataUrl = await htmlToImage.toPng(offScreenContainer, { pixelRatio: 3, backgroundColor: '#ffffff' });
+        document.body.removeChild(offScreenContainer);
+        shareBtn.style.display = 'flex';
+        const file = dataURLtoFile(dataUrl, '我的五行穿搭配方.png');
+        if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({ files: [file], title: '專屬五行穿搭配方', text: '這是我今天的能量配方 ✨' });
+        } else {
+            const link = document.createElement('a');
+            link.download = `五行穿搭配方_${now.getMonth()+1}${now.getDate()}.png`;
+            link.href = dataUrl;
+            link.click();
+        }
+    } catch (error) {
+        console.error('截圖失敗', error);
+        if (document.body.contains(offScreenContainer)) document.body.removeChild(offScreenContainer);
+        shareBtn.style.display = 'flex';
+    }
+}
 </script>
 
 </body>

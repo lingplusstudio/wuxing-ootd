@@ -356,19 +356,25 @@ async function downloadCard() {
     const vibeText = document.getElementById('vibe-text').innerText;
     const quoteText = document.getElementById('quote-text').innerText;
 
+    // 🌟 核心修正：精準抓取「專屬防護」區塊的顏色
     let innerDetailsText = '';
-    let innerColor = '#2D5A27'; 
-    const allPs = document.getElementById('result-container').getElementsByTagName('p');
-    for (let p of allPs) {
-        if (p.innerText.includes('✨')) {
-            innerDetailsText = p.innerText.replace(/✨\s*細節點綴[:：]?\s*/g, '').trim();
-            const colorSpan = p.querySelector('span');
-            if (colorSpan) {
-                innerColor = getComputedStyle(colorSpan).backgroundColor;
+    let innerColor = '#2D5A27'; // 預設
+    
+    // 遍歷所有 p 標籤尋找「專屬防護」或「細節點綴」
+    const resultPs = document.getElementById('result-container').querySelectorAll('p');
+    resultPs.forEach(p => {
+        // 如果這個段落包含「專屬防護」或「細節點綴」
+        if (p.innerText.includes('專屬防護') || p.innerText.includes('細節點綴')) {
+            // 抓取段落中的文字內容
+            innerDetailsText = p.innerText.replace(/.*[:：]\s*/g, '').trim();
+            
+            // 🌟 關鍵：尋找該段落前一個或內部的顏色標籤 (span)
+            const colorBadge = p.querySelector('span') || (p.previousElementSibling && p.previousElementSibling.querySelector('span'));
+            if (colorBadge) {
+                innerColor = getComputedStyle(colorBadge).backgroundColor;
             }
-            break;
         }
-    }
+    });
 
     offScreenContainer.innerHTML = `
         <div style="position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
@@ -382,7 +388,7 @@ async function downloadCard() {
                 <div style="text-align: left; margin-top: 5px;">
                     <div style="font-size: 0.7rem; font-weight: bold; color: ${themeColor}; opacity: 0.6; letter-spacing: 3px; margin-bottom: 25px;">FORMULA ANALYSIS</div>
                     
-                    <div style="display: flex; border: 1.5px solid ${themeColor}; border-radius: 8px; margin-bottom: 25px; overflow: hidden; height: 42px; align-items: stretch;">
+                    <div style="display: flex; border: 1.5px solid ${themeColor}; border-radius: 8px; margin-bottom: 25px; overflow: hidden; height: 42px;">
                         <div style="width: 65px; flex-shrink: 0; background: ${themeColor}; color: white; font-weight: bold; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; white-space: nowrap;">五行配方</div>
                         <div style="flex: 1; color: ${themeColor}; font-weight: 900; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; background: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 10px;">
                             ${formulaName}

@@ -174,8 +174,9 @@
         if (savedBirthday) {
             birthdayInput.value = savedBirthday;
         } else {
-            birthdayInput.value = '1988-04-02'; 
-        }
+    // 如果沒存過，預設顯示今天，看起來比較像一般的查詢系統
+    birthdayInput.value = new Date().toISOString().split('T')[0];
+}
 
         const targetDateInput = document.getElementById('target-date');
         const now = new Date();

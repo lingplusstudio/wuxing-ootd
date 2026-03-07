@@ -348,7 +348,6 @@ async function downloadCard() {
     `;
 
     // --- 抓取與處理資料 ---
-    // 1. 處理配方名稱：去掉日期，只留「配方名(五行)」
     let formulaName = document.getElementById('formula-name').innerText;
     formulaName = formulaName.replace(/\d{4}\/\d{1,2}\/\d{1,2}\s*/g, '').trim(); 
 
@@ -357,14 +356,12 @@ async function downloadCard() {
     const vibeText = document.getElementById('vibe-text').innerText;
     const quoteText = document.getElementById('quote-text').innerText;
 
-    // 2. 🌟 抓取內在細節的顏色與文字 (直接從網頁標籤抓顏色)
     let innerDetailsText = '';
-    let innerColor = '#2D5A27'; // 預設綠色 (木)
+    let innerColor = '#2D5A27'; 
     const allPs = document.getElementById('result-container').getElementsByTagName('p');
     for (let p of allPs) {
         if (p.innerText.includes('✨')) {
             innerDetailsText = p.innerText.replace(/✨\s*細節點綴[:：]?\s*/g, '').trim();
-            // 抓取該標籤內 span 的背景顏色 (即那個綠色或藍色標籤)
             const colorSpan = p.querySelector('span');
             if (colorSpan) {
                 innerColor = getComputedStyle(colorSpan).backgroundColor;
@@ -385,9 +382,9 @@ async function downloadCard() {
                 <div style="text-align: left; margin-top: 5px;">
                     <div style="font-size: 0.7rem; font-weight: bold; color: ${themeColor}; opacity: 0.6; letter-spacing: 3px; margin-bottom: 25px;">FORMULA ANALYSIS</div>
                     
-                    <div style="display: flex; border: 1.5px solid ${themeColor}; border-radius: 8px; margin-bottom: 25px; overflow: hidden; height: 42px;">
-                        <div style="width: 75px; background: ${themeColor}; color: white; font-weight: bold; font-size: 0.75rem; display: flex; align-items: center; justify-content: center;">五行配方</div>
-                        <div style="flex: 1; color: ${themeColor}; font-weight: 900; font-size: 1rem; display: flex; align-items: center; justify-content: center; background: white;">
+                    <div style="display: flex; border: 1.5px solid ${themeColor}; border-radius: 8px; margin-bottom: 25px; overflow: hidden; height: 42px; align-items: stretch;">
+                        <div style="width: 65px; flex-shrink: 0; background: ${themeColor}; color: white; font-weight: bold; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; white-space: nowrap;">五行配方</div>
+                        <div style="flex: 1; color: ${themeColor}; font-weight: 900; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; background: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 10px;">
                             ${formulaName}
                         </div>
                     </div>

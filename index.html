@@ -3,104 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
     <title>五行穿搭公式：今日專屬能量穿搭指南 | LINGPLUS Studio</title>
     <meta name="description" content="輸入生日，一秒算出你的「專屬五行穿搭公式」與開運防護罩！結合八字五行與現代美學，解鎖今天的宇宙能量箴言。">
     <meta name="keywords" content="專屬五行穿搭公式, 五行穿搭, 能量穿搭, 今日運勢, 開運穿搭, LINGPLUS">
-    <link rel="canonical" href="https://lingplusstudio.github.io/wuxing-ootd/" />
-
-    <meta property="og:title" content="專屬五行穿搭公式 - LINGPLUS Studio" />
-    <meta property="og:description" content="一秒算出你的專屬五行防護罩！根據生日解鎖今日開運穿搭配方與宇宙箴言 ✨" />
-    <meta property="og:url" content="https://lingplusstudio.github.io/wuxing-ootd/" />
-    <meta property="og:image" content="https://lingplusstudio.github.io/wuxing-ootd/og-image.png" />
-    <meta property="og:type" content="website" />
     
-    <meta name="color-scheme" content="light only">
-    <meta name="darkreader-lock">
-
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
-    
+
     <style>
-        :root { --primary: #2b6cb0; --bg: #f7fafc; --text-main: #2d3748; --text-muted: #718096; }
-        body { font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; background: var(--bg); color: var(--text-main); display: flex; flex-direction: column; align-items: center; padding: 40px 20px; line-height: 1.6; min-height: 100vh; box-sizing: border-box; margin: 0; }
-        
-        .card { background: white; padding: 2.5rem; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); max-width: 900px; width: 100%; margin-bottom: 1.5rem; }
-        
-        h2 { text-align: center; margin-top: 0; margin-bottom: 0.5rem; font-weight: 600; color: #1a202c; letter-spacing: 1px; font-size: 1.6rem; }
-        .disclaimer { font-size: 0.95rem; color: var(--text-muted); text-align: center; margin-bottom: 2rem; letter-spacing: 0.5px; }
-        
+        :root {
+            --primary: #2b6cb0;
+            --inner-color: #ecc94b; /* 新增：用來控制右下角光暈的內在防護色 */
+            --bg: #f4f6f8;
+            --text-main: #2d3748;
+            --text-muted: #718096;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        /* ★ 新版高級背景：紙張雜訊紋理 ★ */
+        body {
+            font-family: 'PingFang TC', 'Microsoft JhengHei', 'DM Sans', sans-serif;
+            background-color: var(--bg);
+            /* 利用 SVG 產生極微弱的雜訊，創造藝術紙張質感 */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+            background-attachment: fixed;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ★ 動態五行微光 (Aura Mesh Gradients) ★ */
+        .bg-orb-1, .bg-orb-2 {
+            position: fixed;
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+            transition: background 1.5s ease-in-out; /* 變色時的呼吸感動畫 */
+        }
+        .bg-orb-1 {
+            top: -150px; left: -150px;
+            width: 500px; height: 500px;
+            background: var(--primary);
+            filter: blur(100px);
+            opacity: 0.15;
+        }
+        .bg-orb-2 {
+            bottom: -200px; right: -150px;
+            width: 600px; height: 600px;
+            background: var(--inner-color);
+            filter: blur(120px);
+            opacity: 0.15;
+        }
+
+        /* ★ 毛玻璃卡片 (Glassmorphism) ★ */
+        .card {
+            background: rgba(255, 255, 255, 0.88); /* 88%透明度白底 */
+            backdrop-filter: blur(24px); /* 背景模糊 */
+            -webkit-backdrop-filter: blur(24px); /* 支援 Safari */
+            padding: 2.5rem;
+            border-radius: 24px;
+            /* 加上精緻的內外陰影與微白邊框，創造玻璃邊緣折射感 */
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,1);
+            max-width: 960px;
+            width: 100%;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        h2 { text-align: center; margin-bottom: 0.5rem; font-weight: 600; color: #1a202c; font-size: 1.6rem; }
+        .disclaimer { font-size: 0.95rem; color: var(--text-muted); text-align: center; margin-bottom: 2rem; }
         .title-symbols { margin: 0 8px; color: #4a5568; }
 
-        @media (max-width: 480px) {
-            h2 { font-size: 1.35rem; letter-spacing: 0; } 
-            .title-symbols { margin: 0 4px; } 
-        }
-        
-        .layout-wrapper { display: flex; flex-direction: column; gap: 2.5rem; }
+        /* ── Layout ── */
+        .layout-wrapper { display: flex; flex-direction: column; gap: 2.5rem; width: 100%; }
         @media (min-width: 768px) {
             .layout-wrapper { flex-direction: row; }
-            .left-col { flex: 0 0 320px; border-right: 1px solid #edf2f7; padding-right: 2rem; }
-            .right-col { flex: 1; padding-left: 0.5rem; }
+            .left-col { flex: 0 0 320px; border-right: 1px solid rgba(226, 232, 240, 0.6); padding-right: 2rem; min-width: 0; }
+            .right-col { flex: 1; padding-left: 0.5rem; min-width: 0; }
+        }
+        @media (max-width: 767px) {
+            .card { padding: 1.5rem 1.2rem; }
+            .bg-orb-1 { width: 350px; height: 350px; filter: blur(80px); opacity: 0.2; }
+            .bg-orb-2 { width: 400px; height: 400px; filter: blur(90px); opacity: 0.2; }
         }
 
+        /* ── Inputs ── */
         .input-group { margin-bottom: 1.5rem; }
         label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.95rem; }
-        input[type="date"] { width: 100%; padding: 14px; border: 2px solid #e2e8f0; border-radius: 12px; box-sizing: border-box; font-size: 1rem; color: #4a5568; outline: none; transition: border 0.3s; font-family: inherit; }
+        input[type="date"] {
+            width: 100%; padding: 14px; border: 2px solid rgba(226, 232, 240, 0.8); border-radius: 12px;
+            font-size: 1rem; color: #4a5568; outline: none; transition: border 0.3s; font-family: inherit;
+            background: rgba(255, 255, 255, 0.9);
+        }
         input[type="date"]:focus { border-color: var(--primary); }
-        button.btn-primary { width: 100%; padding: 14px; background: #2d3748; color: white; border: none; border-radius: 12px; cursor: pointer; font-size: 1.1rem; font-weight: bold; transition: background 0.2s, transform 0.1s; margin-top: 0.5rem; }
-        button.btn-primary:hover { background: #1a202c; }
+
+        button.btn-primary {
+            width: 100%; padding: 14px; background: #2d3748; color: white;
+            border: none; border-radius: 12px; cursor: pointer; font-size: 1.1rem; font-weight: bold;
+            transition: background 0.2s, transform 0.1s, box-shadow 0.2s; font-family: inherit;
+            box-shadow: 0 4px 12px rgba(45, 55, 72, 0.2);
+        }
+        button.btn-primary:hover { background: #1a202c; box-shadow: 0 6px 16px rgba(26, 32, 44, 0.3); }
         button.btn-primary:active { transform: scale(0.98); }
 
-        #detail-panel { display: none; background: #fffaf0; border: 1px solid #f6e05e; padding: 1.5rem 1.2rem; border-radius: 12px; margin-top: 2rem; font-size: 0.95rem; color: #744210; animation: fadeIn 0.5s; box-shadow: 0 4px 6px rgba(236, 201, 75, 0.1); }
-        .tag { background: white; padding: 2px 8px; border-radius: 6px; font-weight: bold; border: 1px solid #e2e8f0; margin: 0 4px; display: inline-block; color: #2d3748; }
+        /* ── Detail panel ── */
+        #detail-panel {
+            display: none; background: rgba(255, 250, 240, 0.7); border: 1px solid rgba(246, 224, 94, 0.6);
+            padding: 1.5rem 1.2rem; border-radius: 12px; margin-top: 2rem; font-size: 0.95rem; color: #744210;
+        }
+        .tag { background: white; padding: 2px 8px; border-radius: 6px; font-weight: bold; border: 1px solid rgba(226, 232, 240, 0.8); margin: 0 4px; display: inline-block; color: #2d3748; }
         .logic-title { font-weight: bold; color: #b7791f; margin-bottom: 0.8rem; border-bottom: 1px dashed #ecc94b; padding-bottom: 0.5rem; }
 
-        #result-container { display: none; animation: slideUp 0.5s ease; }
-        .formula-title { font-size: 1.4rem; font-weight: bold; margin-bottom: 1.5rem; padding-bottom: 0.8rem; border-bottom: 2px solid #edf2f7; }
-        
-        .ratio-bar-container { display: flex; height: 32px; border-radius: 8px; overflow: hidden; margin-bottom: 0.5rem; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
-        .ratio-segment { display: flex; align-items: center; justify-content: center; color: white; font-size: 0.85rem; font-weight: bold; text-shadow: 0 1px 2px rgba(0,0,0,0.3); transition: width 0.5s ease-in-out; }
+        /* ── Result ── */
+        #result-container { display: none; animation: slideUp 0.5s ease; width: 100%; }
+        .formula-title { font-size: 1.4rem; font-weight: bold; margin-bottom: 1.2rem; padding-bottom: 0.8rem; border-bottom: 2px solid rgba(237, 242, 247, 0.6); }
 
-        .zhi-bar-container { display: flex; height: 16px; border-radius: 4px; overflow: hidden; margin-bottom: 0.8rem; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); opacity: 0.85; }
-        .zhi-segment { display: flex; align-items: center; justify-content: center; color: white; font-size: 0.75rem; font-weight: bold; letter-spacing: 2px; text-shadow: 0 1px 2px rgba(0,0,0,0.3); transition: width 0.5s ease-in-out; }
-        
-        #ratio-legend { display: flex; flex-wrap: wrap; gap: 12px; font-size: 0.9rem; color: #4a5568; margin-bottom: 2rem; }
-        .legend-item { display: flex; align-items: center; }
-        .legend-color-box { width: 14px; height: 14px; border-radius: 4px; margin-right: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+        /* ── Top Palette Bars ── */
+        .top-palette-title { font-size: 0.95rem; font-weight: 600; color: #4a5568; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: flex-end;}
+        .top-palette-title span { font-size: 0.75rem; font-weight: normal; opacity: 0.8; color: #a0aec0;}
+        .top-palette-bars {
+            display: flex; height: 95px; border-radius: 12px; overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08); margin-bottom: 1rem; width: 100%;
+            border: 1px solid rgba(255,255,255,0.4);
+        }
+        .top-pal-swatch {
+            flex: 1; display: flex; flex-direction: column; justify-content: flex-end;
+            padding: 8px; cursor: pointer; transition: flex 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative; overflow: hidden;
+        }
+        .top-pal-swatch:hover { flex: 1.5; }
+        .top-pal-swatch::before {
+            content: '點擊展開搭配'; position: absolute; top: 10px; left: 0; right: 0; text-align: center;
+            font-size: 10px; opacity: 0; transition: opacity 0.3s; font-weight: 600; letter-spacing: 0.5px;
+        }
+        .top-pal-swatch:hover::before { opacity: 0.75; }
+        .top-pal-hex { font-size: 12px; font-weight: 700; font-family: 'DM Sans', monospace; text-align: center; margin-bottom: 2px; }
+        .top-pal-name { font-size: 11px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: 0.9; }
+        .top-pal-indicator { position: absolute; top: 0; left: 0; right: 0; height: 5px; background: rgba(255,255,255,0.4); transform: scaleX(0); transition: transform 0.3s; }
+        .top-pal-swatch.active .top-pal-indicator { transform: scaleX(1); }
+        .top-pal-swatch.active { flex: 1.4; }
 
-        .vibe-card { background: #f8fafc; border-radius: 12px; padding: 18px; margin-bottom: 1.2rem; border-left: 5px solid var(--primary); }
-        .vibe-card h4 { margin: 0 0 10px 0; color: #2d3748; font-size: 1.05rem; }
+        /* Inner Shield Badge */
+        .inner-shield-badge {
+            display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px;
+            border-radius: 20px; font-size: 0.9rem; font-weight: 600;
+            margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            background: rgba(255,255,255,0.8) !important;
+            backdrop-filter: blur(8px);
+        }
+        .inner-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 0 1px rgba(0,0,0,0.1); }
+
+        /* Vibe Cards */
+        .vibe-card {
+            background: rgba(248, 250, 252, 0.7); border-radius: 12px; padding: 18px; margin-bottom: 1.2rem;
+            border-left: 5px solid var(--primary); transition: background 0.3s, border-color 0.3s;
+            width: 100%; box-sizing: border-box; border-top: 1px solid rgba(255,255,255,0.6);
+        }
+        .vibe-card h4 { margin: 0 0 10px 0; color: #2d3748; font-size: 1.05rem; transition: color 0.3s;}
         .vibe-card p { margin: 0; font-size: 1rem; color: #4a5568; line-height: 1.6; }
 
-        .zhi-card { border-left-color: #805ad5 !important; background: #faf5ff !important; }
+        /* ── Pantone Bottom Section ── */
+        .pantone-section { margin-top: 2.5rem; border-top: 2px dashed rgba(237, 242, 247, 0.8); padding-top: 2rem; }
+        .pantone-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 1.2rem; }
+        .pantone-header h3 { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: #1a202c; }
 
-        .footer { margin-top: auto; padding-bottom: 1rem; font-size: 0.85rem; color: #a0aec0; letter-spacing: 0.5px; text-align: center; width: 100%; }
+        .palette-tabs {
+            display: flex; gap: 8px; margin-bottom: 1.2rem; flex-wrap: nowrap;
+            overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 6px; scrollbar-width: none;
+        }
+        .palette-tabs::-webkit-scrollbar { display: none; }
+        .palette-tab {
+            font-size: 13px; padding: 6px 16px; border-radius: 20px; border: 1px solid rgba(226, 232, 240, 0.8);
+            background: rgba(255,255,255,0.5); color: #4a5568; cursor: pointer; transition: all .15s;
+            white-space: nowrap; flex-shrink: 0;
+        }
+        .palette-tab.active { background: #2d3748; color: white; border-color: #2d3748; }
 
-        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .swatch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); gap: 6px; margin-bottom: 1.5rem; }
+        .pt-swatch { border-radius: 8px; cursor: pointer; border: 2px solid transparent; transition: transform .12s; overflow: hidden; }
+        .pt-swatch.active { border-color: #2d3748; box-shadow: 0 0 0 1px #2d3748; transform: scale(1.05); }
+        .pt-swatch-color { height: 36px; }
+        .pt-swatch-name { font-size: 8px; color: #718096; text-align: center; padding: 3px 2px; line-height: 1.3; background: rgba(255,255,255,0.9); }
+
+        .selected-color-bar {
+            display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px;
+            border: 1px solid rgba(226, 232, 240, 0.6); background: rgba(247, 250, 252, 0.7); margin-bottom: 1.5rem;
+        }
+        .sel-dot { width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .sel-code { font-size: 13px; font-weight: 600; color: #2d3748; }
+        .sel-hex { font-size: 11px; color: #a0aec0; font-family: monospace; }
+
+        .palette-cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+        .pal-card {
+            background: white; border: 1px solid rgba(226, 232, 240, 0.8); border-radius: 14px; overflow: hidden;
+            cursor: pointer; transition: transform .15s, box-shadow .15s; position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+        .pal-card:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); }
+        .pal-swatches { display: flex; height: 56px; }
+        .pal-swatch-seg { flex: 1; position: relative; }
+        .pal-swatch-hex { position: absolute; bottom: 4px; left: 0; right: 0; font-size: 7px; text-align: center; font-weight: 600; opacity: 0.8; letter-spacing: .03em; }
+        .pal-body { padding: 10px 13px 12px; }
+        .pal-name { font-size: 13px; font-weight: 600; color: #2d3748; }
+        .pal-mood { font-size: 11px; color: #718096; margin-top: 2px; }
+        .pal-codes { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
+        .pal-code-pill { font-family: monospace; font-size: 9px; background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 4px; padding: 2px 6px; color: #718096; }
+
+        /* ★ Modal 預覽視窗 ★ */
+        #result-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85); z-index: 99999; justify-content: center; align-items: center;
+            flex-direction: column; padding: 20px; backdrop-filter: blur(8px);
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        #result-modal.show { display: flex; opacity: 1; }
+        .modal-content {
+            background: white; padding: 16px; border-radius: 20px; max-width: 360px; width: 100%;
+            text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.4); position: relative;
+        }
+        .modal-img-container {
+            width: 100%; border-radius: 12px; overflow: hidden; margin-bottom: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); background: #f7fafc; min-height: 300px;
+            display: flex; align-items: center; justify-content: center; position: relative;
+        }
+        .modal-img-container img { width: 100%; height: auto; display: block; }
+        .modal-close {
+            position: absolute; top: -14px; right: -14px; background: #2d3748; color: white;
+            width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; font-weight: bold; cursor: pointer; border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .modal-actions { display: flex; gap: 10px; margin-top: 5px; }
+        .btn-modal {
+            flex: 1; padding: 14px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer;
+            font-size: 1rem; transition: background 0.2s; display: flex; justify-content: center; align-items: center; gap: 6px;
+        }
+        .btn-share { background: var(--primary); color: white; }
+        .btn-share:hover { filter: brightness(1.1); }
+        .modal-hint { color: #718096; font-size: 0.85rem; margin-top: 12px; font-weight: 600; letter-spacing: 0.5px; }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
+<div class="bg-orb-1"></div>
+<div class="bg-orb-2"></div>
+
 <div class="card">
     <h2>專屬五行<span class="title-symbols">㊍㊋㊏㊎㊌</span>穿搭公式</h2>
     <div class="disclaimer">💡 五行穿搭配色僅供參考，保持好心情就是最棒的日常穿搭！</div>
-    
+
     <div class="layout-wrapper">
         <div class="left-col">
             <div class="input-group">
                 <label>您的生日 (計算本命日主)</label>
                 <input type="date" id="birthday">
             </div>
-            
             <div class="input-group">
                 <label>想查詢的日期 (預設為今日)</label>
                 <input type="date" id="target-date">
             </div>
-
             <button class="btn-primary" onclick="calculate()">生成專屬穿搭配方</button>
-            
+
             <div id="detail-panel">
                 <div class="logic-title">📖 命理運算解析</div>
                 <strong>【命盤基礎】</strong><br>
@@ -113,298 +287,494 @@
 
         <div class="right-col" id="result-container">
             <div class="formula-title" id="formula-name">🌟 配方載入中...</div>
+
+            <div class="top-palette-title">
+                今日 Pantone 推薦配色 <span>(點擊展開搭配)</span>
+            </div>
+            <div class="top-palette-bars" id="top-palette-bars"></div>
             
-            <label style="color: #4a5568; display: flex; justify-content: space-between;">
-                <span>色彩能量比例：</span>
-            </label>
-            
-            <div class="ratio-bar-container" id="ratio-bar"></div>
-            <div class="zhi-bar-container" id="zhi-ratio-bar"></div>
-            
-            <div id="ratio-legend"></div>
+            <div class="inner-shield-badge" id="inner-shield-badge"></div>
 
             <div class="vibe-card">
                 <h4>🎭 風格意象 (外在穿搭)</h4>
                 <p id="vibe-text">載入中...</p>
             </div>
-
             <div class="vibe-card zhi-card">
                 <h4>🔋 內在防護罩 (專屬細節)</h4>
                 <p id="zhi-text">載入中...</p>
             </div>
-
-            <div class="vibe-card" style="border-left-color: #ecc94b; background: #fffff0;">
-                <h4>💡 穿搭小訣竅</h4>
+            <div class="vibe-card" id="tips-card">
+                <h4 id="tips-title">💡 穿搭小訣竅</h4>
                 <p id="tips-text">載入中...</p>
             </div>
-
-            <div class="vibe-card" style="border-left-color: #ed8936; background: #fffaf0; text-align: center;">
-                <h4 style="color: #c05621; margin-bottom: 5px;">📜 今日能量箴言</h4>
-                <p id="quote-text" style="font-weight: bold; color: #dd6b20; font-size: 1.05rem; letter-spacing: 0.5px;">載入中...</p>
+            <div class="vibe-card" id="quote-card" style="text-align: center;">
+                <h4 id="quote-title" style="margin-bottom: 5px;">📜 今日能量箴言</h4>
+                <p id="quote-text" style="font-weight: bold; font-size: 1.05rem; letter-spacing: 0.5px;">載入中...</p>
             </div>
 
-            <button id="share-btn" class="btn-primary" style="background: var(--primary); margin-top: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px;" onclick="downloadCard()">
-                📸 儲存專屬配方卡
-            </button>  
+            <div class="pantone-section" id="pantone-section">
+                <div class="pantone-header">
+                    <h3>延伸配色探索區</h3>
+                </div>
+                
+                <div class="selected-color-bar" id="sel-bar">
+                    <div class="sel-dot" id="sel-dot"></div>
+                    <div>
+                        <div class="sel-code" id="sel-code">尚未選色</div>
+                        <div class="sel-hex" id="sel-hex">點選上方色票進行搭配</div>
+                    </div>
+                </div>
+
+                <div class="palette-cards-grid" id="pal-cards-grid" style="margin-bottom: 2rem;"></div>
+
+                <details style="color: #718096; font-size: 0.95rem; margin-top: 2rem;">
+                    <summary style="cursor: pointer; font-weight: 600; margin-bottom: 1rem; user-select: none;">🔍 展開瀏覽完整 Pantone 色庫</summary>
+                    <div style="padding-top: 0.5rem;">
+                        <div class="swatch-section-label">依色系篩選</div>
+                        <div class="palette-tabs" id="palette-tabs"></div>
+                        <div class="swatch-grid" id="pt-swatch-grid"></div>
+                    </div>
+                </details>
+            </div>
+
+            <button id="share-btn" class="btn-primary"
+                style="margin-top: 1.5rem; display: flex; align-items: center; justify-content: center; gap: 8px;"
+                onclick="generateAndShowModal()">
+                📸 一鍵產出專屬配方卡
+            </button>
         </div>
     </div>
 </div>
 
-<div class="footer">
-    Powered by <strong>LINGPLUS Studio</strong>
+<div class="footer" style="position: relative; z-index: 1;">Powered by <strong>LINGPLUS Studio</strong></div>
+
+<div id="result-modal">
+    <div class="modal-content">
+        <div class="modal-close" onclick="closeModal()">✕</div>
+        <div class="modal-img-container" id="modal-img-container">
+            </div>
+        <div class="modal-actions">
+            <button class="btn-modal btn-share" id="modal-native-share-btn" onclick="triggerNativeShare()">
+                🚀 立即分享 / 下載
+            </button>
+        </div>
+        <div class="modal-hint">✨ 提示：手機長按上方圖片也可儲存至相簿</div>
+    </div>
 </div>
 
 <script>
-    // --- 輔助函數：轉換 DataURL 為 File 對象 ---
-    function dataURLtoFile(dataurl, filename) {
-        var arr = dataurl.split(','), 
-            mime = arr[0].match(/:(.*?);/)[1],
-            bstr = atob(arr[1]), 
-            n = bstr.length, 
-            u8arr = new Uint8Array(n);
-        while(n--){
-            u8arr[n] = bstr.charCodeAt(n);
-        }
-        return new File([u8arr], filename, {type:mime});
-    }
+const ganToElement = {'甲':'木','乙':'木','丙':'火','丁':'火','戊':'土','己':'土','庚':'金','辛':'金','壬':'水','癸':'水'};
+const zhiToElement = {'子':'水','丑':'土','寅':'木','卯':'木','辰':'土','巳':'火','午':'火','未':'土','申':'金','酉':'金','戌':'土','亥':'水'};
+const sheng = {'木':'火','火':'土','土':'金','金':'水','水':'木'};
+const ke   = {'木':'土','土':'水','水':'火','火':'金','金':'木'};
+const shengMeMap = {'金':'土','水':'金','木':'水','火':'木','土':'火'};
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const birthdayInput = document.getElementById('birthday');
-        const savedBirthday = localStorage.getItem('userBirthday');
-        if (savedBirthday) {
-            birthdayInput.value = savedBirthday;
-        } else {
-    // 如果沒存過，預設顯示今天，看起來比較像一般的查詢系統
-    birthdayInput.value = new Date().toISOString().split('T')[0];
+const formulaData = {
+    '木':{'name':'🌲 森系呼吸配方 (木)','themeColor':'#2F855A','vibes':['寬鬆、自然、層次感。彷彿森林中行走的微風，展現親和與生機。','清新、文藝、無拘束。用自然材質包裹身體，讓呼吸更順暢。'],'tips':['若沒有綠色衣服，選擇帶有「植物碎花」的單品，或背個「帆布編織包」也能補足滿滿的木氣！','今天可以嘗試配戴「木質飾品」或「綠色系絲巾」，在細節處點亮今天的生機。']},
+    '火':{'name':'🔥 流光焦點配方 (火)','themeColor':'#C53030','vibes':['合身、亮面、自信感。在黑暗中跳動的火焰，你是這天的視覺焦點。','氣場全開、熱情洋溢。大膽展現你的個人特色，不要害怕成為主角。'],'tips':['不一定要全身紅！只要「一抹紅唇」、「一條亮色絲巾」或「紅色高跟鞋」，就能點燃火能量。','今天非常適合配戴閃亮的「玫瑰金飾品」或有光澤感的面料，提升整體的華麗度。']},
+    '土':{'name':'🏔️ 大地暖陽配方 (土)','themeColor':'#B7791F','vibes':['溫潤、厚實、同色系疊穿。如同寬廣的大地，給人極高的信任感與包容力。','慵懶、知性、毫無攻擊性。像一杯溫熱的焦糖拿鐵，散發讓人想靠近的溫暖。'],'tips':['利用不同深淺的「大地色系疊穿 (Tone-on-Tone)」能展現最高級的質感。','配件可選擇「琥珀色鏡框」或「質感皮革包」，能大幅提升今天的專業信賴感。']},
+    '金':{'name':'⚔️ 極簡鋒芒配方 (金)','themeColor':'#718096','vibes':['挺括、乾淨、俐落。像晨曦照在刀刃上，展現專業、秩序與高效率。','極簡都會、冷靜自持。去除多餘的裝飾，用最純粹的線條勾勒出高級感。'],'tips':['「硬挺的白襯衫」是金屬性的靈魂，搭配「金屬錶帶」或「銀色細邊眼鏡」。','今天請盡量避開繁複的花紋或碎花，保持大面積的色塊與乾淨的剪裁。']},
+    '水':{'name':'🌊 深海流動配方 (水)','themeColor':'#2B6CB0','vibes':['垂墜、深邃、神祕。利用輕柔透氣的材質，展現如水流般的智慧與靈活。','慵懶性感、變化萬千。像沒有固定形狀的水，今天你能適應各種場合與挑戰。'],'tips':['若覺得深色太沉重，可以加入「雪紡」、「半透明材質」的單品，或者配戴「水晶飾品」。','利用不同層次的藍色（如藏青配天藍）能營造流動感，幫助你今天思考更加順暢。']}
+};
+
+const quotesData = {
+    '木':['柔軟不代表軟弱，像藤蔓一樣順應局勢，反而能攀得更高。','枝繁葉茂需要時間的積累，今天的每一個小進展，都在為未來扎根。'],
+    '火':['把精力留給真正值得的人事物，其他的辦公室雜音，就讓它隨風而去。','你的存在本身就是一種光，別因為別人的眼光而刻意調暗亮度。'],
+    '土':['穩住陣腳就是最大的前進。今天不需要華麗的戰績，安穩度過就是勝利。','所有的積累都不會白費，那些日常正在構築你未來的城堡。'],
+    '金':['刪繁就簡是今天的最高指導原則，清理掉桌面和腦袋裡的雜物。','保持冷靜與理智，今天的你擁有看透事物本質的清晰洞察力。'],
+    '水':['上善若水。遇到阻礙不必硬碰硬，繞個彎，你依然能抵達終點。','讓思緒像深海一樣平靜，在沉默中積蓄能量。']
+};
+
+/* ── 擴充版 Pantone 色庫 ── */
+const PANTONE = [
+    {code:"11-0601",name:"Bright White",hex:"#F4F5F0",hue:"中性"},{code:"11-4800",name:"Blanc de Blanc",hex:"#EAE8E1",hue:"中性"},
+    {code:"13-4108",name:"Nimbus Cloud",hex:"#D5D5D8",hue:"中性"},{code:"15-4003",name:"Storm Gray",hex:"#B5BABD",hue:"中性"},
+    {code:"17-5104",name:"Ultimate Gray",hex:"#939597",hue:"中性"},{code:"18-0306",name:"Slate Gray",hex:"#7F8C8D",hue:"中性"},
+    {code:"19-3911",name:"Black Beauty",hex:"#26262A",hue:"中性"},{code:"19-4104",name:"Ebony",hex:"#333538",hue:"中性"},
+    {code:"19-0303",name:"Jet Black",hex:"#2C2C2C",hue:"中性"},{code:"14-4102",name:"Monument",hex:"#8A8D8F",hue:"中性"},
+    
+    {code:"12-0752",name:"Buttercup",hex:"#F9D84A",hue:"黃"},{code:"13-0647",name:"Illuminating",hex:"#F5DF4D",hue:"黃"},
+    {code:"14-0848",name:"Mimosa",hex:"#F0C05A",hue:"黃"},{code:"12-0727",name:"Sunshine",hex:"#FADE85",hue:"黃"},
+    {code:"14-0955",name:"Citrus",hex:"#F9AC2F",hue:"黃"},{code:"13-0859",name:"Lemon Chrome",hex:"#FFC300",hue:"黃"},
+    
+    {code:"14-0846",name:"Sunset Gold",hex:"#E8A830",hue:"橘"},{code:"15-1157",name:"Tangerine",hex:"#F28A30",hue:"橘"},
+    {code:"16-1356",name:"Persimmon",hex:"#F36A41",hue:"橘"},{code:"15-1150",name:"Peach Echo",hex:"#F7786B",hue:"橘"},
+    {code:"14-1159",name:"Mango",hex:"#F4A657",hue:"橘"},{code:"16-1448",name:"Burnt Orange",hex:"#C05805",hue:"橘"},
+    
+    {code:"18-1660",name:"Fiesta",hex:"#DD4132",hue:"紅"},{code:"19-1760",name:"Chili Pepper",hex:"#9B1B30",hue:"紅"},
+    {code:"18-1662",name:"Flame",hex:"#F2552C",hue:"紅"},{code:"19-1555",name:"Red Dahlia",hex:"#7D2027",hue:"紅"},
+    {code:"17-1563",name:"Cherry Tomato",hex:"#EB3C27",hue:"紅"},{code:"19-1664",name:"True Red",hex:"#BF1932",hue:"紅"},
+    {code:"18-1658",name:"Pompeian Red",hex:"#A4292E",hue:"紅"},
+    
+    {code:"15-1920",name:"Crystal Rose",hex:"#F7C0BE",hue:"粉"},{code:"17-2034",name:"Flamingo Pink",hex:"#F0808A",hue:"粉"},
+    {code:"13-1520",name:"Rose Quartz",hex:"#F7CAC9",hue:"粉"},{code:"17-2031",name:"Fuchsia Rose",hex:"#C74375",hue:"粉"},
+    {code:"16-1522",name:"Rose Dawn",hex:"#C2877B",hue:"粉"},{code:"14-1318",name:"Coral Pink",hex:"#F8A39D",hue:"粉"},
+    
+    {code:"18-3025",name:"Violet Tulip",hex:"#A783B5",hue:"紫"},{code:"19-3536",name:"Ultra Violet",hex:"#5F4B8B",hue:"紫"},
+    {code:"18-3224",name:"Radiant Orchid",hex:"#B565A7",hue:"紫"},{code:"16-3310",name:"Lavender Herb",hex:"#A77FB2",hue:"紫"},
+    {code:"19-3938",name:"Very Peri",hex:"#6667AB",hue:"紫"},{code:"19-3730",name:"Grape Nectar",hex:"#71525C",hue:"紫"},
+    
+    {code:"18-4051",name:"Classic Blue",hex:"#0F4C81",hue:"藍"},{code:"17-4328",name:"Cerulean",hex:"#9BB7D4",hue:"藍"},
+    {code:"15-3919",name:"Serenity",hex:"#91A8D0",hue:"藍"},{code:"19-4150",name:"Princess Blue",hex:"#00539C",hue:"藍"},
+    {code:"17-4139",name:"Azure Blue",hex:"#4D91C6",hue:"藍"},{code:"19-4056",name:"Olympian Blue",hex:"#184A86",hue:"藍"},
+    {code:"19-3921",name:"Black Iris",hex:"#2B3042",hue:"藍"},{code:"16-4134",name:"Blue Atoll",hex:"#00B1D2",hue:"藍"},
+    
+    {code:"15-0545",name:"Greenery",hex:"#88B04B",hue:"綠"},{code:"18-0430",name:"Peridot",hex:"#889A45",hue:"綠"},
+    {code:"17-5641",name:"Emerald",hex:"#009473",hue:"綠"},{code:"19-5513",name:"Dark Green",hex:"#324336",hue:"綠"},
+    {code:"16-6138",name:"Green Flash",hex:"#78C25D",hue:"綠"},{code:"18-0107",name:"Kale",hex:"#5A7247",hue:"綠"},
+    {code:"19-5320",name:"Billiard",hex:"#005F56",hue:"綠"},{code:"14-0156",name:"Summer Green",hex:"#91CBA9",hue:"綠"},
+    
+    {code:"18-1048",name:"Mocha Bisque",hex:"#BB7743",hue:"棕"},{code:"16-1325",name:"Sand",hex:"#D4AA7D",hue:"棕"},
+    {code:"19-1220",name:"Capulet Olive",hex:"#655643",hue:"棕"},{code:"18-1222",name:"Cocoa Brown",hex:"#6F463B",hue:"棕"},
+    {code:"17-1143",name:"Hazelnut",hex:"#CFB096",hue:"棕"},{code:"19-1420",name:"Deep Mahogany",hex:"#4B2D26",hue:"棕"},
+    {code:"15-1214",name:"Warm Sand",hex:"#CBBAA5",hue:"棕"}
+];
+
+const WX_HUES = {'木':['綠'],'火':['紅','粉','橘'],'土':['棕','黃','橘'],'金':['中性'],'水':['藍','紫']};
+const HUE_ORDER = ["全部","紅","橘","黃","粉","紫","藍","綠","棕","中性"];
+const SCHEME_RULES = [
+    {name:"類比和諧",mood:"柔和自然，視覺流暢",fn:analogous},
+    {name:"互補對比",mood:"活潑醒目，張力十足",fn:complementary},
+    {name:"三角平衡",mood:"活潑均衡，富層次感",fn:triadic},
+    {name:"單色漸層",mood:"優雅細膩，專業沉穩",fn:monochromatic}
+];
+
+function hexToHsl(hex){
+    let r=parseInt(hex.slice(1,3),16)/255,g=parseInt(hex.slice(3,5),16)/255,b=parseInt(hex.slice(5,7),16)/255;
+    let max=Math.max(r,g,b),min=Math.min(r,g,b),h,s,l=(max+min)/2;
+    if(max!==min){
+        let d=max-min;s=l>.5?d/(2-max-min):d/(max+min);
+        switch(max){case r:h=((g-b)/d+(g<b?6:0))/6;break;case g:h=((b-r)/d+2)/6;break;default:h=((r-g)/d+4)/6}
+    }else{h=s=0;}
+    return[h*360,s*100,l*100];
+}
+function hslToHex(h,s,l){
+    h/=360;s/=100;l/=100; let r,g,b;
+    if(s===0) r=g=b=l;
+    else{
+        const q=l<.5?l*(1+s):l+s-l*s,p=2*l-q;
+        const h2r=(p,q,t)=>{if(t<0)t+=1;if(t>1)t-=1;if(t<1/6)return p+(q-p)*6*t;if(t<.5)return q;if(t<2/3)return p+(q-p)*(2/3-t)*6;return p;};
+        r=h2r(p,q,h+1/3);g=h2r(p,q,h);b=h2r(p,q,h-1/3);
+    }
+    return '#'+[r,g,b].map(x=>Math.round(x*255).toString(16).padStart(2,'0')).join('');
+}
+function findClosest(hex){
+    const[th,ts,tl]=hexToHsl(hex); let best=null,bestD=Infinity;
+    PANTONE.forEach(p=>{
+        const[h,s,l]=hexToHsl(p.hex);
+        const d=Math.abs(h-th)*1.5+Math.abs(s-ts)+Math.abs(l-tl)*0.5;
+        if(d<bestD){bestD=d;best=p}
+    }); return best;
+}
+function contrast(hex){
+    const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+    return (r*299+g*587+b*114)/1000>128?'rgba(0,0,0,0.6)':'rgba(255,255,255,0.85)';
+}
+function analogous(h,s,l){return[[h,s,l],[h+30,s,l],[h+60,s*.8,l+8],[h-30,s*.9,l-5],[h+15,s*.6,l+15]]}
+function complementary(h,s,l){return[[h,s,l],[h+180,s,l],[h+180,s*.7,l+12],[h,s*.5,l+18],[h+180,s*.4,l-10]]}
+function triadic(h,s,l){return[[h,s,l],[h+120,s*.9,l],[h+240,s*.85,l+5],[h+60,s*.5,l+15],[h+180,s*.4,l+20]]}
+function monochromatic(h,s,l){return[[h,s,l],[h,s*.8,l+15],[h,s*.6,l+25],[h,s*.4,l+35],[h,s,l-15]]}
+
+/* 完美漸層生成：只回傳色碼，不強制吸附 Pantone */
+function generatePalette(baseHex, ruleFn){
+    const[h,s,l]=hexToHsl(baseHex);
+    return ruleFn(h,s,l).map(([rh,rs,rl])=>{
+        const nhex=hslToHex(((rh%360)+360)%360,Math.min(100,Math.max(0,rs)),Math.min(95,Math.max(5,rl)));
+        return { hex: nhex }; 
+    });
 }
 
-        const targetDateInput = document.getElementById('target-date');
-        const now = new Date();
-        const y = now.getFullYear();
-        const m = String(now.getMonth() + 1).padStart(2, '0');
-        const d = String(now.getDate()).padStart(2, '0');
-        targetDateInput.value = `${y}-${m}-${d}`;
+let ptActiveHue = "全部"; let ptSelected = null; let currentTopPalette = [];
+let generatedImageDataUrl = null;
 
-        const triggerCalc = function(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                calculate();
-            }
-        };
-        birthdayInput.addEventListener('keypress', triggerCalc);
-        targetDateInput.addEventListener('keypress', triggerCalc);
+function pickPtColorByCode(code, doScroll=true){
+    const p = PANTONE.find(x => x.code === code);
+    if(!p) return;
+    ptSelected = p;
+    
+    document.querySelectorAll('.top-pal-swatch').forEach(el => {
+        el.classList.remove('active');
+        if(el.dataset.code === code) el.classList.add('active');
     });
 
-    const ganToElement = {'甲':'木','乙':'木','丙':'火','丁':'火','戊':'土','己':'土','庚':'金','辛':'金','壬':'水','癸':'水'};
-    const zhiToElement = {'子':'水','丑':'土','寅':'木','卯':'木','辰':'土','巳':'火','午':'火','未':'土','申':'金','酉':'金','戌':'土','亥':'水'};
-    const sheng = { '木':'火', '火':'土', '土':'金', '金':'水', '水':'木' }; 
-    const ke = { '木':'土', '土':'水', '水':'火', '火':'金', '金':'木' };   
-    const shengMeMap = { '金':'土', '水':'金', '木':'水', '火':'木', '土':'火' }; 
+    document.getElementById('sel-dot').style.background = p.hex;
+    document.getElementById('sel-code').textContent = `Pantone ${p.code} — ${p.name}`;
+    document.getElementById('sel-hex').textContent = p.hex.toUpperCase();
+    
+    const grid = document.getElementById('pal-cards-grid');
+    grid.innerHTML = '';
+    SCHEME_RULES.forEach((rule, i) => {
+        const colors = generatePalette(p.hex, rule.fn);
+        const card = document.createElement('div'); card.className = 'pal-card';
+        const sw = colors.map(c => `<div class="pal-swatch-seg" style="background:${c.hex}"><div class="pal-swatch-hex" style="color:${contrast(c.hex)}">${c.hex.slice(1).toUpperCase()}</div></div>`).join('');
+        const pills = [...new Set(colors.map(c => c.hex.toUpperCase()))].map(hex => `<span class="pal-code-pill">${hex}</span>`).join('');
+        card.innerHTML = `<div class="pal-swatches">${sw}</div><div class="pal-body"><div class="pal-name">${rule.name}</div><div class="pal-mood">${rule.mood}</div><div class="pal-codes">${pills}</div></div>`;
+        grid.appendChild(card);
+    });
 
-    const formulaData={'木':{'name':'🌲 森系呼吸配方 (木)','themeColor':'#2F855A','segmentVariations':[[{'width':'60%','color':'#38A169','text':'主色：綠色系/植物圖騰'},{'width':'30%','color':'#D69E2E','text':'輔色：大地色/亞麻'},{'width':'10%','color':'#744210','text':'點綴：原木/編織配件'}],[{'width':'40%','color':'#38A169','text':'主色：綠色系/植物圖騰'},{'width':'50%','color':'#D69E2E','text':'輔色：大地色/亞麻'},{'width':'10%','color':'#744210','text':'點綴：原木/編織配件'}],[{'width':'80%','color':'#38A169','text':'主色：綠色系/植物圖騰'},{'width':'15%','color':'#D69E2E','text':'輔色：大地色/亞麻'},{'width':'5%','color':'#744210','text':'點綴：原木/編織配件'}]],'vibes':['寬鬆、自然、層次感。彷彿森林中行走的微風，展現親和與生機。','清新、文藝、無拘束。用自然材質包裹身體，讓呼吸更順暢。','生機盎然、質樸純粹。像一株向陽生長的植物，散發安定的力量。'],'tips':['若沒有綠色衣服，選擇帶有「植物碎花」的單品，或背個「帆布編織包」也能補足滿滿的木氣！','今天可以嘗試配戴「木質飾品」或「綠色系絲巾」，在細節處點亮今天的生機。','棉麻材質的服飾是今天的最佳戰袍，不僅透氣，還能完美承載木屬性的自然能量。']},'火':{'name':'🔥 流光焦點配方 (火)','themeColor':'#C53030','segmentVariations':[[{'width':'70%','color':'#1A202C','text':'主色：中性黑/白基底'},{'width':'20%','color':'#E53E3E','text':'輔色：紅/粉/紫點綴'},{'width':'10%','color':'#D69E2E','text':'點綴：閃耀金屬飾品'}],[{'width':'85%','color':'#1A202C','text':'主色：中性黑/白基底'},{'width':'10%','color':'#E53E3E','text':'輔色：紅/粉/紫點綴'},{'width':'5%','color':'#D69E2E','text':'點綴：閃耀金屬飾品'}],[{'width':'50%','color':'#1A202C','text':'主色：中性黑/白基底'},{'width':'40%','color':'#E53E3E','text':'輔色：紅/粉/紫點綴'},{'width':'10%','color':'#D69E2E','text':'點綴：閃耀金屬飾品'}]],'vibes':['合身、亮面、自信感。在黑暗中跳動的火焰，你是這天的視覺焦點。','氣場全開、熱情洋溢。大膽展現你的個人特色，不要害怕成為主角。','俐落、華麗、充滿張力。用一點點的搶眼色彩，喚醒內心的行動力。'],'tips':['不一定要全身紅！只要「一抹紅唇」、「一條亮色絲巾」或「紅色高跟鞋」，就能點燃火能量。','今天非常適合配戴閃亮的「玫瑰金飾品」或有光澤感的面料，提升整體的華麗度。','若想低調些，可以將火色系放在下半身（如磚紅色長裙），既穩重又不失活力。']},'土':{'name':'🏔️ 大地暖陽配方 (土)','themeColor':'#B7791F','segmentVariations':[[{'width':'50%','color':'#F6E05E','text':'主色：燕麥/鵝黃色'},{'width':'40%','color':'#975A16','text':'輔色：焦糖/深咖色'},{'width':'10%','color':'#ECC94B','text':'點綴：暖金配件'}],[{'width':'70%','color':'#F6E05E','text':'主色：燕麥/淺黃色'},{'width':'20%','color':'#975A16','text':'輔色：焦糖/深咖色'},{'width':'10%','color':'#ECC94B','text':'點綴：暖金配件'}],[{'width':'30%','color':'#F6E05E','text':'主色：燕麥/鵝黃色'},{'width':'60%','color':'#975A16','text':'輔色：焦糖/深咖色'},{'width':'10%','color':'#ECC94B','text':'點綴：暖金配件'}]],'vibes':['溫潤、厚實、同色系疊穿。如同寬廣的大地，給人極高的信任感與包容力。','慵懶、知性、毫無攻擊性。像一杯溫熱的焦糖拿鐵，散發讓人想靠近的溫溫。','沉穩、經典、高雅質感。利用低飽和度的色彩，展現歲月靜好的從容。'],'tips':['利用不同深淺的「大地色系疊穿 (Tone-on-Tone)」能展現最高級的質感。','配件可選擇「琥珀色鏡框」或「質感皮革包」，能大幅提升今天的專業信賴感。','如果覺得整身土色太暗沉，可以在內搭加入一點「鵝黃色」或「米白色」來提亮氣色！']},'金':{'name':'⚔️ 極簡鋒芒配方 (金)','themeColor':'#718096','segmentVariations':[[{'width':'80%','color':'#E2E8F0','text':'主色：純白/淺灰/極簡','colorText':'#2d3748'},{'width':'15%','color':'#A0AEC0','text':'輔色：鈦金屬色'},{'width':'5%','color':'#CBD5E0','text':'點綴：冷光銀飾','colorText':'#2d3748'}],[{'width':'60%','color':'#E2E8F0','text':'主色：純白/淺灰/極簡','colorText':'#2d3748'},{'width':'30%','color':'#A0AEC0','text':'輔色：灰色/金屬色'},{'width':'10%','color':'#CBD5E0','text':'點綴：冷光銀飾','colorText':'#2d3748'}],[{'width':'90%','color':'#E2E8F0','text':'主色：極簡大白','colorText':'#2d3748'},{'width':'5%','color':'#A0AEC0','text':'輔色：鈦金屬色'},{'width':'5%','color':'#CBD5E0','text':'點綴：冷光銀飾','colorText':'#2d3748'}]],'vibes':['挺括、乾淨、俐落。像晨曦照在刀刃上，展現專業、秩序與高效率。','極簡都會、冷靜自持。去除多餘的裝飾，用最純粹的線條勾勒出高級感。','率性、幾何、鋒芒微露。帶有一點中性色彩，今天是下決策的絕佳狀態。'],'tips':['「硬挺的白襯衫」是金屬性的靈魂，搭配「金屬錶帶」或「銀色細邊眼鏡」。','今天請盡量避開繁複的花紋或碎花，保持大面積的色塊與乾淨的剪裁。','若想增加親和力，可以選擇「珍珠白」或「帶有些微光澤的絲質面料」。']},'水':{'name':'🌊 深海流動配方 (水)','themeColor':'#2B6CB0','segmentVariations':[[{'width':'70%','color':'#1A202C','text':'主色：藏藍/純黑'},{'width':'20%','color':'#4299E1','text':'輔色：灰藍/水藍'},{'width':'10%','color':'#E2E8F0','text':'點綴：透明/琉璃飾品','colorText':'#2d3748'}],[{'width':'85%','color':'#1A202C','text':'主色：藏藍/純黑'},{'width':'10%','color':'#4299E1','text':'輔色：灰藍/水藍'},{'width':'5%','color':'#E2E8F0','text':'點綴：透明/琉璃飾品','colorText':'#2d3748'}],[{'width':'50%','color':'#1A202C','text':'主色：藏藍/純黑'},{'width':'40%','color':'#4299E1','text':'輔色：天藍/水藍'},{'width':'10%','color':'#E2E8F0','text':'點綴：透明/琉璃飾品','colorText':'#2d3748'}]],'vibes':['垂墜、深邃、神祕。利用輕柔透氣的材質，展現如水流般的智慧與靈活。','慵懶性感、變化萬千。像沒有固定形狀的水，今天你能適應各種場合與挑戰。','冷靜、理智、深不見底。深藍與黑色的交織，幫你隱藏情緒，保持絕對的清醒。'],'tips':['若覺得深色太沉重，可以加入「雪紡」、「半透明材質」的單品，或者配戴「水晶飾品」。','利用不同層次的藍色（如藏青配天藍）能營造流動感，幫助你今天思考更加順暢。','配件推薦選擇「流線型剪裁」或「不對稱設計」，能完美呼應水屬性。']}};
+    if(doScroll){
+        const target = document.getElementById('pantone-section');
+        const y = target.getBoundingClientRect().top + window.pageYOffset - 40;
+        window.scrollTo({top: y, behavior: 'smooth'});
+    }
+}
 
-    const quotesData={'木':['如樹木向上生長，今天的你不需要急著開花，專注於吸收養分。','柔軟不代表軟弱，像藤蔓一樣順應局勢，反而能攀得更高。','今天試著在辦公桌上放慢呼吸，讓大自然的節奏引導你的步調。','枝繁葉茂需要時間的積累，今天的每一個小進展，都在為未來扎根。','當風雨來襲，學會像竹子一樣彎曲而不折斷，這才是真正的韌性。','為自己保留一片綠意，別讓工作抽乾了你的生機。','今天的靈感如同春日的新芽，請好好記錄下來，它會長成大樹。','放下無謂的執念，讓心情像落葉般隨風而去。','向陽而生是木的本性，遠離辦公室裡的負能量。','你的成長軌跡是獨一無二的，不需要跟別人比生長速度。'],'火':['即使是微小的星火，也能溫暖整個空間。','把精力留給真正值得的人事物，其他的辦公室雜音，就讓它隨風而去。','你是今天的主角，不要害怕展現光芒，你的靈感將會點燃新的契機。','火焰向上燃燒，今天請保持抬頭挺胸的姿態。','不要害怕犯錯，燃燒的過程總會有灰燼，但那都是提煉智慧的必經之路。','今天的你充滿感染力，用一個微笑或一句讚美，去點亮同事的一天。','當行動力爆棚時，就一鼓作氣把拖延已久的任務消滅吧！','懂得適時熄火也是一種修行，下班後請讓大腦徹底關機。','你的存在本身就是一種光，別因為別人的眼光而刻意調暗自己的亮度。','遇到不公的事情，適度的表達憤怒是必要的，讓你的底線清晰可見。'],'土':['萬物皆有定時。今天的煩惱就像落葉歸根，給它一點時間慢慢沉澱。','像大地一樣包容一切，面對不合理的焦慮，用最平穩的步伐跨越它。','穩住陣腳就是最大的前進。今天不需要華麗的戰績，安穩度過就是勝利。','你的可靠是團隊中最安定的力量。','慢慢來，比較快。今天的任務適合拆解成小塊完成。','固執有時是種保護，但今天試著鬆動一點點泥土，讓新的觀念種子發芽。','享受食物帶來的療癒感，今天為自己準備一份豐盛溫暖的午餐。','所有的積累都不會白費，那些日常正在構築你未來的城堡。','當覺得輕飄飄沒有安全感時，把雙腳平放在地上，感受大地。','拒絕做別人的情緒垃圾桶，你的包容力很珍貴。'],'金':['如利刃出鞘，把不必要的雜念與情緒俐落斬斷。','保持冷靜與理智，今天的你擁有看透事物本質的清晰洞察力。','不需要討好所有人，保持你特有的邊界感。','真正的價值需要經過千錘百鍊。','刪繁就簡是今天的最高指導原則，清理掉桌面和腦袋裡的雜物。','該說「不」的時候就果斷說不，你的時間不容揮霍。','規則是用來保護你的，而不是限制你。','沉默有時比言語更有力量，在關鍵時刻保持沉穩。','追求完美是你的天性，但今天請學會接受「夠好就好」。','相信直覺，勇敢做出那個醞釀已久的決定。'],'水':['上善若水。遇到阻礙不必硬碰硬，繞個彎，你依然能抵達終點。','讓思緒像深海一樣平靜，在沉默中積蓄能量。','今天適合保持彈性，接納各種變數，你的適應力將會驚豔全場。','不要害怕情緒的波瀾，讓壓力如流水般穿過身體。','溫柔是你最強大的武器，用溝通代替對抗。','你的直覺像深水一樣準確。','今天的你需要更多的流動，別讓自己卡住。','像海綿一樣吸收新知，今天是學習和收集情報的好日子。','包容那些與你不同的人，多元會帶來意想不到的火花。','洗個熱水澡是今天最好的淨化儀式。']};
+function renderTopPalette(recommendEl, seed){
+    const candidates = PANTONE.filter(p => (WX_HUES[recommendEl]||[]).includes(p.hue));
+    let basePt = candidates[seed % candidates.length] || PANTONE[0];
+    
+    const [bh, bs, bl] = hexToHsl(basePt.hex);
+    const ruleToUse = bs < 15 ? monochromatic : analogous;
+    
+    // 只有頂部 5 色盤需要強制尋找 Pantone 實體色票
+    let rawColors = generatePalette(basePt.hex, ruleToUse).map(c => findClosest(c.hex));
+    let topPalette = [];
+    let uniqueSet = new Set(); 
 
-    function calculate() {
-        const birthVal = document.getElementById('birthday').value;
-        const targetVal = document.getElementById('target-date').value;
-        
-        if (!birthVal || !targetVal) return alert('請確認生日與想查詢的日期都有填寫喔！');
+    rawColors.forEach(c => {
+        if(!uniqueSet.has(c.code)) { uniqueSet.add(c.code); topPalette.push(c); }
+    });
 
-        localStorage.setItem('userBirthday', birthVal);
-
-        const [by, bm, bd] = birthVal.split('-').map(Number);
-        const userGan = Solar.fromYmd(by, bm, bd).getLunar().getEightChar().getDayGan();
-        const userEl = ganToElement[userGan];
-
-        const [ty, tm, td] = targetVal.split('-').map(Number);
-        const lunarEightChar = Solar.fromYmd(ty, tm, td).getLunar().getEightChar();
-        const targetGan = lunarEightChar.getDayGan();
-        const targetEl = ganToElement[targetGan];
-        const targetZhi = lunarEightChar.getDayZhi();
-        const targetZhiEl = zhiToElement[targetZhi];
-
-        let recommendEl = '';
-        let logicHtml = '';
-
-        if(targetEl===shengMeMap[userEl])recommendEl=targetEl,logicHtml='該日天干(<b>'+targetEl+'</b>)生旺您的本命(<b>'+userEl+'</b>)。今天是您的「<b>印星貴人日</b>」！';
-        else if(targetEl===userEl)recommendEl=sheng[userEl],logicHtml='該日天干與您同屬 <b>'+userEl+'</b>。系統為您調配了 <b>'+recommendEl+'</b> 系。透過洩秀原理，轉化過剩能量！';
-        else if(targetEl===sheng[userEl])recommendEl=targetEl,logicHtml='您的本命(<b>'+userEl+'</b>)生旺該日天干(<b>'+targetEl+'</b>)。今天是您的「<b>食傷日</b>」！';
-        else if(targetEl===ke[userEl])recommendEl=targetEl,logicHtml='您的本命(<b>'+userEl+'</b>)剋制該日天干(<b>'+targetEl+'</b>)。今天是「<b>財星日</b>」！';
-        else recommendEl=shengMeMap[userEl],logicHtml='該日天干(<b>'+targetEl+'</b>)剋制您的本命(<b>'+userEl+'</b>)。系統為您調配 <b>'+recommendEl+'</b> 系(貴人色)來化解阻力！';
-
-        const formula = formulaData[recommendEl];
-
-        let innerRecommendEl = '';
-        let innerLogicHtml = '';
-        const isDraining = (targetZhiEl === sheng[userEl]) || (targetZhiEl === ke[userEl]) || (ke[targetZhiEl] === userEl);
-
-        isDraining ? (innerRecommendEl=shengMeMap[userEl],innerLogicHtml='今日底層暗流 (<b>'+targetZhiEl+'</b>) 較為耗神，為您啟動「<b>治癒防護罩</b>」。') : (innerRecommendEl=userEl,innerLogicHtml='今日底層暗流 (<b>'+targetZhiEl+'</b>) 對您非常友善，為您啟動「<b>本命扎根色</b>」。');
-
-        // UI 渲染
-        document.getElementById('result-container').style.display = 'block';
-        document.getElementById('detail-panel').style.display = 'block'; 
-
-        document.getElementById('formula-name').innerHTML = `🌟 ${targetVal.replace(/-/g, '/')} 配方：<br><span style="font-size: 1.1rem">${formula.name}</span>`;
-        document.getElementById('formula-name').style.color = formula.themeColor;
-        document.documentElement.style.setProperty('--primary', formula.themeColor);
-
-        const seed = by + bm + bd + ty + tm + td;
-        const variationIndex = seed % formula.vibes.length;
-
-        const barContainer = document.getElementById('ratio-bar');
-        const zhiBarContainer = document.getElementById('zhi-ratio-bar');
-        const legendContainer = document.getElementById('ratio-legend');
-        barContainer.innerHTML = '';
-        zhiBarContainer.innerHTML = '';
-        legendContainer.innerHTML = '';
-
-        const quotes = quotesData[innerRecommendEl];
-        document.getElementById('quote-text').innerText = `「 ${quotes[seed % quotes.length]} 」`;
-
-        const currentSegments = formula.segmentVariations[variationIndex];
-        currentSegments.forEach(seg => {
-            const textColor = seg.colorText ? seg.colorText : 'white';
-            barContainer.innerHTML += `<div class="ratio-segment" style="width: ${seg.width}; background: ${seg.color}; color: ${textColor};">${seg.width}</div>`;
-            legendContainer.innerHTML += `<div class="legend-item"><div class="legend-color-box" style="background: ${seg.color};"></div><span>(外) ${seg.text}</span></div>`;
-        });
-
-        const zhiColorHex = { '木': '#38A169', '火': '#E53E3E', '土': '#D69E2E', '金': '#CBD5E0', '水': '#4299E1' };
-        const zhiColorText = { '木': 'white', '火': 'white', '土': 'white', '金': '#2d3748', '水': 'white' };
-        const innerBgColor = zhiColorHex[innerRecommendEl];
-        const innerTxColor = zhiColorText[innerRecommendEl];
-
-        zhiBarContainer.innerHTML = `<div class="zhi-segment" style="width: 100%; background: ${innerBgColor}; color: ${innerTxColor};">(專屬防護) ${innerRecommendEl}系能量</div>`;
-        legendContainer.innerHTML += `<div class="legend-item" style="margin-left: 8px; padding-left: 12px; border-left: 2px solid #e2e8f0;"><div class="legend-color-box" style="background: ${innerBgColor}; border: 1px solid #e2e8f0;"></div><span><strong>(內) 專屬防護：${innerRecommendEl}系</strong></span></div>`;
-
-        document.getElementById('vibe-text').innerText = formula.vibes[variationIndex];
-        document.getElementById('tips-text').innerText = formula.tips[variationIndex];
-
-        const zhiColors={'木':'綠色/植物系','火':'紅/紫/暖色系','土':'大地/黃褐色系','金':'白/金屬色系','水':'黑/藍色系'},zhiItems={'木':'木質調香水、綠色襪子或棉麻內衣','火':'暖色系內著、紅色飾品或暖暖包','土':'大地色包包內裡、卡其色襪子或天然礦石','金':'金屬鑰匙圈、白色貼身衣物或銀飾','水':'深色內著、保濕香氛或隨身水瓶'};
-        
-        document.getElementById('zhi-text').innerHTML = `${innerLogicHtml}<br><br>✨ <b>細節點綴：</b>建議搭配 <b>${zhiColors[innerRecommendEl]}</b> 的貼身衣物，或是 <b>${zhiItems[innerRecommendEl]}</b>。`;
-
-        document.getElementById('detail-user').innerText = `${userGan}日 (${userEl}命)`;
-        document.getElementById('detail-target').innerText = `${targetGan}${targetZhi}日 (天干 ${targetEl} / 地支 ${targetZhiEl})`;
-        document.getElementById('detail-logic').innerHTML = logicHtml;
-
-        // 小優化：手機版自動捲動到結果區
-        setTimeout(() => {
-            document.getElementById('result-container').scrollIntoView({ behavior: 'smooth' });
-        }, 300);
+    let sortedCandidates = [...candidates].sort((a,b) => {
+        return Math.abs(hexToHsl(a.hex)[0] - bh) - Math.abs(hexToHsl(b.hex)[0] - bh);
+    });
+    
+    let i = 0;
+    while(topPalette.length < 5 && i < sortedCandidates.length) {
+        let fc = sortedCandidates[i];
+        if(!uniqueSet.has(fc.code)) { uniqueSet.add(fc.code); topPalette.push(fc); }
+        i++;
     }
 
-    async function downloadCard() {
-        const shareBtn = document.getElementById('share-btn');
-        const themeColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim();
-        
-        // 🌟 修正點：使用 target-date 抓取使用者選定的日期
-        const dateInput = document.getElementById('target-date').value;
-        const selectedDate = dateInput ? new Date(dateInput) : new Date();
-        const dateYear = selectedDate.getFullYear();
-        const dateMonth = String(selectedDate.getMonth() + 1).padStart(2, '0');
-        const dateDay = String(selectedDate.getDate()).padStart(2, '0');
-        const verificationCode = `P${dateYear}${dateMonth}${dateDay}-${Math.floor(Math.random() * 1000).toString().padStart(3, '0')}`;
+    let j = 0;
+    while(topPalette.length < 5 && j < PANTONE.length) {
+        if(!uniqueSet.has(PANTONE[j].code)) { uniqueSet.add(PANTONE[j].code); topPalette.push(PANTONE[j]); }
+        j++;
+    }
 
-        shareBtn.style.display = 'none';
+    currentTopPalette = topPalette;
+    
+    const container = document.getElementById('top-palette-bars');
+    container.innerHTML = currentTopPalette.map((c, idx) => `
+        <div class="top-pal-swatch" data-code="${c.code}" style="background:${c.hex}; color:${contrast(c.hex)}" onclick="pickPtColorByCode('${c.code}', true)">
+            <div class="top-pal-indicator"></div>
+            <div class="top-pal-hex">${c.hex.toUpperCase()}</div>
+            <div class="top-pal-name">${idx===0 ? '★ 主色' : c.name.split(' ')[0]}</div>
+        </div>
+    `).join('');
 
-        const offScreenContainer = document.createElement('div');
-        offScreenContainer.style.cssText = `
-            position: absolute; top: 0; left: 0; z-index: -1;
-            width: 360px; height: 640px; background: white;
-            padding: 40px 25px 30px 25px; display: flex; flex-direction: column;
-            justify-content: space-between; box-sizing: border-box;
-            font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
-        `;
+    setTimeout(() => pickPtColorByCode(currentTopPalette[0].code, false), 50);
+}
 
-        let formulaName = document.getElementById('formula-name').innerText.replace(/\d{4}\/\d{1,2}\/\d{1,2}\s*/g, '').trim(); 
-        const ratioBar = document.getElementById('ratio-bar').innerHTML;
-        const zhiRatioBar = document.getElementById('zhi-ratio-bar').innerHTML;
-        const vibeText = document.getElementById('vibe-text').innerText;
-        const quoteText = document.getElementById('quote-text').innerText;
-        const zhiTextContent = document.getElementById('zhi-text').innerText;
+function renderPtTabs(){
+    const el = document.getElementById('palette-tabs'); el.innerHTML = '';
+    HUE_ORDER.forEach(hue => {
+        const btn = document.createElement('button');
+        btn.className = 'palette-tab' + (hue === ptActiveHue ? ' active' : '');
+        btn.textContent = hue;
+        btn.onclick = () => { ptActiveHue = hue; renderPtTabs(); renderPtSwatches(); };
+        el.appendChild(btn);
+    });
+}
+function renderPtSwatches(){
+    const grid = document.getElementById('pt-swatch-grid'); grid.innerHTML = '';
+    const list = ptActiveHue === '全部' ? PANTONE : PANTONE.filter(p => p.hue === ptActiveHue);
+    list.forEach(p => {
+        const sw = document.createElement('div'); sw.className = 'pt-swatch';
+        sw.innerHTML = `<div class="pt-swatch-color" style="background:${p.hex}"></div><div class="pt-swatch-name">${p.name.split(' ')[0]}</div>`;
+        sw.onclick = () => pickPtColorByCode(p.code, true);
+        grid.appendChild(sw);
+    });
+}
 
-        // 🌟 內在細節顯色連動
-        let innerDetailsText = zhiTextContent.replace(/.*[:：]\s*/g, '').trim();
-        let innerColor = themeColor; 
-        if (zhiTextContent.includes('木')) innerColor = '#2D5A27';
-        else if (zhiTextContent.includes('火')) innerColor = '#C84B31';
-        else if (zhiTextContent.includes('土')) innerColor = '#A67C52';
-        else if (zhiTextContent.includes('水')) innerColor = '#1A3C40';
-        else if (zhiTextContent.includes('金')) innerColor = '#7E7E7E';
+function calculate() {
+    const birthVal = document.getElementById('birthday').value;
+    const targetVal = document.getElementById('target-date').value;
+    if(!birthVal || !targetVal) return alert('請確認日期！');
+    localStorage.setItem('userBirthday', birthVal);
 
-        offScreenContainer.innerHTML = `
-            <div style="position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
-                <div>
-                    <div style="position: absolute; right: -5px; top: -15px; width: 62px; height: 62px; border: 1.5px dashed ${themeColor}; color: ${themeColor}; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; transform: rotate(10deg); background: white;">
-                        <div style="font-size: 0.5rem; font-weight: bold;">${dateYear}</div>
-                        <div style="font-size: 0.95rem; font-weight: 900;">${dateMonth}.${dateDay}</div>
-                        <div style="font-size: 0.4rem; border-top: 1px solid ${themeColor}; margin-top: 2px;">POSTED</div>
-                    </div>
-                    <div style="text-align: left; margin-top: 5px;">
-                        <div style="font-size: 0.7rem; font-weight: bold; color: ${themeColor}; opacity: 0.6; letter-spacing: 3px; margin-bottom: 25px;">FORMULA ANALYSIS</div>
-                        <div style="display: flex; border: 1.5px solid ${themeColor}; border-radius: 8px; margin-bottom: 25px; overflow: hidden; height: 42px; align-items: stretch;">
-                            <div style="width: 65px; flex-shrink: 0; background: ${themeColor}; color: white; font-weight: bold; font-size: 0.75rem; display: flex; align-items: center; justify-content: center;">五行配方</div>
-                            <div style="flex: 1; color: ${themeColor}; font-weight: 900; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; background: white; padding: 0 10px;">${formulaName}</div>
-                        </div>
-                        <div style="margin-bottom: 25px; background: #f8fafc; padding: 12px; border-radius: 12px;">
-                            <div style="border-radius: 10px; overflow: hidden; display: flex; height: 10px; margin-bottom: 6px;">${ratioBar.replace(/flex:(\d+)%/g, 'width:$1%')}</div>
-                            <div style="border-radius: 10px; overflow: hidden; display: flex; height: 10px;">${zhiRatioBar.replace(/flex:(\d+)%/g, 'width:$1%')}</div>
-                        </div>
-                        <div style="background: white; padding: 12px; border-radius: 10px; border: 1px solid #f1f5f9; margin-bottom: 12px; border-left: 5px solid ${themeColor};">
-                            <div style="font-weight: bold; font-size: 0.75rem; color: ${themeColor}; margin-bottom: 4px;">🎨 外在風格</div>
-                            <div style="font-size: 0.75rem; line-height: 1.5; color: #4a5568;">${vibeText}</div>
-                        </div>
-                        <div style="background: ${innerColor}08; padding: 12px; border-radius: 10px; border: 1px solid ${innerColor}20; margin-bottom: 15px; border-left: 5px solid ${innerColor};">
-                            <div style="font-weight: bold; font-size: 0.75rem; color: ${innerColor}; margin-bottom: 4px;">✨ 內在細節</div>
-                            <div style="font-size: 0.75rem; line-height: 1.5; color: #4a5568; font-weight: 500;">${innerDetailsText}</div>
-                        </div>
-                    </div>
-                </div>
-                <div style="text-align: center; margin-bottom: 40px; padding: 10px 20px; position: relative;">
-                    <span style="position: absolute; top: -5px; left: 15px; font-size: 2.5rem; color: ${themeColor}; opacity: 0.12; font-family: serif;">“</span>
-                    <div style="font-style: italic; font-weight: 800; color: #1e293b; font-size: 1.05rem; line-height: 1.8; z-index: 2; position: relative;">${quoteText.replace(/[「」]/g, '')}</div>
-                    <span style="position: absolute; bottom: -20px; right: 15px; font-size: 2.5rem; color: ${themeColor}; opacity: 0.12; font-family: serif;">”</span>
-                </div>
-                <div style="border-top: 1px solid #f1f5f9; padding-top: 15px; display: flex; justify-content: space-between; align-items: flex-end;">
-                    <div style="text-align: left;">
-                        <div style="font-size: 0.5rem; opacity: 0.4; font-family: monospace;">VERIFY: ${verificationCode}</div>
-                        <div style="font-size: 0.85rem; font-weight: 900; color: ${themeColor}; letter-spacing: 1px;">你專屬的五行穿搭</div>
-                    </div>
-                    <div style="text-align: right;">
-                        <div style="font-size: 0.6rem; font-weight: bold; color: #94a3b8; margin-bottom: 2px;">🔍 搜尋「五行穿搭公式」</div>
-                        <div style="font-size: 0.45rem; color: #cbd5e1;">lingplusstudio.github.io/wuxing-ootd</div>
-                    </div>
-                </div>
+    const [by, bm, bd] = birthVal.split('-').map(Number);
+    const userGan = Solar.fromYmd(by, bm, bd).getLunar().getEightChar().getDayGan();
+    const userEl = ganToElement[userGan];
+
+    const [ty, tm, td] = targetVal.split('-').map(Number);
+    const lunarEightChar = Solar.fromYmd(ty, tm, td).getLunar().getEightChar();
+    const targetEl = ganToElement[lunarEightChar.getDayGan()];
+    const targetZhiEl = zhiToElement[lunarEightChar.getDayZhi()];
+
+    let recommendEl = '', logicHtml = '';
+    if(targetEl === shengMeMap[userEl]) recommendEl = targetEl, logicHtml = `今天是您的「<b>印星貴人日</b>」！`;
+    else if(targetEl === userEl) recommendEl = sheng[userEl], logicHtml = `系統為您調配 <b>${recommendEl}</b> 系。透過洩秀轉化能量！`;
+    else if(targetEl === sheng[userEl]) recommendEl = targetEl, logicHtml = `今天是您的「<b>食傷日</b>」！`;
+    else if(targetEl === ke[userEl]) recommendEl = targetEl, logicHtml = `今天是「<b>財星日</b>」！`;
+    else recommendEl = shengMeMap[userEl], logicHtml = `系統為您調配 <b>${recommendEl}</b> 系來化解阻力！`;
+
+    const formula = formulaData[recommendEl];
+    const isDraining = (targetZhiEl === sheng[userEl]) || (targetZhiEl === ke[userEl]) || (ke[targetZhiEl] === userEl);
+    const innerRecommendEl = isDraining ? shengMeMap[userEl] : userEl;
+
+    // ★ 更新動態背景 CSS 變數 ★
+    const zhiColorHex = {'木':'#38A169','火':'#E53E3E','土':'#D69E2E','金':'#7F8C8D','水':'#4299E1'};
+    document.documentElement.style.setProperty('--primary', formula.themeColor);
+    document.documentElement.style.setProperty('--inner-color', zhiColorHex[innerRecommendEl]);
+
+    document.getElementById('result-container').style.display = 'block';
+    document.getElementById('detail-panel').style.display = 'block';
+    
+    document.getElementById('formula-name').innerHTML = `🌟 ${targetVal.replace(/-/g,'/')} 配方：<br><span style="font-size:1.1rem">${formula.name}</span>`;
+    document.getElementById('formula-name').style.color = formula.themeColor;
+
+    const seed = by + bm + bd + ty + tm + td;
+    
+    renderTopPalette(recommendEl, seed);
+
+    const zhiBgHex = {'木':'#f0fff4','火':'#fff5f5','土':'#fffaf0','金':'#f7fafc','水':'#ebf8ff'};
+    document.getElementById('inner-shield-badge').innerHTML = `
+        <div class="inner-dot" style="background:${zhiColorHex[innerRecommendEl]};"></div>
+        <span style="color:${zhiColorHex[innerRecommendEl]}">內在防護：推薦搭配 ${innerRecommendEl} 系色彩</span>
+    `;
+    document.getElementById('inner-shield-badge').style.background = zhiBgHex[innerRecommendEl];
+    document.getElementById('inner-shield-badge').style.border = `1px solid ${zhiColorHex[innerRecommendEl]}40`;
+
+    document.getElementById('vibe-text').innerText = formula.vibes[seed % formula.vibes.length];
+    document.getElementById('tips-text').innerText = formula.tips[seed % formula.tips.length];
+    const quotes = quotesData[innerRecommendEl];
+    document.getElementById('quote-text').innerText = `「 ${quotes[seed % quotes.length]} 」`;
+
+    const zhiColors = {'木':'綠色/植物系','火':'紅/紫/暖色系','土':'大地/黃褐色系','金':'白/金屬色系','水':'黑/藍色系'};
+    document.getElementById('zhi-text').innerHTML = `今日底層暗流屬 <b>${targetZhiEl}</b>。<br><br>✨ <b>細節點綴：</b>建議搭配 <b>${zhiColors[innerRecommendEl]}</b> 的貼身衣物或小配件。`;
+
+    document.getElementById('detail-user').innerText = `${userGan}日 (${userEl}命)`;
+    document.getElementById('detail-target').innerText = `天干 ${targetEl} / 地支 ${targetZhiEl}`;
+    document.getElementById('detail-logic').innerHTML = logicHtml;
+
+    document.getElementById('tips-card').style.borderLeftColor = formula.themeColor;
+    document.getElementById('tips-card').style.background = formula.themeColor + '10';
+    document.getElementById('quote-card').style.borderLeftColor = formula.themeColor;
+    document.getElementById('quote-card').style.background = formula.themeColor + '08';
+    document.getElementById('quote-title').style.color = formula.themeColor;
+    document.getElementById('quote-text').style.color = formula.themeColor;
+
+    renderPtTabs(); renderPtSwatches();
+
+    setTimeout(() => document.getElementById('result-container').scrollIntoView({ behavior: 'smooth' }), 300);
+}
+
+/* ── ★ 完美預覽與儲存邏輯 ★ ── */
+async function generateAndShowModal() {
+    const shareBtn = document.getElementById('share-btn');
+    const originalText = shareBtn.innerHTML;
+    shareBtn.innerHTML = '⏳ 繪製高畫質圖卡中...'; 
+    shareBtn.style.pointerEvents = 'none';
+
+    const themeColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim();
+    const targetVal = document.getElementById('target-date').value || new Date().toISOString().split('T')[0];
+    const dObj = new Date(targetVal);
+    const dateStr = `${dObj.getFullYear()}.${String(dObj.getMonth()+1).padStart(2,'0')}.${String(dObj.getDate()).padStart(2,'0')}`;
+    
+    const topPalHtml = currentTopPalette.map((c, i) => `<div style="flex:1; background:${c.hex}; display:flex; flex-direction:column; justify-content:flex-end; padding:6px; color:${contrast(c.hex)};"><div style="font-size:7px;opacity:0.8;text-align:center;margin-bottom:2px;">${i===0?'★主色':''}</div><div style="font-size:8px;font-family:monospace;font-weight:bold;text-align:center;">${c.hex.toUpperCase()}</div></div>`).join('');
+
+    const offScreenContainer = document.createElement('div');
+    offScreenContainer.style.cssText = `
+        position: fixed; top: 0; left: 0; z-index: -9999; pointer-events: none;
+        width: 360px; height: 640px; background: white;
+        padding: 35px 25px 25px 25px; display: flex; flex-direction: column;
+        justify-content: space-between; box-sizing: border-box;
+        font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+    `;
+
+    offScreenContainer.innerHTML = `
+        <div style="position:relative; z-index:1; display:flex; flex-direction:column; gap:12px;">
+            <div style="font-size:0.7rem; font-weight:800; color:${themeColor}; letter-spacing:2px; opacity:0.8;">TODAY'S FORMULA</div>
+            <div style="font-size:1.3rem; font-weight:900; color:#1a202c;">${document.getElementById('formula-name').innerText.split('\n')[1]}</div>
+            
+            <div style="font-size:0.65rem; font-weight:bold; color:#718096; margin-top:5px;">RECOMMENDED PANTONE PALETTE</div>
+            <div style="display:flex; height:60px; border-radius:8px; overflow:hidden;">${topPalHtml}</div>
+            
+            <div style="background:#f8fafc; padding:12px; border-radius:10px; border-left:4px solid ${themeColor}; margin-top:5px;">
+                <div style="font-weight:bold; font-size:0.75rem; color:${themeColor}; margin-bottom:4px;">外在風格意象</div>
+                <div style="font-size:0.75rem; color:#4a5568; line-height:1.5;">${document.getElementById('vibe-text').innerText}</div>
             </div>
-        `;
-
-        document.body.appendChild(offScreenContainer);
-
-        try {
-            await new Promise(resolve => setTimeout(resolve, 350));
-            const dataUrl = await htmlToImage.toPng(offScreenContainer, { pixelRatio: 3, backgroundColor: '#ffffff' });
-            document.body.removeChild(offScreenContainer);
-            shareBtn.style.display = 'flex';
             
-            const fileName = `五行穿搭配方_${dateMonth}${dateDay}.png`;
-            const file = dataURLtoFile(dataUrl, fileName);
-            
-            if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-                await navigator.share({ files: [file], title: '專屬五行穿搭配方', text: `${dateYear}/${dateMonth}/${dateDay} 的能量配方 ✨` });
-            } else {
-                const link = document.createElement('a');
-                link.download = fileName;
-                link.href = dataUrl;
-                link.click();
-            }
-        } catch (error) {
-            console.error('截圖失敗', error);
-            if (document.body.contains(offScreenContainer)) document.body.removeChild(offScreenContainer);
-            shareBtn.style.display = 'flex';
-        }
+            <div style="background:#fffaf0; padding:12px; border-radius:10px; border-left:4px solid #d69e2e;">
+                <div style="font-weight:bold; font-size:0.75rem; color:#d69e2e; margin-bottom:4px;">內在防護建議</div>
+                <div style="font-size:0.75rem; color:#4a5568; line-height:1.5;">${document.getElementById('zhi-text').innerText.replace(/<[^>]*>?/gm, '')}</div>
+            </div>
+        </div>
+        
+        <div style="text-align:center; padding:0 15px;">
+            <div style="font-style:italic; font-weight:800; color:${themeColor}; font-size:0.95rem; line-height:1.6;">${document.getElementById('quote-text').innerText}</div>
+        </div>
+        
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; border-top:1px solid #edf2f7; padding-top:15px;">
+            <div style="font-size:0.9rem; font-weight:900; color:#1a202c;">${dateStr}</div>
+            <div style="text-align:right;">
+                <div style="font-size:0.6rem; font-weight:bold; color:#a0aec0;">LINGPLUS STUDIO</div>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(offScreenContainer);
+    
+    try {
+        await new Promise(r => setTimeout(r, 600));
+        generatedImageDataUrl = await htmlToImage.toPng(offScreenContainer, { pixelRatio: 2, width: 360, height: 640 });
+        document.body.removeChild(offScreenContainer);
+        
+        const imgContainer = document.getElementById('modal-img-container');
+        imgContainer.innerHTML = `<img src="${generatedImageDataUrl}" alt="專屬配方卡">`;
+        
+        document.getElementById('result-modal').classList.add('show');
+        
+    } catch(e) { 
+        console.error(e); 
+        alert('圖片生成發生錯誤，請稍後再試。'); 
+        if(document.body.contains(offScreenContainer)) document.body.removeChild(offScreenContainer);
+    } finally { 
+        shareBtn.innerHTML = originalText; 
+        shareBtn.style.pointerEvents = 'auto'; 
     }
-</script>
+}
 
+function closeModal() {
+    document.getElementById('result-modal').classList.remove('show');
+}
+
+async function triggerNativeShare() {
+    if(!generatedImageDataUrl) return;
+    
+    const targetVal = document.getElementById('target-date').value || new Date().toISOString().split('T')[0];
+    const dObj = new Date(targetVal);
+    const dateStr = `${dObj.getFullYear()}${String(dObj.getMonth()+1).padStart(2,'0')}${String(dObj.getDate()).padStart(2,'0')}`;
+    const fileName = `Wuxing_OOTD_${dateStr}.png`;
+
+    try {
+        const res = await fetch(generatedImageDataUrl);
+        const blob = await res.blob();
+        const file = new File([blob], fileName, { type: 'image/png' });
+
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({
+                files: [file],
+                title: '五行穿搭配方',
+                text: '這是我今天的專屬能量穿搭與 Pantone 色票！✨'
+            });
+        } else {
+            const a = document.createElement('a'); 
+            a.href = generatedImageDataUrl; 
+            a.download = fileName; 
+            a.click();
+        }
+    } catch (error) {
+        console.log("分享被取消或失敗", error);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const b = document.getElementById('birthday');
+    b.value = localStorage.getItem('userBirthday') || new Date().toISOString().split('T')[0];
+    document.getElementById('target-date').value = new Date().toISOString().split('T')[0];
+});
+</script>
 </body>
 </html>

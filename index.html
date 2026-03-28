@@ -6,6 +6,7 @@
     <title>五行穿搭公式：今日專屬能量穿搭指南 | LINGPLUS Studio</title>
     <meta name="description" content="輸入生日，一秒算出你的「專屬五行穿搭公式」與開運防護罩！結合八字五行與現代美學，解鎖今天的宇宙能量箴言。">
     <meta name="keywords" content="專屬五行穿搭公式, 五行穿搭, 能量穿搭, 今日運勢, 開運穿搭, LINGPLUS">
+    <meta property="og:title" content="專屬五行穿搭公式 × 專屬色彩 - LINGPLUS Studio" />
     
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.js"></script>
@@ -14,7 +15,7 @@
     <style>
         :root {
             --primary: #2b6cb0;
-            --inner-color: #ecc94b; /* 新增：用來控制右下角光暈的內在防護色 */
+            --inner-color: #ecc94b;
             --bg: #f4f6f8;
             --text-main: #2d3748;
             --text-muted: #718096;
@@ -22,11 +23,10 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        /* ★ 新版高級背景：紙張雜訊紋理 ★ */
+        /* ★ 高級背景：紙張雜訊紋理 ★ */
         body {
             font-family: 'PingFang TC', 'Microsoft JhengHei', 'DM Sans', sans-serif;
             background-color: var(--bg);
-            /* 利用 SVG 產生極微弱的雜訊，創造藝術紙張質感 */
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
             background-attachment: fixed;
             color: var(--text-main);
@@ -40,13 +40,13 @@
             overflow-x: hidden;
         }
 
-        /* ★ 動態五行微光 (Aura Mesh Gradients) ★ */
+        /* ★ 動態五行微光 ★ */
         .bg-orb-1, .bg-orb-2 {
             position: fixed;
             border-radius: 50%;
             z-index: -1;
             pointer-events: none;
-            transition: background 1.5s ease-in-out; /* 變色時的呼吸感動畫 */
+            transition: background 1.5s ease-in-out;
         }
         .bg-orb-1 {
             top: -150px; left: -150px;
@@ -63,14 +63,13 @@
             opacity: 0.15;
         }
 
-        /* ★ 毛玻璃卡片 (Glassmorphism) ★ */
+        /* ★ 毛玻璃卡片 ★ */
         .card {
-            background: rgba(255, 255, 255, 0.88); /* 88%透明度白底 */
-            backdrop-filter: blur(24px); /* 背景模糊 */
-            -webkit-backdrop-filter: blur(24px); /* 支援 Safari */
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             padding: 2.5rem;
             border-radius: 24px;
-            /* 加上精緻的內外陰影與微白邊框，創造玻璃邊緣折射感 */
             border: 1px solid rgba(255, 255, 255, 0.8);
             box-shadow: 0 20px 40px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,1);
             max-width: 960px;
@@ -172,10 +171,10 @@
         .vibe-card h4 { margin: 0 0 10px 0; color: #2d3748; font-size: 1.05rem; transition: color 0.3s;}
         .vibe-card p { margin: 0; font-size: 1rem; color: #4a5568; line-height: 1.6; }
 
-        /* ── Pantone Bottom Section ── */
-        .pantone-section { margin-top: 2.5rem; border-top: 2px dashed rgba(237, 242, 247, 0.8); padding-top: 2rem; }
-        .pantone-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 1.2rem; }
-        .pantone-header h3 { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: #1a202c; }
+        /* ── Bottom Section ── */
+        .color-section { margin-top: 2.5rem; border-top: 2px dashed rgba(237, 242, 247, 0.8); padding-top: 2rem; }
+        .color-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 1.2rem; }
+        .color-header h3 { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: #1a202c; }
 
         .palette-tabs {
             display: flex; gap: 8px; margin-bottom: 1.2rem; flex-wrap: nowrap;
@@ -289,7 +288,7 @@
             <div class="formula-title" id="formula-name">🌟 配方載入中...</div>
 
             <div class="top-palette-title">
-                今日 Pantone 推薦配色 <span>(點擊展開搭配)</span>
+                今日專屬能量配色 <span>(點擊展開搭配)</span>
             </div>
             <div class="top-palette-bars" id="top-palette-bars"></div>
             
@@ -312,8 +311,8 @@
                 <p id="quote-text" style="font-weight: bold; font-size: 1.05rem; letter-spacing: 0.5px;">載入中...</p>
             </div>
 
-            <div class="pantone-section" id="pantone-section">
-                <div class="pantone-header">
+            <div class="color-section" id="color-section">
+                <div class="color-header">
                     <h3>延伸配色探索區</h3>
                 </div>
                 
@@ -328,7 +327,7 @@
                 <div class="palette-cards-grid" id="pal-cards-grid" style="margin-bottom: 2rem;"></div>
 
                 <details style="color: #718096; font-size: 0.95rem; margin-top: 2rem;">
-                    <summary style="cursor: pointer; font-weight: 600; margin-bottom: 1rem; user-select: none;">🔍 展開瀏覽完整 Pantone 色庫</summary>
+                    <summary style="cursor: pointer; font-weight: 600; margin-bottom: 1rem; user-select: none;">🔍 展開瀏覽完整能量色庫</summary>
                     <div style="padding-top: 0.5rem;">
                         <div class="swatch-section-label">依色系篩選</div>
                         <div class="palette-tabs" id="palette-tabs"></div>
@@ -385,8 +384,8 @@ const quotesData = {
     '水':['上善若水。遇到阻礙不必硬碰硬，繞個彎，你依然能抵達終點。','讓思緒像深海一樣平靜，在沉默中積蓄能量。']
 };
 
-/* ── 擴充版 Pantone 色庫 ── */
-const PANTONE = [
+/* ── 擴充版能量色庫 (原 Pantone 庫，去除版權字樣) ── */
+const COLOR_LIB = [
     {code:"11-0601",name:"Bright White",hex:"#F4F5F0",hue:"中性"},{code:"11-4800",name:"Blanc de Blanc",hex:"#EAE8E1",hue:"中性"},
     {code:"13-4108",name:"Nimbus Cloud",hex:"#D5D5D8",hue:"中性"},{code:"15-4003",name:"Storm Gray",hex:"#B5BABD",hue:"中性"},
     {code:"17-5104",name:"Ultimate Gray",hex:"#939597",hue:"中性"},{code:"18-0306",name:"Slate Gray",hex:"#7F8C8D",hue:"中性"},
@@ -460,7 +459,7 @@ function hslToHex(h,s,l){
 }
 function findClosest(hex){
     const[th,ts,tl]=hexToHsl(hex); let best=null,bestD=Infinity;
-    PANTONE.forEach(p=>{
+    COLOR_LIB.forEach(p=>{
         const[h,s,l]=hexToHsl(p.hex);
         const d=Math.abs(h-th)*1.5+Math.abs(s-ts)+Math.abs(l-tl)*0.5;
         if(d<bestD){bestD=d;best=p}
@@ -475,7 +474,7 @@ function complementary(h,s,l){return[[h,s,l],[h+180,s,l],[h+180,s*.7,l+12],[h,s*
 function triadic(h,s,l){return[[h,s,l],[h+120,s*.9,l],[h+240,s*.85,l+5],[h+60,s*.5,l+15],[h+180,s*.4,l+20]]}
 function monochromatic(h,s,l){return[[h,s,l],[h,s*.8,l+15],[h,s*.6,l+25],[h,s*.4,l+35],[h,s,l-15]]}
 
-/* 完美漸層生成：只回傳色碼，不強制吸附 Pantone */
+/* 完美漸層生成：只回傳色碼，不強制吸附 */
 function generatePalette(baseHex, ruleFn){
     const[h,s,l]=hexToHsl(baseHex);
     return ruleFn(h,s,l).map(([rh,rs,rl])=>{
@@ -488,7 +487,7 @@ let ptActiveHue = "全部"; let ptSelected = null; let currentTopPalette = [];
 let generatedImageDataUrl = null;
 
 function pickPtColorByCode(code, doScroll=true){
-    const p = PANTONE.find(x => x.code === code);
+    const p = COLOR_LIB.find(x => x.code === code);
     if(!p) return;
     ptSelected = p;
     
@@ -498,7 +497,7 @@ function pickPtColorByCode(code, doScroll=true){
     });
 
     document.getElementById('sel-dot').style.background = p.hex;
-    document.getElementById('sel-code').textContent = `Pantone ${p.code} — ${p.name}`;
+    document.getElementById('sel-code').textContent = `Color ${p.code} — ${p.name}`;
     document.getElementById('sel-hex').textContent = p.hex.toUpperCase();
     
     const grid = document.getElementById('pal-cards-grid');
@@ -513,20 +512,19 @@ function pickPtColorByCode(code, doScroll=true){
     });
 
     if(doScroll){
-        const target = document.getElementById('pantone-section');
+        const target = document.getElementById('color-section');
         const y = target.getBoundingClientRect().top + window.pageYOffset - 40;
         window.scrollTo({top: y, behavior: 'smooth'});
     }
 }
 
 function renderTopPalette(recommendEl, seed){
-    const candidates = PANTONE.filter(p => (WX_HUES[recommendEl]||[]).includes(p.hue));
-    let basePt = candidates[seed % candidates.length] || PANTONE[0];
+    const candidates = COLOR_LIB.filter(p => (WX_HUES[recommendEl]||[]).includes(p.hue));
+    let basePt = candidates[seed % candidates.length] || COLOR_LIB[0];
     
     const [bh, bs, bl] = hexToHsl(basePt.hex);
     const ruleToUse = bs < 15 ? monochromatic : analogous;
     
-    // 只有頂部 5 色盤需要強制尋找 Pantone 實體色票
     let rawColors = generatePalette(basePt.hex, ruleToUse).map(c => findClosest(c.hex));
     let topPalette = [];
     let uniqueSet = new Set(); 
@@ -547,8 +545,8 @@ function renderTopPalette(recommendEl, seed){
     }
 
     let j = 0;
-    while(topPalette.length < 5 && j < PANTONE.length) {
-        if(!uniqueSet.has(PANTONE[j].code)) { uniqueSet.add(PANTONE[j].code); topPalette.push(PANTONE[j]); }
+    while(topPalette.length < 5 && j < COLOR_LIB.length) {
+        if(!uniqueSet.has(COLOR_LIB[j].code)) { uniqueSet.add(COLOR_LIB[j].code); topPalette.push(COLOR_LIB[j]); }
         j++;
     }
 
@@ -578,7 +576,7 @@ function renderPtTabs(){
 }
 function renderPtSwatches(){
     const grid = document.getElementById('pt-swatch-grid'); grid.innerHTML = '';
-    const list = ptActiveHue === '全部' ? PANTONE : PANTONE.filter(p => p.hue === ptActiveHue);
+    const list = ptActiveHue === '全部' ? COLOR_LIB : COLOR_LIB.filter(p => p.hue === ptActiveHue);
     list.forEach(p => {
         const sw = document.createElement('div'); sw.className = 'pt-swatch';
         sw.innerHTML = `<div class="pt-swatch-color" style="background:${p.hex}"></div><div class="pt-swatch-name">${p.name.split(' ')[0]}</div>`;
@@ -688,7 +686,7 @@ async function generateAndShowModal() {
             <div style="font-size:0.7rem; font-weight:800; color:${themeColor}; letter-spacing:2px; opacity:0.8;">TODAY'S FORMULA</div>
             <div style="font-size:1.3rem; font-weight:900; color:#1a202c;">${document.getElementById('formula-name').innerText.split('\n')[1]}</div>
             
-            <div style="font-size:0.65rem; font-weight:bold; color:#718096; margin-top:5px;">RECOMMENDED PANTONE PALETTE</div>
+            <div style="font-size:0.65rem; font-weight:bold; color:#718096; margin-top:5px;">RECOMMENDED COLOR PALETTE</div>
             <div style="display:flex; height:60px; border-radius:8px; overflow:hidden;">${topPalHtml}</div>
             
             <div style="background:#f8fafc; padding:12px; border-radius:10px; border-left:4px solid ${themeColor}; margin-top:5px;">
@@ -757,7 +755,7 @@ async function triggerNativeShare() {
             await navigator.share({
                 files: [file],
                 title: '五行穿搭配方',
-                text: '這是我今天的專屬能量穿搭與 Pantone 色票！✨'
+                text: '這是我今天的專屬能量穿搭與開運色票！✨'
             });
         } else {
             const a = document.createElement('a'); 

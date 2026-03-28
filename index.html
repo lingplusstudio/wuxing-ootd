@@ -9,8 +9,9 @@
     <meta property="og:title" content="專屬五行穿搭公式 × 專屬色彩 - LINGPLUS Studio" />
     <meta property="og:description" content="一秒算出你的專屬五行防護罩！根據生日解鎖今日開運穿搭配方與宇宙箴言 ✨" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Noto+Serif+TC:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Noto+Serif+TC:wght@300;400;500;700;900&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
 
@@ -930,6 +931,10 @@ async function generateAndShowModal(){
     oc.style.cssText=`position:fixed;top:0;left:0;z-index:-9999;pointer-events:none;width:360px;height:640px;background:#FAFAF8;padding:32px 24px 20px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;font-family:'PingFang TC','Microsoft JhengHei',sans-serif;`;
 
     oc.innerHTML=`
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Noto+Serif+TC:wght@300;400;500;700;900&family=DM+Sans:wght@300;400;500;700&display=swap');
+        </style>
+
         <div style="display:flex;flex-direction:column;gap:0;">
             <div style="margin-bottom:14px;">
                 <div style="font-size:9px;font-weight:700;color:${themeColor};letter-spacing:3px;opacity:0.7;margin-bottom:4px;font-family:'DM Sans',sans-serif;">TODAY'S ENERGY FORMULA</div>
@@ -944,39 +949,39 @@ async function generateAndShowModal(){
             <div style="padding: 10px 0; border-top: 1px solid rgba(0,0,0,0.08); display: flex; gap: 12px;">
                 <div style="width: 45px; flex-shrink: 0; display: flex; flex-direction: column; gap: 4px;">
                     <div style="font-family: 'DM Serif Display', serif; font-size: 26px; line-height: 1; color: ${themeColor}; opacity: 0.2; font-style: italic;">01</div>
-                    <div style="font-size: 8px; font-weight: 600; letter-spacing: 2px; color: #A8A299; line-height: 1.4;">外在<br>意象</div>
+                    <div style="font-size: 8px; font-weight: 600; letter-spacing: 2px; color: #A8A299; line-height: 1.4; font-family:'PingFang TC', sans-serif;">外在<br>意象</div>
                 </div>
                 <div style="flex: 1;">
                     <div style="font-family: 'Noto Serif TC', serif; font-size: 11px; font-weight: 500; color: ${themeColor}; margin-bottom: 4px;">外在穿搭意象</div>
-                    <div style="font-size: 11px; color: #6B6560; line-height: 1.6;">${vibeText}</div>
+                    <div style="font-size: 11px; color: #6B6560; line-height: 1.6; font-family:'PingFang TC', sans-serif;">${vibeText}</div>
                 </div>
             </div>
 
             <div style="padding: 10px 0; border-top: 1px solid rgba(0,0,0,0.08); display: flex; gap: 12px;">
                 <div style="width: 45px; flex-shrink: 0; display: flex; flex-direction: column; gap: 4px;">
                     <div style="font-family: 'DM Serif Display', serif; font-size: 26px; line-height: 1; color: #805ad5; opacity: 0.2; font-style: italic;">02</div>
-                    <div style="font-size: 8px; font-weight: 600; letter-spacing: 2px; color: #A8A299; line-height: 1.4;">內在<br>防護</div>
+                    <div style="font-size: 8px; font-weight: 600; letter-spacing: 2px; color: #A8A299; line-height: 1.4; font-family:'PingFang TC', sans-serif;">內在<br>防護</div>
                 </div>
                 <div style="flex: 1;">
                     <div style="font-family: 'Noto Serif TC', serif; font-size: 11px; font-weight: 500; color: #805ad5; margin-bottom: 4px;">內在防護罩</div>
-                    <div style="font-size: 11px; color: #6B6560; line-height: 1.6;">${zhiTextRaw}</div>
+                    <div style="font-size: 11px; color: #6B6560; line-height: 1.6; font-family:'PingFang TC', sans-serif;">${zhiTextRaw}</div>
                 </div>
             </div>
 
             <div style="padding: 10px 0; border-top: 1px solid rgba(0,0,0,0.08); display: flex; gap: 12px;">
                 <div style="width: 45px; flex-shrink: 0; display: flex; flex-direction: column; gap: 4px;">
                     <div style="font-family: 'DM Serif Display', serif; font-size: 26px; line-height: 1; color: ${themeColor}; opacity: 0.2; font-style: italic;">03</div>
-                    <div style="font-size: 8px; font-weight: 600; letter-spacing: 2px; color: #A8A299; line-height: 1.4;">穿搭<br>訣竅</div>
+                    <div style="font-size: 8px; font-weight: 600; letter-spacing: 2px; color: #A8A299; line-height: 1.4; font-family:'PingFang TC', sans-serif;">穿搭<br>訣竅</div>
                 </div>
                 <div style="flex: 1;">
                     <div style="font-family: 'Noto Serif TC', serif; font-size: 11px; font-weight: 500; color: ${themeColor}; margin-bottom: 4px;">穿搭訣竅</div>
-                    <div style="font-size: 11px; color: #6B6560; line-height: 1.6;">${tipsText}</div>
+                    <div style="font-size: 11px; color: #6B6560; line-height: 1.6; font-family:'PingFang TC', sans-serif;">${tipsText}</div>
                 </div>
             </div>
         </div>
 
         <div style="text-align:center; padding: 6px 10px 0;">
-            <div style="font-size:11px;font-style:italic;color:${themeColor};line-height:1.6;font-weight:700;">" ${quoteText} "</div>
+            <div style="font-size:11px;font-style:italic;color:${themeColor};line-height:1.6;font-weight:700;font-family:'Noto Serif TC', serif;">" ${quoteText} "</div>
         </div>
 
         <div style="display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid #edf2f7;padding-top:10px;margin-top:auto;">

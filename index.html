@@ -890,46 +890,104 @@ async function generateAndShowModal(){
     const dObj=new Date(targetVal);
     const dateStr=`${dObj.getFullYear()}.${String(dObj.getMonth()+1).padStart(2,'0')}.${String(dObj.getDate()).padStart(2,'0')}`;
 
-    const topPalHtml=currentTopPalette.map((c,i)=>`<div style="flex:1;background:${c.hex};display:flex;flex-direction:column;justify-content:flex-end;padding:5px;color:${contrast(c.hex)};"><div style="font-size:7px;text-align:center;opacity:0.8;margin-bottom:2px;">${i===0?'★':''}</div><div style="font-size:8px;font-family:monospace;font-weight:700;text-align:center;">${c.hex.toUpperCase()}</div></div>`).join('');
+    // 重新取得當下選定的五行與其對應的資料
+    const birthVal=document.getElementById('birthday').value;
+    const [by,bm,bd]=birthVal.split('-').map(Number);
+    const userGan=Solar.fromYmd(by,bm,bd).getLunar().getEightChar().getDayGan();
+    const userEl=ganToElement[userGan];
+    
+    const [ty,tm,td]=targetVal.split('-').map(Number);
+    const lunarEC=Solar.fromYmd(ty,tm,td).getLunar().getEightChar();
+    const targetEl=ganToElement[lunarEC.getDayGan()]; 
+    const targetZhiEl=zhiToElement[lunarEC.getDayZhi()];
+    
+    let recommendEl='';
+    if(targetEl===shengMeMap[userEl]) recommendEl=targetEl;
+    else if(targetEl===userEl) recommendEl=sheng[userEl];
+    else if(targetEl===sheng[userEl]) recommendEl=targetEl;
+    else if(targetEl===ke[userEl]) recommendEl=targetEl;
+    else recommendEl=shengMeMap[userEl];
 
-    const formulaNameRaw=document.getElementById('formula-name').innerText.split('\n')[0]||'';
-    const vibeText=document.getElementById('vibe-text').innerText;
-    const zhiTextRaw=document.getElementById('zhi-text').innerText.replace(/<[^>]*>/g,'');
-    const quoteText=document.getElementById('quote-text').innerText;
-    const shieldText=document.getElementById('shield-badge').innerText;
+    const formula=formulaData[recommendEl];
+    const seed=by+bm+bd+ty+tm+td;
+    const isDraining=(targetZhiEl===sheng[userEl])||(targetZhiEl===ke[userEl])||(ke[targetZhiEl]===userEl);
+    const innerEl=isDraining?shengMeMap[userEl]:userEl;
+    const zhiColors={'木':'綠色 / 植物系','火':'紅 / 粉 / 暖色系','土':'大地 / 黃褐色系','金':'白 / 金屬色系','水':'黑 / 藍色系'};
 
-    /* Build off-screen card */
+    const topPalHtml=currentTopPalette.map((c,i)=>`<div style="flex:1;background:${c.hex};display:flex;flex-direction:column;justify-content:flex-end;padding:5px;color:${contrast(c.hex)};"><div style="font-size:7px;text-align:center;opacity:0.8;margin-bottom:2px;">${i===0?'★':''}</div><div style="font-size:8px;font-family:'DM Sans',monospace;font-weight:700;text-align:center;">${c.hex.toUpperCase()}</div></div>`).join('');
+
+    const formulaNameRaw = `${formula.emoji} ${formula.name}`;
+    const vibeText = formula.vibes[seed%formula.vibes.length];
+    const tipsText = formula.tips[seed%formula.tips.length];
+    
+    const zText=isDraining
+        ?`今日底層暗流（${targetZhiEl}）較為耗神，為您啟動「治癒防護罩」。`
+        :`今日底層暗流（${targetZhiEl}）對您非常友善，啟動「本命扎根色」。`;
+    const zhiTextRaw = `${zText}<div style="margin-top:4px">✨ 建議搭配 <strong style="font-weight:600">${zhiColors[innerEl]}</strong> 的貼身衣物或小配件。</div>`;
+    const quoteText = quotesData[innerEl][seed%quotesData[innerEl].length];
+
     const oc=document.createElement('div');
-    oc.style.cssText=`position:fixed;top:0;left:0;z-index:-9999;pointer-events:none;width:360px;height:640px;background:#FAFAF8;padding:36px 28px 28px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;font-family:'PingFang TC','Microsoft JhengHei',sans-serif;`;
+    oc.style.cssText=`position:fixed;top:0;left:0;z-index:-9999;pointer-events:none;width:360px;height:640px;background:#FAFAF8;padding:32px 24px 20px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;font-family:'PingFang TC','Microsoft JhengHei',sans-serif;`;
 
     oc.innerHTML=`
-        <div style="display:flex;flex-direction:column;gap:14px;">
-            <div style="font-size:9px;font-weight:700;color:${themeColor};letter-spacing:3px;opacity:0.7;">TODAY'S ENERGY FORMULA</div>
-            <div style="font-size:1.45rem;font-weight:900;color:#1C1917;line-height:1.2;">${formulaNameRaw}</div>
-            <div>
-                <div style="font-size:8px;font-weight:600;color:#A8A299;letter-spacing:2px;margin-bottom:6px;">ENERGY PALETTE</div>
-                <div style="display:flex;height:58px;border-radius:10px;overflow:hidden;">${topPalHtml}</div>
+        <div style="display:flex;flex-direction:column;gap:0;">
+            <div style="margin-bottom:14px;">
+                <div style="font-size:9px;font-weight:700;color:${themeColor};letter-spacing:3px;opacity:0.7;margin-bottom:4px;font-family:'DM Sans',sans-serif;">TODAY'S ENERGY FORMULA</div>
+                <div style="font-size:1.45rem;font-weight:700;color:#2d3748;line-height:1.2;font-family:'Noto Serif TC', serif;">${formulaNameRaw}</div>
             </div>
-            <div style="background:white;padding:14px;border-radius:12px;border-left:4px solid ${themeColor};">
-                <div style="font-size:9px;font-weight:700;color:${themeColor};letter-spacing:1px;margin-bottom:5px;">外在穿搭意象</div>
-                <div style="font-size:12px;color:#4a5568;line-height:1.6;">${vibeText}</div>
+
+            <div style="margin-bottom:14px;">
+                <div style="font-size:8px;font-weight:600;color:#A8A299;letter-spacing:2px;margin-bottom:6px;font-family:'DM Sans',sans-serif;">ENERGY PALETTE</div>
+                <div style="display:flex;height:48px;border-radius:10px;overflow:hidden;border:1px solid rgba(0,0,0,0.05);">${topPalHtml}</div>
             </div>
-            <div style="background:#fffaf0;padding:14px;border-radius:12px;border-left:4px solid #d69e2e;">
-                <div style="font-size:9px;font-weight:700;color:#d69e2e;letter-spacing:1px;margin-bottom:5px;">內在防護 · ${shieldText.replace(/.*防護·/,'').trim()}</div>
-                <div style="font-size:12px;color:#4a5568;line-height:1.6;">${zhiTextRaw.replace(/.*訣竅.*$/,'').trim()}</div>
+
+            <div style="padding: 10px 0; border-top: 1px solid rgba(0,0,0,0.08); display: flex; gap: 12px;">
+                <div style="width: 45px; flex-shrink: 0; display: flex; flex-direction: column; gap: 4px;">
+                    <div style="font-family: 'DM Serif Display', serif; font-size: 26px; line-height: 1; color: ${themeColor}; opacity: 0.2; font-style: italic;">01</div>
+                    <div style="font-size: 8px; font-weight: 600; letter-spacing: 2px; color: #A8A299; line-height: 1.4;">外在<br>意象</div>
+                </div>
+                <div style="flex: 1;">
+                    <div style="font-family: 'Noto Serif TC', serif; font-size: 11px; font-weight: 500; color: ${themeColor}; margin-bottom: 4px;">外在穿搭意象</div>
+                    <div style="font-size: 11px; color: #6B6560; line-height: 1.6;">${vibeText}</div>
+                </div>
+            </div>
+
+            <div style="padding: 10px 0; border-top: 1px solid rgba(0,0,0,0.08); display: flex; gap: 12px;">
+                <div style="width: 45px; flex-shrink: 0; display: flex; flex-direction: column; gap: 4px;">
+                    <div style="font-family: 'DM Serif Display', serif; font-size: 26px; line-height: 1; color: #805ad5; opacity: 0.2; font-style: italic;">02</div>
+                    <div style="font-size: 8px; font-weight: 600; letter-spacing: 2px; color: #A8A299; line-height: 1.4;">內在<br>防護</div>
+                </div>
+                <div style="flex: 1;">
+                    <div style="font-family: 'Noto Serif TC', serif; font-size: 11px; font-weight: 500; color: #805ad5; margin-bottom: 4px;">內在防護罩</div>
+                    <div style="font-size: 11px; color: #6B6560; line-height: 1.6;">${zhiTextRaw}</div>
+                </div>
+            </div>
+
+            <div style="padding: 10px 0; border-top: 1px solid rgba(0,0,0,0.08); display: flex; gap: 12px;">
+                <div style="width: 45px; flex-shrink: 0; display: flex; flex-direction: column; gap: 4px;">
+                    <div style="font-family: 'DM Serif Display', serif; font-size: 26px; line-height: 1; color: ${themeColor}; opacity: 0.2; font-style: italic;">03</div>
+                    <div style="font-size: 8px; font-weight: 600; letter-spacing: 2px; color: #A8A299; line-height: 1.4;">穿搭<br>訣竅</div>
+                </div>
+                <div style="flex: 1;">
+                    <div style="font-family: 'Noto Serif TC', serif; font-size: 11px; font-weight: 500; color: ${themeColor}; margin-bottom: 4px;">穿搭訣竅</div>
+                    <div style="font-size: 11px; color: #6B6560; line-height: 1.6;">${tipsText}</div>
+                </div>
             </div>
         </div>
-        <div style="text-align:center;padding:0 10px;">
-            <div style="font-size:11px;font-style:italic;color:${themeColor};line-height:1.8;font-weight:700;">${quoteText}</div>
+
+        <div style="text-align:center; padding: 6px 10px 0;">
+            <div style="font-size:11px;font-style:italic;color:${themeColor};line-height:1.6;font-weight:700;">" ${quoteText} "</div>
         </div>
-        <div style="display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid #edf2f7;padding-top:14px;">
-            <div style="font-size:1rem;font-weight:900;color:#1C1917;">${dateStr}</div>
-            <div style="text-align:right;"><div style="font-size:9px;font-weight:700;color:#A8A299;letter-spacing:1px;">LINGPLUS STUDIO</div></div>
+
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid #edf2f7;padding-top:10px;margin-top:auto;">
+            <div style="font-size:14px;font-weight:500;color:#718096;font-family:'DM Sans', sans-serif;">${dateStr}</div>
+            <div style="text-align:right;"><div style="font-size:8px;font-weight:700;color:#A8A299;letter-spacing:1px;font-family:'DM Sans', sans-serif;">LINGPLUS STUDIO</div></div>
         </div>`;
 
     document.body.appendChild(oc);
     try {
-        await new Promise(r=>setTimeout(r,600));
+        // ★ 生成速度微調：煞車時間降到 300 毫秒，更絲滑
+        await new Promise(r=>setTimeout(r,300));
         generatedImageDataUrl=await htmlToImage.toPng(oc,{pixelRatio:2,width:360,height:640,backgroundColor:'#FAFAF8'});
         document.body.removeChild(oc);
         document.getElementById('modal-img-wrap').innerHTML=`<img src="${generatedImageDataUrl}" alt="專屬配方卡">`;
@@ -942,7 +1000,6 @@ async function generateAndShowModal(){
         btn.disabled=false;
     }
 }
-
 function closeModal(){ document.getElementById('result-modal').classList.remove('show'); }
 
 async function triggerNativeShare(){

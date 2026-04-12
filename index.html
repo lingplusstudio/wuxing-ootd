@@ -405,33 +405,31 @@ const quotesData = {
     '水':['上善若水。遇到阻礙不必硬碰硬，繞個彎，你依然能抵達終點。','讓思緒像深海一樣平靜，在沉默中積蓄能量。','溫柔是你最強大的武器，用溝通代替對抗。']
 };
 
-/* 雙人版關係資料 */
 const COMPAT = {
   same:   { score:88, tag:'同氣相求', desc:'兩人本命相同，節奏高度一致，行動容易同步，是出雙入對的好日子。', quote:'默契不需言說，你們的心跳頻率早已對齊。' },
   sheng:  { score:92, tag:'相生相扶', desc:'五行相生，能量互補加乘。同行特別有力量，做任何事都比單獨行動更有效率。', quote:'你的生長需要他的滋養，你的光也照亮了他的路。' },
   ke:     { score:65, tag:'張力共存', desc:'相剋不代表不好——有張力的關係往往更有吸引力。多一分包容，能量反而能互相轉化。', quote:'摩擦是因為在意，張力是因為靠近，試著放軟一點。' }
 };
 
-/* ★ 升級版：極致絲滑的雙人高級漸層色票 ★ */
 const COUPLE_PALETTES = {
-  '木木': ['#2F855A','#488258','#669A5C','#8DB368','#B2CB7E'], // 木的完美漸層
-  '火火': ['#9B1B30','#B83236','#D45041','#E67A5E','#F2A482'], // 火的完美漸層
-  '土土': ['#655643','#836A4F','#A48258','#C49F6A','#DEBC85'], // 土的完美漸層
-  '金金': ['#2C2C2C','#5A5A5C','#8B8C8F','#B5BABD','#E2E4E6'], // 金的完美漸層
-  '水水': ['#0F4C81','#2D6A9D','#558CB9','#84AFD4','#BAD2EA'], // 水的完美漸層
-  '木火': ['#2F855A','#88B04B','#E8F5E8','#F0997B','#C53030'], // 木生火
-  '火土': ['#C53030','#F0997B','#FAF0DC','#D4AA7D','#B7791F'], // 火生土
-  '土金': ['#B7791F','#D4AA7D','#E8E4DC','#B5BABD','#718096'], // 土生金
-  '金水': ['#718096','#B5BABD','#E6F1FB','#9BB7D4','#2B6CB0'], // 金生水
-  '水木': ['#2B6CB0','#9BB7D4','#E1F5E8','#88B04B','#2F855A'], // 水生木
-  '木土': ['#2F855A','#88B04B','#F0997B','#D4AA7D','#B7791F'], // 木剋土 (火橋樑)
-  '土水': ['#B7791F','#D4AA7D','#F4F5F0','#9BB7D4','#2B6CB0'], // 土剋水 (金橋樑)
-  '水火': ['#2B6CB0','#9BB7D4','#88B04B','#F0997B','#C53030'], // 水剋火 (木橋樑)
-  '火金': ['#C53030','#F0997B','#D4AA7D','#B5BABD','#718096'], // 火剋金 (土橋樑)
-  '金木': ['#718096','#B5BABD','#9BB7D4','#88B04B','#2F855A']  // 金剋木 (水橋樑)
+  '木木': ['#2F855A','#488258','#669A5C','#8DB368','#B2CB7E'],
+  '火火': ['#9B1B30','#B83236','#D45041','#E67A5E','#F2A482'],
+  '土土': ['#655643','#836A4F','#A48258','#C49F6A','#DEBC85'],
+  '金金': ['#2C2C2C','#5A5A5C','#8B8C8F','#B5BABD','#E2E4E6'],
+  '水水': ['#0F4C81','#2D6A9D','#558CB9','#84AFD4','#BAD2EA'],
+  '木火': ['#2F855A','#88B04B','#E8F5E8','#F0997B','#C53030'],
+  '火土': ['#C53030','#F0997B','#FAF0DC','#D4AA7D','#B7791F'],
+  '土金': ['#B7791F','#D4AA7D','#E8E4DC','#B5BABD','#718096'],
+  '金水': ['#718096','#B5BABD','#E6F1FB','#9BB7D4','#2B6CB0'],
+  '水木': ['#2B6CB0','#9BB7D4','#E1F5E8','#88B04B','#2F855A'],
+  '木土': ['#2F855A','#88B04B','#F0997B','#D4AA7D','#B7791F'],
+  '土水': ['#B7791F','#D4AA7D','#F4F5F0','#9BB7D4','#2B6CB0'],
+  '水火': ['#2B6CB0','#9BB7D4','#88B04B','#F0997B','#C53030'],
+  '火金': ['#C53030','#F0997B','#D4AA7D','#B5BABD','#718096'],
+  '金木': ['#718096','#B5BABD','#9BB7D4','#88B04B','#2F855A']
 };
 
-/* 基礎色庫 (供探索區使用) */
+/* 色庫 */
 const COLOR_LIB = [
     {code:"NW-001",name:"Bright White",hex:"#F4F5F0",hue:"中性"},{code:"NW-002",name:"Blanc de Blanc",hex:"#EAE8E1",hue:"中性"},
     {code:"NW-003",name:"Nimbus Cloud",hex:"#D5D5D8",hue:"中性"},{code:"NW-004",name:"Storm Gray",hex:"#B5BABD",hue:"中性"},
@@ -451,6 +449,7 @@ const HUE_ORDER = ["全部","紅","橘","黃","粉","紫","藍","綠","棕","中
 const SCHEME_RULES = [
     {name:"類比和諧",mood:"柔和自然，視覺流暢",fn:analogous},
     {name:"互補對比",mood:"活潑醒目，張力十足",fn:complementary},
+    {name:"三角平衡",mood:"活潑均衡，富層次感",fn:triadic},
     {name:"單色漸層",mood:"優雅細膩，專業沉穩",fn:monochromatic}
 ];
 
@@ -460,6 +459,7 @@ function findClosest(hex){ const[th,ts,tl]=hexToHsl(hex);let best=null,bestD=Inf
 function contrast(hex){ const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16); return (r*299+g*587+b*114)/1000>145?'rgba(0,0,0,0.55)':'rgba(255,255,255,0.85)'; }
 function analogous(h,s,l){return[[h,s,l],[h+30,s,l],[h+60,s*.8,l+8],[h-30,s*.9,l-5],[h+15,s*.6,l+15]]}
 function complementary(h,s,l){return[[h,s,l],[h+180,s,l],[h+180,s*.7,l+12],[h,s*.5,l+18],[h+180,s*.4,l-10]]}
+function triadic(h,s,l){return[[h,s,l],[h+120,s*.9,l],[h+240,s*.85,l+5],[h+60,s*.5,l+15],[h+180,s*.4,l+20]]}
 function monochromatic(h,s,l){return[[h,s,l],[h,s*.8,l+15],[h,s*.6,l+25],[h,s*.4,l+35],[h,s,l-15]]}
 function generatePalette(baseHex, ruleFn){ const[h,s,l]=hexToHsl(baseHex); return ruleFn(h,s,l).map(([rh,rs,rl])=>({hex:hslToHex(((rh%360)+360)%360,Math.min(100,Math.max(0,rs)),Math.min(95,Math.max(5,rl)))})); }
 
@@ -470,14 +470,17 @@ function switchMode(mode) {
     document.getElementById('btn-single').classList.toggle('active', mode === 'single');
     document.getElementById('btn-couple').classList.toggle('active', mode === 'couple');
     
+    // ★ 更新：輸入日期標籤標註 ★
     if(mode === 'single') {
         document.getElementById('group-bday2').classList.add('hidden');
-        document.getElementById('lbl-bday1').innerText = "Your Birthday";
+        document.getElementById('lbl-bday1').innerText = "您的生日";
         document.getElementById('masthead-em').textContent = "能量";
         document.getElementById('masthead-sub').textContent = "輸入生日，解鎖今日專屬配色與穿搭指引";
     } else {
         document.getElementById('group-bday2').classList.remove('hidden');
-        document.getElementById('lbl-bday1').innerText = "First Birthday";
+        document.getElementById('lbl-bday1').innerText = "您的生日 (您)";
+        const lbl2 = document.querySelector('#group-bday2 .field-label');
+        if(lbl2) lbl2.innerText = "對方的生日 (對方)";
         document.getElementById('masthead-em').textContent = "雙人";
         document.getElementById('masthead-sub').textContent = "輸入兩人生日，解鎖專屬磁場與流日互動能量";
     }
@@ -485,21 +488,15 @@ function switchMode(mode) {
     document.getElementById('detail-panel').style.display = 'none';
 }
 
-/* ★ 升級版選色器：支援自訂精準 HEX 碼 ★ */
 function pickColorByCode(code, doScroll=true){
     let p = COLOR_LIB.find(x=>x.code===code);
-    // 如果色庫裡沒有，且是我們生成的特調漸層碼 (CP-)，就臨時建一個給它
-    if (!p && code.startsWith('CP-')) {
-        p = { code: code, name: '專屬特調', hex: '#' + code.split('-')[1] };
-    }
+    if (!p && code.startsWith('CP-')) { p = { code: code, name: '專屬特調', hex: '#' + code.split('-')[1] }; }
     if(!p) return;
     ptSelected = p;
-
     document.querySelectorAll('.ps-swatch').forEach(el=>{ el.classList.toggle('active', el.dataset.code===code); });
     document.getElementById('sel-dot').style.background = p.hex;
     document.getElementById('sel-code').textContent = `${p.name}`;
     document.getElementById('sel-hex').textContent = p.hex.toUpperCase();
-
     const grid = document.getElementById('pal-cards-grid');
     grid.innerHTML = '';
     SCHEME_RULES.forEach((rule)=>{
@@ -510,35 +507,24 @@ function pickColorByCode(code, doScroll=true){
         card.innerHTML=`<div class="pal-swatches">${sw}</div><div class="pal-body"><div class="pal-name">${rule.name}</div><div class="pal-mood">${rule.mood}</div><div class="pal-pills">${pills}</div></div>`;
         grid.appendChild(card);
     });
-
     if(doScroll) window.scrollTo({top:document.getElementById('color-section').getBoundingClientRect().top+window.pageYOffset-50,behavior:'smooth'});
 }
 
-/* ★ 修復：單人版不綁架色彩，呈現完美數學漸層 ★ */
 function renderSingleTopPalette(recommendEl, seed){
     const candidates = COLOR_LIB.filter(p=>(WX_HUES[recommendEl]||[]).includes(p.hue));
     let basePt = candidates[seed % candidates.length] || COLOR_LIB[0];
     const [bh,bs] = hexToHsl(basePt.hex);
     const ruleToUse = bs < 15 ? monochromatic : analogous;
-    
-    // 直接使用數學算出來的漸層色，不跑 findClosest
     let rawColors = generatePalette(basePt.hex, ruleToUse);
-    
     currentTopPalette = rawColors.slice(0,5).map((c, idx) => {
-        return {
-            code: `CP-${c.hex.substring(1).toUpperCase()}`,
-            hex: c.hex,
-            name: idx === 0 ? basePt.name.split(' ')[0] : '特調色'
-        };
+        return { code: `CP-${c.hex.substring(1).toUpperCase()}`, hex: c.hex, name: idx === 0 ? basePt.name.split(' ')[0] : '特調色' };
     });
-
     const strip = document.getElementById('palette-strip');
     strip.innerHTML = currentTopPalette.map((c,idx)=>`
         <div class="ps-swatch" data-code="${c.code}" style="background:${c.hex};color:${contrast(c.hex)}" onclick="pickColorByCode('${c.code}',true)">
             <div class="ps-hex">${c.hex.toUpperCase()}</div>
             <div class="ps-lbl">${idx===0?'★ 主色':c.name}</div>
         </div>`).join('');
-
     setTimeout(()=>pickColorByCode(currentTopPalette[0].code, false), 60);
 }
 
@@ -587,314 +573,170 @@ function calcSingle(targetVal) {
     const birthVal = document.getElementById('birthday').value;
     if(!birthVal) return alert('請輸入您的生日！');
     localStorage.setItem('userBirthday', birthVal);
-
     const gan1 = getDayGanChar(birthVal); const userEl = ganToElement[gan1];
     const [ty,tm,td] = targetVal.split('-').map(Number);
     const lunarEC = Solar.fromYmd(ty,tm,td).getLunar().getEightChar();
     const targetGan = lunarEC.getDayGan(); const targetZhi = lunarEC.getDayZhi();
     const targetEl = ganToElement[targetGan]; const targetZhiEl = zhiToElement[targetZhi];
-
     const recommendEl = getDailyRec(userEl, targetEl);
     let logicHtml='';
-    if(targetEl===shengMeMap[userEl]) logicHtml=`該日天干（<b>${targetEl}</b>）生旺本命（<b>${userEl}</b>），今天是「<b>印星貴人日</b>」！`;
+    if(targetEl===shengMeMap[userEl]) logicHtml=`該日天干（<b>${targetEl}</b>）生旺本命（<b>${userEl}</b>），今天是您的「<b>印星貴人日</b>」！`;
     else if(targetEl===userEl) logicHtml=`天干與本命同屬 <b>${userEl}</b>，調配 <b>${sheng[userEl]}</b> 系透過洩秀轉化能量！`;
-    else if(targetEl===sheng[userEl]) logicHtml=`本命（<b>${userEl}</b>）生旺該日天干（<b>${targetEl}</b>），今天是「<b>食傷日</b>」！`;
-    else if(targetEl===ke[userEl]) logicHtml=`本命（<b>${userEl}</b>）剋制天干（<b>${targetEl}</b>），今天是「<b>財星日</b>」！`;
+    else if(targetEl===sheng[userEl]) logicHtml=`本命（<b>${userEl}</b>）生旺該日天干（<b>${targetEl}</b>），今天是您的「<b>食傷日</b>」！`;
+    else if(targetEl===ke[userEl]) logicHtml=`本命（<b>${userEl}</b>）剋制天干（<b>${targetEl}</b>），今天是您的「<b>財星日</b>」！`;
     else logicHtml=`天干（<b>${targetEl}</b>）剋制本命（<b>${userEl}</b>），調配 <b>${recommendEl}</b> 系貴人色化解阻力！`;
-
     const formula = formulaData[recommendEl];
     const isDraining = (targetZhiEl===sheng[userEl])||(targetZhiEl===ke[userEl])||(ke[targetZhiEl]===userEl);
     const innerEl = isDraining ? shengMeMap[userEl] : userEl;
     const seed = parseInt(birthVal.replace(/-/g,'')) + parseInt(targetVal.replace(/-/g,''));
-
     document.documentElement.style.setProperty('--primary', formula.themeColor);
     document.documentElement.style.setProperty('--inner-color', WX_COLOR[innerEl]);
-    
     document.getElementById('lbl-palette-title').innerText = "今日能量色票";
     document.getElementById('row-user2').classList.add('hidden');
     document.getElementById('dt-key1').innerText = "本命";
     document.getElementById('shield-badge').style.display = 'inline-flex';
     document.getElementById('couple-score-line').style.display = 'none';
-
     document.getElementById('formula-name').innerHTML=`${formula.emoji} ${formula.name}<br><span style="font-size:14px;font-style:italic;opacity:0.6;font-family:'DM Serif Display',serif">${formula.nameEn}</span>`;
-    
     renderSingleTopPalette(recommendEl, seed);
-
     document.getElementById('shield-badge').innerHTML=`<div class="shield-dot" style="background:${WX_COLOR[innerEl]}"></div><span style="color:${WX_COLOR[innerEl]}">內在防護 · 建議搭配 ${innerEl} 系色彩</span>`;
     document.getElementById('shield-badge').style.cssText+=`background:${WX_BG[innerEl]};border-color:${WX_COLOR[innerEl]}30;`;
-
     document.getElementById('vibe-card-3').style.display = 'grid';
     document.getElementById('lbl-v1').innerHTML = "外在<br>意象"; document.getElementById('title-v1').innerText = "外在穿搭意象";
     document.getElementById('lbl-v2').innerHTML = "內在<br>防護"; document.getElementById('title-v2').innerText = "內在防護罩";
-    
     document.getElementById('vibe-card-1').style.borderColor = "var(--border-md)";
     document.getElementById('title-v1').style.color = formula.themeColor;
     document.getElementById('title-v2').style.color = "#805ad5";
     document.getElementById('idx-v2').style.color = "#805ad5";
-
     document.getElementById('text-v1').innerHTML = formula.vibes[seed%formula.vibes.length];
     document.getElementById('text-v2').innerHTML = (isDraining ? `今日底層暗流（<b>${targetZhiEl}</b>）較為耗神，啟動「<b>治癒防護罩</b>」。` : `今日底層暗流（<b>${targetZhiEl}</b>）對您非常友善，啟動「<b>本命扎根色</b>」。`) + `<br><br>✨ 建議搭配 <b>${zhiColors[innerEl]}</b> 的貼身衣物或小配件。`;
     document.getElementById('text-v3').innerHTML = formula.tips[seed%formula.tips.length];
-    
     document.getElementById('lbl-quote').innerText = "今日能量箴言";
     document.getElementById('quote-text').innerText = quotesData[innerEl][seed%quotesData[innerEl].length];
     document.getElementById('quote-text').style.color = formula.themeColor;
     document.querySelector('.quote-mark.open').style.color = formula.themeColor;
     document.querySelector('.quote-mark.close').style.color = formula.themeColor;
-
     document.getElementById('detail-user').textContent=`${gan1}日（${userEl}命）`;
     document.getElementById('detail-target').textContent=`${targetGan}${targetZhi}日（天干${targetEl} / 地支${targetZhiEl}）`;
     document.getElementById('detail-logic').innerHTML=logicHtml;
-
     const d=new Date(targetVal); const wday=['日','一','二','三','四','五','六'][d.getDay()];
     document.getElementById('formula-date').textContent=`${targetVal.replace(/-/g,'.')}  週${wday}`;
     document.getElementById('result-container').style.display='block';
     document.getElementById('detail-panel').style.display='block';
 }
 
-/* ★ 修復：雙人版呈現「完美特調漸層色」 ★ */
+/* ★ 雙人版：使用稱謂「您」與「對方」 ★ */
 function calcCouple(targetVal) {
     const b1 = document.getElementById('birthday').value;
     const b2 = document.getElementById('partner-date').value;
     if(!b1 || !b2) return alert('請輸入兩人的生日！');
-
     const gan1 = getDayGanChar(b1); const e1 = ganToElement[gan1];
     const gan2 = getDayGanChar(b2); const e2 = ganToElement[gan2];
-    
     const [ty,tm,td] = targetVal.split('-').map(Number);
     const lunarEC = Solar.fromYmd(ty,tm,td).getLunar().getEightChar();
     const targetGan = lunarEC.getDayGan(); const targetEl = ganToElement[targetGan];
-    
     let compat;
     if (e1===e2) compat = COMPAT.same;
     else if (sheng[e1]===e2 || sheng[e2]===e1) compat = COMPAT.sheng;
     else compat = COMPAT.ke;
-    
     const recA = getDailyRec(e1, targetEl);
     const recB = getDailyRec(e2, targetEl);
-
     let concept = '', desc = '', vibe = '', tip = '', bridgeEl = '';
-    
-    // 直接抓取特調色系，不再強制吸附色庫
     let comboColors = [];
-    if (COUPLE_PALETTES[recA+recB]) {
-        comboColors = COUPLE_PALETTES[recA+recB];
-    } else if (COUPLE_PALETTES[recB+recA]) {
-        comboColors = [...COUPLE_PALETTES[recB+recA]].reverse();
-    } else {
-        comboColors = ['#888780','#D3D1C7','#F1EFE8','#B4B2A9','#444441'];
-    }
+    if (COUPLE_PALETTES[recA+recB]) { comboColors = COUPLE_PALETTES[recA+recB]; }
+    else if (COUPLE_PALETTES[recB+recA]) { comboColors = [...COUPLE_PALETTES[recB+recA]].reverse(); }
+    else { comboColors = ['#888780','#D3D1C7','#F1EFE8','#B4B2A9','#444441']; }
 
     if (recA === recB) {
         concept = `宇宙同頻 · 雙重${recA}系`;
-        desc = `今日兩人需要的宇宙能量完全一致`;
-        vibe = `今天的流日能量讓你們達到完美同頻。A 與 B 今天出門都需要「${recA}」的能量來通關，你們的步伐與頻率將會高度一致。`;
-        tip = `【宇宙同頻情侶裝】建議兩人今天一起穿上「${zhiColors[recA]}」，這不僅是各自的最佳開運色，更是你們絕佳的本命情侶裝主題。`;
+        desc = `今日您與對方需要的宇宙能量完全一致`;
+        vibe = `今天的流日能量讓你們達到完美同頻。您 與 對方 今天出門都需要「${recA}」的能量來通關，步伐與頻率將會高度一致。`;
+        tip = `【宇宙同頻情侶裝】建議您與對方今天一起穿上「${zhiColors[recA]}」，這不僅是各自的最佳開運色，更是絕佳的情侶主題色。`;
         document.documentElement.style.setProperty('--primary', formulaData[recA].themeColor);
-        document.documentElement.style.setProperty('--inner-color', formulaData[recA].themeColor);
     } else if (sheng[recA] === recB || sheng[recB] === recA) {
         concept = `能量交織 · ${recA}與${recB}`;
         desc = `相輔相成，互相點亮彼此的流日`;
-        vibe = `今天 A 需要「${recA}」，B 需要「${recB}」。這兩種能量剛好相輔相生，你們用不同的色彩互相補足了對方今天的缺口，散發絕佳的互補氣場。`;
-        tip = `【和諧並進穿搭】不需要刻意穿同色系！A 穿「${zhiColors[recA]}」，B 穿「${zhiColors[recB]}」。保留各自今日的本色，站在一起就是最美的風景。`;
+        vibe = `今天 您 需要「${recA}」，對方 需要「${recB}」。這兩種能量剛好相輔相生，不同的色彩補足了彼此今天的缺口，散發互補氣場。`;
+        tip = `【和諧並進穿搭】不需要刻意穿同色系！您穿「${zhiColors[recA]}」，對方穿「${zhiColors[recB]}」。保留各自今日的本色，站在一起就是最美的風景。`;
         document.documentElement.style.setProperty('--primary', formulaData[recA].themeColor);
-        document.documentElement.style.setProperty('--inner-color', formulaData[recB].themeColor);
     } else {
         bridgeEl = (ke[recA] === recB) ? sheng[recA] : sheng[recB];
         concept = `化解衝突 · ${bridgeEl}系護橋`;
         desc = `流日需求相剋，啟動「${bridgeEl}」護橋機制`;
-        vibe = `今天 A 需要「${recA}」，B 需要「${recB}」。這兩種能量容易產生摩擦與張力，需要第三種元素來完美調和你們的磁場。`;
-        tip = `【橋樑情侶裝推薦】強烈建議今天兩人一起以「${zhiColors[bridgeEl]}」作為情侶裝主題色！透過橋樑色的包覆，化解衝突，建立最安定的專屬磁場。`;
+        vibe = `今天 您 需要「${recA}」，對方 需要「${recB}」。這兩種能量容易產生摩擦與張力，需要「${bridgeEl}」元素來完美調和磁場。`;
+        tip = `【橋樑情侶裝推薦】強烈建議您與對方今天一起以「${zhiColors[bridgeEl]}」作為主題色！透過橋樑色的包覆，化解衝突，建立安定的專屬磁場。`;
         document.documentElement.style.setProperty('--primary', formulaData[bridgeEl].themeColor);
-        document.documentElement.style.setProperty('--inner-color', formulaData[recA].themeColor);
     }
-
     const sc = compat.score >= 85 ? WX_COLOR[e1] : compat.score >= 72 ? '#718096' : '#B7791F';
-
     document.getElementById('lbl-palette-title').innerText = "今日雙人動態色票";
     document.getElementById('row-user2').classList.remove('hidden');
-    document.getElementById('dt-key1').innerText = "第一人";
+    document.getElementById('dt-key1').innerText = "您";
     document.getElementById('shield-badge').style.display = 'none';
-    
     document.getElementById('couple-score-line').style.display = 'flex';
     document.getElementById('c-score').textContent = compat.score + '%';
     document.getElementById('c-score').style.color = sc;
     document.getElementById('c-tag').textContent = compat.tag;
-
     document.getElementById('formula-name').innerHTML=`${concept}<br><span style="font-size:14px;font-style:italic;opacity:0.8;color:var(--text2);font-weight:400;font-family:'DM Sans',serif">${desc}</span>`;
-    
-    // 直接將 Hex 包裝成自訂 CP- 物件，保留最美漸層
-    currentTopPalette = comboColors.map(hex => {
-        let closestName = findClosest(hex).name.split(' ')[0];
-        return {
-            code: `CP-${hex.substring(1).toUpperCase()}`,
-            hex: hex,
-            name: closestName
-        };
+    currentTopPalette = comboColors.map((hex, idx) => {
+        let lblName = idx===0?'您的解藥':idx===4?'對方的解藥':(idx===2&&bridgeEl)?'橋樑色':'特調色';
+        return { code: `CP-${hex.substring(1).toUpperCase()}`, hex: hex, name: lblName };
     });
-    
     const strip = document.getElementById('palette-strip');
     strip.innerHTML = currentTopPalette.map((c,idx)=>`
         <div class="ps-swatch" data-code="${c.code}" style="background:${c.hex};color:${contrast(c.hex)}" onclick="pickColorByCode('${c.code}',true)">
             <div class="ps-hex">${c.hex.toUpperCase()}</div>
-            <div class="ps-lbl">${idx===0?'A的解藥':idx===4?'B的解藥':(idx===2&&bridgeEl)?'橋樑色':''}</div>
+            <div class="ps-lbl">${c.name}</div>
         </div>`).join('');
     setTimeout(()=>pickColorByCode(currentTopPalette[0].code, false), 60);
-
     document.getElementById('vibe-card-3').style.display = 'none';
     document.getElementById('lbl-v1').innerHTML = "雙人<br>氛圍"; document.getElementById('title-v1').innerText = "今日動態能量交織";
     document.getElementById('lbl-v2').innerHTML = "穿搭<br>指南"; document.getElementById('title-v2').innerText = "雙人動態穿搭訣竅";
-    
     const scColor = document.documentElement.style.getPropertyValue('--primary');
     document.getElementById('title-v1').style.color = scColor;
     document.getElementById('title-v2').style.color = "#805ad5";
     document.getElementById('idx-v2').style.color = "#805ad5";
-
     document.getElementById('text-v1').innerHTML = vibe;
     document.getElementById('text-v2').innerHTML = tip;
-    
     document.getElementById('lbl-quote').innerText = "今日情侶箴言";
     const seed = parseInt(b1.replace(/-/g,'')) + parseInt(b2.replace(/-/g,''));
     document.getElementById('quote-text').innerText = quotesData[recA][seed%quotesData[recA].length];
     document.getElementById('quote-text').style.color = scColor;
     document.querySelector('.quote-mark.open').style.color = scColor;
     document.querySelector('.quote-mark.close').style.color = scColor;
-
     document.getElementById('detail-user').textContent=`${gan1}日（${e1}命）`;
     document.getElementById('detail-user2').textContent=`${gan2}日（${e2}命）`;
     document.getElementById('detail-target').textContent=`天干${targetEl}`;
-    document.getElementById('detail-logic').innerHTML=`動態推演：A解藥為${recA}，B解藥為${recB}`;
-
+    document.getElementById('detail-logic').innerHTML=`動態推演：您的解藥為${recA}，對方的解藥為${recB}`;
     const d=new Date(targetVal); const wday=['日','一','二','三','四','五','六'][d.getDay()];
     document.getElementById('formula-date').textContent=`${targetVal.replace(/-/g,'.')}  週${wday}`;
     document.getElementById('result-container').style.display='block';
     document.getElementById('detail-panel').style.display='block';
 }
 
-/* ══ Modal 產圖邏輯 ══ */
+/* ★ Modal 產圖：更新稱謂 ★ */
 async function generateAndShowModal(){
     const btn=document.getElementById('share-btn');
     btn.innerHTML='⏳ 繪製高畫質圖卡中...'; btn.disabled=true;
-
     const themeColor=getComputedStyle(document.documentElement).getPropertyValue('--primary').trim();
     const targetVal=document.getElementById('target-date').value||new Date().toISOString().split('T')[0];
     const dObj=new Date(targetVal);
     const dateStr=`${dObj.getFullYear()}.${String(dObj.getMonth()+1).padStart(2,'0')}.${String(dObj.getDate()).padStart(2,'0')}`;
-
-    const topPalHtml=currentTopPalette.map((c,i)=>`<div style="flex:1;background:${c.hex};display:flex;flex-direction:column;justify-content:flex-end;padding:5px;color:${contrast(c.hex)};"><div style="font-size:7px;text-align:center;opacity:0.8;margin-bottom:2px;">${currentMode==='couple'?(i===0?'A':i===4?'B':''):(i===0?'★':'')}</div><div style="font-size:8px;font-family:'DM Sans',monospace;font-weight:700;text-align:center;">${c.hex.toUpperCase()}</div></div>`).join('');
-
+    const topPalHtml=currentTopPalette.map((c,i)=>`<div style="flex:1;background:${c.hex};display:flex;flex-direction:column;justify-content:flex-end;padding:5px;color:${contrast(c.hex)};"><div style="font-size:7px;text-align:center;opacity:0.8;margin-bottom:2px;">${currentMode==='couple'?(i===0?'您':i===4?'對方':''):(i===0?'★':'')}</div><div style="font-size:8px;font-family:'DM Sans',monospace;font-weight:700;text-align:center;">${c.hex.toUpperCase()}</div></div>`).join('');
     const oc=document.createElement('div');
     oc.style.cssText=`position:fixed;top:0;left:0;z-index:-9999;pointer-events:none;width:360px;height:640px;background:#FAFAF8;padding:32px 24px 20px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;font-family:'PingFang TC','Microsoft JhengHei',sans-serif;`;
-
     if (currentMode === 'single') {
         const formulaNameRaw = document.getElementById('formula-name').innerHTML.split('<br>')[0];
         const vibeText = document.getElementById('text-v1').innerHTML;
         const zhiTextRaw = document.getElementById('text-v2').innerHTML.replace(/<br><br>.*/,'');
         const tipsText = document.getElementById('text-v3').innerHTML;
         const quoteText = document.getElementById('quote-text').innerText;
-
-        oc.innerHTML=`
-            <div style="display:flex;flex-direction:column;gap:0;">
-                <div style="margin-bottom:14px;">
-                    <div style="font-size:9px;font-weight:700;color:${themeColor};letter-spacing:3px;opacity:0.7;margin-bottom:4px;font-family:'DM Sans',sans-serif;">TODAY'S ENERGY FORMULA</div>
-                    <div style="font-size:1.45rem;font-weight:700;color:#2d3748;line-height:1.2;font-family:'Noto Serif TC', serif;">${formulaNameRaw}</div>
-                </div>
-                <div style="margin-bottom:14px;">
-                    <div style="font-size:8px;font-weight:600;color:#A8A299;letter-spacing:2px;margin-bottom:6px;font-family:'DM Sans',sans-serif;">ENERGY PALETTE</div>
-                    <div style="display:flex;height:48px;border-radius:10px;overflow:hidden;border:1px solid rgba(0,0,0,0.05);">${topPalHtml}</div>
-                </div>
-                <div style="padding: 10px 0; border-top: 1px solid rgba(0,0,0,0.08); display: flex; gap: 12px;">
-                    <div style="width: 45px; flex-shrink: 0; display: flex; flex-direction: column; gap: 4px;">
-                        <div style="font-family: 'DM Serif Display', serif; font-size: 26px; line-height: 1; color: ${themeColor}; opacity: 0.2; font-style: italic;">01</div>
-                        <div style="font-size: 8px; font-weight: 600; letter-spacing: 2px; color: #A8A299; line-height: 1.4; font-family:'PingFang TC', sans-serif;">外在<br>意象</div>
-                    </div>
-                    <div style="flex: 1;">
-                        <div style="font-family: 'Noto Serif TC', serif; font-size: 11px; font-weight: 500; color: ${themeColor}; margin-bottom: 4px;">外在穿搭意象</div>
-                        <div style="font-size: 11px; color: #6B6560; line-height: 1.6; font-family:'PingFang TC', sans-serif;">${vibeText}</div>
-                    </div>
-                </div>
-                <div style="padding: 10px 0; border-top: 1px solid rgba(0,0,0,0.08); display: flex; gap: 12px;">
-                    <div style="width: 45px; flex-shrink: 0; display: flex; flex-direction: column; gap: 4px;">
-                        <div style="font-family: 'DM Serif Display', serif; font-size: 26px; line-height: 1; color: #805ad5; opacity: 0.2; font-style: italic;">02</div>
-                        <div style="font-size: 8px; font-weight: 600; letter-spacing: 2px; color: #A8A299; line-height: 1.4; font-family:'PingFang TC', sans-serif;">內在<br>防護</div>
-                    </div>
-                    <div style="flex: 1;">
-                        <div style="font-family: 'Noto Serif TC', serif; font-size: 11px; font-weight: 500; color: #805ad5; margin-bottom: 4px;">內在防護罩</div>
-                        <div style="font-size: 11px; color: #6B6560; line-height: 1.6; font-family:'PingFang TC', sans-serif;">${zhiTextRaw}</div>
-                    </div>
-                </div>
-                <div style="padding: 10px 0; border-top: 1px solid rgba(0,0,0,0.08); display: flex; gap: 12px;">
-                    <div style="width: 45px; flex-shrink: 0; display: flex; flex-direction: column; gap: 4px;">
-                        <div style="font-family: 'DM Serif Display', serif; font-size: 26px; line-height: 1; color: ${themeColor}; opacity: 0.2; font-style: italic;">03</div>
-                        <div style="font-size: 8px; font-weight: 600; letter-spacing: 2px; color: #A8A299; line-height: 1.4; font-family:'PingFang TC', sans-serif;">穿搭<br>訣竅</div>
-                    </div>
-                    <div style="flex: 1;">
-                        <div style="font-family: 'Noto Serif TC', serif; font-size: 11px; font-weight: 500; color: ${themeColor}; margin-bottom: 4px;">穿搭訣竅</div>
-                        <div style="font-size: 11px; color: #6B6560; line-height: 1.6; font-family:'PingFang TC', sans-serif;">${tipsText}</div>
-                    </div>
-                </div>
-            </div>
-            <div style="text-align:center; padding: 6px 10px 0;">
-                <div style="font-size:11px;font-style:italic;color:${themeColor};line-height:1.6;font-weight:700;font-family:'Noto Serif TC', serif;">" ${quoteText} "</div>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid #edf2f7;padding-top:10px;margin-top:auto;">
-                <div style="font-size:14px;font-weight:500;color:#718096;font-family:'DM Sans', sans-serif;">${dateStr}</div>
-                <div style="text-align:right;"><div style="font-size:8px;font-weight:700;color:#A8A299;letter-spacing:1px;font-family:'DM Sans', sans-serif;">LINGPLUS STUDIO</div></div>
-            </div>`;
+        oc.innerHTML=`<div style="display:flex;flex-direction:column;gap:0;"><div style="margin-bottom:14px;"><div style="font-size:9px;font-weight:700;color:${themeColor};letter-spacing:3px;opacity:0.7;margin-bottom:4px;">TODAY'S ENERGY FORMULA</div><div style="font-size:1.45rem;font-weight:700;color:#2d3748;line-height:1.2;font-family:'Noto Serif TC', serif;">${formulaNameRaw}</div></div><div style="margin-bottom:14px;"><div style="font-size:8px;font-weight:600;color:#A8A299;letter-spacing:2px;margin-bottom:6px;">ENERGY PALETTE</div><div style="display:flex;height:48px;border-radius:10px;overflow:hidden;border:1px solid rgba(0,0,0,0.05);">${topPalHtml}</div></div><div style="padding: 10px 0; border-top: 1px solid rgba(0,0,0,0.08); display: flex; gap: 12px;"><div style="width: 45px; flex-shrink: 0;"><div style="font-family: 'DM Serif Display', serif; font-size: 26px; line-height: 1; color: ${themeColor}; opacity: 0.2; font-style: italic;">01</div><div style="font-size: 8px; font-weight: 600; letter-spacing: 2px; color: #A8A299; line-height: 1.4;">外在<br>意象</div></div><div style="flex: 1;"><div style="font-family: 'Noto Serif TC', serif; font-size: 11px; font-weight: 500; color: ${themeColor}; margin-bottom: 4px;">外在穿搭意象</div><div style="font-size: 11px; color: #6B6560; line-height: 1.6;">${vibeText}</div></div></div><div style="padding: 10px 0; border-top: 1px solid rgba(0,0,0,0.08); display: flex; gap: 12px;"><div style="width: 45px; flex-shrink: 0;"><div style="font-family: 'DM Serif Display', serif; font-size: 26px; line-height: 1; color: #805ad5; opacity: 0.2; font-style: italic;">02</div><div style="font-size: 8px; font-weight: 600; letter-spacing: 2px; color: #A8A299; line-height: 1.4;">內在<br>防護</div></div><div style="flex: 1;"><div style="font-family: 'Noto Serif TC', serif; font-size: 11px; font-weight: 500; color: #805ad5; margin-bottom: 4px;">內在防護罩</div><div style="font-size: 11px; color: #6B6560; line-height: 1.6;">${zhiTextRaw}</div></div></div><div style="padding: 10px 0; border-top: 1px solid rgba(0,0,0,0.08); display: flex; gap: 12px;"><div style="width: 45px; flex-shrink: 0;"><div style="font-family: 'DM Serif Display', serif; font-size: 26px; line-height: 1; color: ${themeColor}; opacity: 0.2; font-style: italic;">03</div><div style="font-size: 8px; font-weight: 600; letter-spacing: 2px; color: #A8A299; line-height: 1.4;">穿搭<br>訣竅</div></div><div style="flex: 1;"><div style="font-family: 'Noto Serif TC', serif; font-size: 11px; font-weight: 500; color: ${themeColor}; margin-bottom: 4px;">穿搭訣竅</div><div style="font-size: 11px; color: #6B6560; line-height: 1.6;">${tipsText}</div></div></div></div><div style="text-align:center; padding: 6px 10px 0;"><div style="font-size:11px;font-style:italic;color:${themeColor};line-height:1.6;font-weight:700;font-family:'Noto Serif TC', serif;">" ${quoteText} "</div></div><div style="display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid #edf2f7;padding-top:10px;margin-top:auto;"><div style="font-size:14px;font-weight:500;color:#718096;">${dateStr}</div><div style="text-align:right;"><div style="font-size:8px;font-weight:700;color:#A8A299;letter-spacing:1px;">LINGPLUS STUDIO</div></div></div>`;
     } else {
         const formulaNameRaw = document.getElementById('formula-name').innerHTML.split('<br>')[0];
-        const score = document.getElementById('c-score').innerText;
-        const scoreTag = document.getElementById('c-tag').innerText;
         const vibeText = document.getElementById('text-v1').innerHTML;
         const tipsText = document.getElementById('text-v2').innerHTML;
         const quoteText = document.getElementById('quote-text').innerText;
-
-        oc.innerHTML=`
-            <div style="display:flex;flex-direction:column;gap:0;">
-                <div style="margin-bottom:14px; display:flex; justify-content:space-between; align-items:flex-end;">
-                    <div>
-                        <div style="font-size:9px;font-weight:700;color:${themeColor};letter-spacing:3px;opacity:0.7;margin-bottom:4px;font-family:'DM Sans',sans-serif;">COUPLE ENERGY</div>
-                        <div style="font-size:1.45rem;font-weight:700;color:#2d3748;line-height:1.2;font-family:'Noto Serif TC', serif;">${formulaNameRaw}</div>
-                    </div>
-                    <div style="text-align:right;">
-                        <div style="font-family:'DM Serif Display',serif; font-size:36px; line-height:0.9; color:${themeColor};">${score}</div>
-                        <div style="font-size:10px; font-weight:600; color:#6B6560;">${scoreTag}</div>
-                    </div>
-                </div>
-                <div style="margin-bottom:14px;">
-                    <div style="font-size:8px;font-weight:600;color:#A8A299;letter-spacing:2px;margin-bottom:6px;font-family:'DM Sans',sans-serif;">COUPLE PALETTE</div>
-                    <div style="display:flex;height:48px;border-radius:10px;overflow:hidden;border:1px solid rgba(0,0,0,0.05);">${topPalHtml}</div>
-                </div>
-                <div style="padding: 10px 0; border-top: 1px solid rgba(0,0,0,0.08); display: flex; gap: 12px;">
-                    <div style="width: 45px; flex-shrink: 0; display: flex; flex-direction: column; gap: 4px;">
-                        <div style="font-family: 'DM Serif Display', serif; font-size: 26px; line-height: 1; color: ${themeColor}; opacity: 0.2; font-style: italic;">01</div>
-                        <div style="font-size: 8px; font-weight: 600; letter-spacing: 2px; color: #A8A299; line-height: 1.4; font-family:'PingFang TC', sans-serif;">雙人<br>氛圍</div>
-                    </div>
-                    <div style="flex: 1;">
-                        <div style="font-family: 'Noto Serif TC', serif; font-size: 11px; font-weight: 500; color: ${themeColor}; margin-bottom: 4px;">今日動態能量交織</div>
-                        <div style="font-size: 11px; color: #6B6560; line-height: 1.6; font-family:'PingFang TC', sans-serif;">${vibeText}</div>
-                    </div>
-                </div>
-                <div style="padding: 10px 0; border-top: 1px solid rgba(0,0,0,0.08); display: flex; gap: 12px;">
-                    <div style="width: 45px; flex-shrink: 0; display: flex; flex-direction: column; gap: 4px;">
-                        <div style="font-family: 'DM Serif Display', serif; font-size: 26px; line-height: 1; color: #805ad5; opacity: 0.2; font-style: italic;">02</div>
-                        <div style="font-size: 8px; font-weight: 600; letter-spacing: 2px; color: #A8A299; line-height: 1.4; font-family:'PingFang TC', sans-serif;">穿搭<br>指南</div>
-                    </div>
-                    <div style="flex: 1;">
-                        <div style="font-family: 'Noto Serif TC', serif; font-size: 11px; font-weight: 500; color: #805ad5; margin-bottom: 4px;">雙人動態穿搭訣竅</div>
-                        <div style="font-size: 11px; color: #6B6560; line-height: 1.6; font-family:'PingFang TC', sans-serif;">${tipsText}</div>
-                    </div>
-                </div>
-            </div>
-            <div style="text-align:center; padding: 6px 10px 0;">
-                <div style="font-size:11px;font-style:italic;color:${themeColor};line-height:1.6;font-weight:700;font-family:'Noto Serif TC', serif;">" ${quoteText} "</div>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid #edf2f7;padding-top:10px;margin-top:auto;">
-                <div style="font-size:14px;font-weight:500;color:#718096;font-family:'DM Sans', sans-serif;">${dateStr}</div>
-                <div style="text-align:right;"><div style="font-size:8px;font-weight:700;color:#A8A299;letter-spacing:1px;font-family:'DM Sans', sans-serif;">LINGPLUS STUDIO</div></div>
-            </div>`;
+        oc.innerHTML=`<div style="display:flex;flex-direction:column;gap:0;"><div style="margin-bottom:14px;"><div style="font-size:9px;font-weight:700;color:${themeColor};letter-spacing:3px;opacity:0.7;margin-bottom:4px;">COUPLE ENERGY</div><div style="font-size:1.45rem;font-weight:700;color:#2d3748;line-height:1.2;font-family:'Noto Serif TC', serif;">${formulaNameRaw}</div></div><div style="margin-bottom:14px;"><div style="font-size:8px;font-weight:600;color:#A8A299;letter-spacing:2px;margin-bottom:6px;">COUPLE PALETTE</div><div style="display:flex;height:48px;border-radius:10px;overflow:hidden;border:1px solid rgba(0,0,0,0.05);">${topPalHtml}</div></div><div style="padding: 10px 0; border-top: 1px solid rgba(0,0,0,0.08); display: flex; gap: 12px;"><div style="width: 45px; flex-shrink: 0;"><div style="font-family: 'DM Serif Display', serif; font-size: 26px; line-height: 1; color: ${themeColor}; opacity: 0.2; font-style: italic;">01</div><div style="font-size: 8px; font-weight: 600; letter-spacing: 2px; color: #A8A299; line-height: 1.4;">雙人<br>氛圍</div></div><div style="flex: 1;"><div style="font-family: 'Noto Serif TC', serif; font-size: 11px; font-weight: 500; color: ${themeColor}; margin-bottom: 4px;">今日動態能量交織</div><div style="font-size: 11px; color: #6B6560; line-height: 1.6;">${vibeText}</div></div></div><div style="padding: 10px 0; border-top: 1px solid rgba(0,0,0,0.08); display: flex; gap: 12px;"><div style="width: 45px; flex-shrink: 0;"><div style="font-family: 'DM Serif Display', serif; font-size: 26px; line-height: 1; color: #805ad5; opacity: 0.2; font-style: italic;">02</div><div style="font-size: 8px; font-weight: 600; letter-spacing: 2px; color: #A8A299; line-height: 1.4;">穿搭<br>指南</div></div><div style="flex: 1;"><div style="font-family: 'Noto Serif TC', serif; font-size: 11px; font-weight: 500; color: #805ad5; margin-bottom: 4px;">雙人動態穿搭訣竅</div><div style="font-size: 11px; color: #6B6560; line-height: 1.6;">${tipsText}</div></div></div></div><div style="text-align:center; padding: 6px 10px 0;"><div style="font-size:11px;font-style:italic;color:${themeColor};line-height:1.6;font-weight:700;font-family:'Noto Serif TC', serif;">" ${quoteText} "</div></div><div style="display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid #edf2f7;padding-top:10px;margin-top:auto;"><div style="font-size:14px;font-weight:500;color:#718096;">${dateStr}</div><div style="text-align:right;"><div style="font-size:8px;font-weight:700;color:#A8A299;letter-spacing:1px;">LINGPLUS STUDIO</div></div></div>`;
     }
-
     document.body.appendChild(oc);
     try {
         await new Promise(r=>setTimeout(r,250));
@@ -902,13 +744,8 @@ async function generateAndShowModal(){
         document.body.removeChild(oc);
         document.getElementById('modal-img-wrap').innerHTML=`<img src="${generatedImageDataUrl}" alt="專屬配方卡">`;
         document.getElementById('result-modal').classList.add('show');
-    } catch(e){
-        console.error(e); alert('圖卡生成失敗，請稍後再試。');
-        if(document.body.contains(oc)) document.body.removeChild(oc);
-    } finally {
-        btn.innerHTML='<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><polyline points="8,12 12,8 16,12"/><line x1="12" y1="16" x2="12" y2="8"/></svg> 一鍵產出專屬配方卡';
-        btn.disabled=false;
-    }
+    } catch(e){ console.error(e); alert('圖卡生成失敗，請稍後再試。'); if(document.body.contains(oc)) document.body.removeChild(oc);
+    } finally { btn.innerHTML='一鍵產出專屬配方卡'; btn.disabled=false; }
 }
 
 function closeModal(){ document.getElementById('result-modal').classList.remove('show'); }
@@ -919,16 +756,11 @@ async function triggerNativeShare(){
     const d=new Date(targetVal);
     const modePrefix = currentMode === 'single' ? 'Single' : 'Couple';
     const fileName=`Wuxing_${modePrefix}_OOTD_${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}.png`;
-    
     try {
-        const res=await fetch(generatedImageDataUrl);
-        const blob=await res.blob();
+        const res=await fetch(generatedImageDataUrl); const blob=await res.blob();
         const file=new File([blob],fileName,{type:'image/png'});
-        if(navigator.canShare&&navigator.canShare({files:[file]})){
-            await navigator.share({files:[file],title:'五行穿搭配方',text:'這是我今天的專屬能量穿搭與開運色票！✨'});
-        } else {
-            const a=document.createElement('a');a.href=generatedImageDataUrl;a.download=fileName;a.click();
-        }
+        if(navigator.canShare&&navigator.canShare({files:[file]})){ await navigator.share({files:[file],title:'五行穿搭配方',text:'這是我今天的專屬能量穿搭！✨'}); }
+        else { const a=document.createElement('a');a.href=generatedImageDataUrl;a.download=fileName;a.click(); }
     } catch(e){ console.log('分享被取消',e); }
 }
 
@@ -936,5 +768,6 @@ document.addEventListener('DOMContentLoaded',()=>{
     const b=document.getElementById('birthday');
     b.value=localStorage.getItem('userBirthday')||new Date().toISOString().split('T')[0];
     document.getElementById('target-date').value=new Date().toISOString().split('T')[0];
+    switchMode('single');
 });
 </script>
